@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BDDD
+namespace BDDD.Repository
 {
     /// <summary>
-    /// Represents the sorting style.
+    /// 查询时的排序方式
     /// </summary>
     public enum SortOrder
     {
         /// <summary>
-        /// Indicates that the sorting style is not specified.
+        /// 不指定
         /// </summary>
         Unspecified = -1,
         /// <summary>
-        /// Indicates an ascending sorting.
+        /// 顺序
         /// </summary>
         Ascending = 0,
         /// <summary>
-        /// Indicates a descending sorting.
+        /// 降序
         /// </summary>
         Descending = 1
     }

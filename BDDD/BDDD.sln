@@ -7,7 +7,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00.Repository", "00.Reposit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDDD.Repository.NHibernate", "BDDD.Repository.NHibernate\BDDD.Repository.NHibernate.csproj", "{BF17DA37-3740-4F05-9173-50EE6174C3CA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Tests", "01.Tests", "{998D85B5-AD2B-4BB9-BD93-3F5F6D1268A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDDD.Tests.DomainModel", "BDDD.Tests.DomainModel\BDDD.Tests.DomainModel.csproj", "{3C8790B8-FA0C-4750-B680-DA86D98C0D2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDDD.Tests.Common", "BDDD.Tests.Common\BDDD.Tests.Common.csproj", "{D66BFC08-2481-4456-B7FD-02C1E65A089B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E4DE5DF3-3CC8-4669-ABB8-A7A58440D527}"
+	ProjectSection(SolutionItems) = preProject
+		BDDD.vsmdi = BDDD.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = BDDD.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -21,11 +37,22 @@ Global
 		{BF17DA37-3740-4F05-9173-50EE6174C3CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF17DA37-3740-4F05-9173-50EE6174C3CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF17DA37-3740-4F05-9173-50EE6174C3CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C8790B8-FA0C-4750-B680-DA86D98C0D2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C8790B8-FA0C-4750-B680-DA86D98C0D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C8790B8-FA0C-4750-B680-DA86D98C0D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C8790B8-FA0C-4750-B680-DA86D98C0D2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66BFC08-2481-4456-B7FD-02C1E65A089B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66BFC08-2481-4456-B7FD-02C1E65A089B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66BFC08-2481-4456-B7FD-02C1E65A089B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66BFC08-2481-4456-B7FD-02C1E65A089B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BF17DA37-3740-4F05-9173-50EE6174C3CA} = {DA9B3DD2-9F6A-4FC0-9E4A-315294917182}
+		{3C8790B8-FA0C-4750-B680-DA86D98C0D2F} = {998D85B5-AD2B-4BB9-BD93-3F5F6D1268A7}
+		{D66BFC08-2481-4456-B7FD-02C1E65A089B} = {998D85B5-AD2B-4BB9-BD93-3F5F6D1268A7}
+		{E4DE5DF3-3CC8-4669-ABB8-A7A58440D527} = {998D85B5-AD2B-4BB9-BD93-3F5F6D1268A7}
 	EndGlobalSection
 EndGlobal

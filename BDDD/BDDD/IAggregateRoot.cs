@@ -6,10 +6,10 @@ using System.Text;
 namespace BDDD
 {
     /// <summary>
-    /// Represents that the implemented classes are aggregate roots.
-    /// imitate from: http://apworks.codeplex.com/
+    /// 实现这个接口的类表明为聚合根
     /// </summary>
     public interface IAggregateRoot:IEntity
     {
+
     }
 }

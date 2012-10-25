@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B511179D-EC44-4715-8586-35A79E33A6FD}</ProjectGuid>
+    <ProjectGuid>{3C8790B8-FA0C-4750-B680-DA86D98C0D2F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BDDD</RootNamespace>
-    <AssemblyName>BDDD</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <RootNamespace>BDDD.Tests.DomainModel</RootNamespace>
+    <AssemblyName>BDDD.Tests.DomainModel</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,32 +35,13 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAggregateRoot.cs" />
-    <Compile Include="IEntity.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\IRepositoryContext.cs" />
-    <Compile Include="Repository\IUnitOfWork.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Repository.cs" />
-    <Compile Include="Repository\SortOrder.cs" />
-    <Compile Include="Specification\AndSpecification.cs" />
-    <Compile Include="Specification\CompositeSpecification.cs" />
-    <Compile Include="Specification\ExpressionFuncExtender.cs" />
-    <Compile Include="Specification\ExpressionSpecification.cs" />
-    <Compile Include="Specification\ExpressionVisitor.cs" />
-    <Compile Include="Specification\ICompositeSpecification.cs" />
-    <Compile Include="Specification\ISpecification.cs" />
-    <Compile Include="Specification\NotSpecification.cs" />
-    <Compile Include="Specification\OrSpecification.cs" />
-    <Compile Include="Specification\ParameterRebinder.cs" />
-    <Compile Include="Specification\Specification.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="说明.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

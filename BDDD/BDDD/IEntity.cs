@@ -6,13 +6,12 @@ using System.Text;
 namespace BDDD
 {
     /// <summary>
-    /// Represents that the implemented classes are domain entities.
-    /// imitate from:http://apworks.codeplex.com/
+    /// 实现这个接口的类表明为实体
     /// </summary>
     public interface IEntity : IEquatable<IEntity>
     {
         /// <summary>
-        /// Gets or sets the identifier of the entity.
+        /// 实体标志
         /// </summary>
         Guid ID { get; set; }
     }

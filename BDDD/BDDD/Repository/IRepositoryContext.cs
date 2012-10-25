@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BDDD
+namespace BDDD.Repository
 {
     /// <summary>
     /// Represents that the implemented classes are repository transaction contexts.
-    /// imitate from http://apworks.codeplex.com/
     /// </summary>
    public interface IRepositoryContext : IUnitOfWork, IDisposable
     {
@@ -36,7 +35,6 @@ namespace BDDD
         /// </summary>
         /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
         /// <returns>The repository instance for the specified aggregate root type.</returns>
-        IRepository<TAggregateRoot> GetRepository<TAggregateRoot>()
-            where TAggregateRoot : class, IAggregateRoot;
+        IRepository<TAggregateRoot> GetRepository<TAggregateRoot>() where TAggregateRoot : class, IAggregateRoot;
     }
 }
