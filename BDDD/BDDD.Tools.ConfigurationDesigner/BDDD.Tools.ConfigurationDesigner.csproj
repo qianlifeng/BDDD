@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B511179D-EC44-4715-8586-35A79E33A6FD}</ProjectGuid>
+    <ProjectGuid>{0B2EB407-70D0-41BE-B4B0-D60055FD32B4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BDDD</RootNamespace>
-    <AssemblyName>BDDD</AssemblyName>
+    <RootNamespace>BDDD.Tools.ConfigurationDesigner</RootNamespace>
+    <AssemblyName>BDDD.Tools.ConfigurationDesigner</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,11 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.3.1.0\lib\net35\Castle.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,38 +40,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BDDDException.cs" />
-    <Compile Include="Config\BDDDConfiguration.Partial.cs" />
-    <Compile Include="Config\BDDDConfiguration.cs" />
-    <Compile Include="Config\ConfigException.cs" />
-    <Compile Include="Config\IConfigSource.cs" />
-    <Compile Include="Config\ManualConfigSource.cs" />
-    <Compile Include="IAggregateRoot.cs" />
-    <Compile Include="IEntity.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\IRepositoryContext.cs" />
-    <Compile Include="Repository\IUnitOfWork.cs" />
+    <Compile Include="BDDDConfiguration.csd.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BDDDConfiguration.csd</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Repository.cs" />
-    <Compile Include="Repository\RepositoryException.cs" />
-    <Compile Include="Repository\SortOrder.cs" />
-    <Compile Include="Specification\AndSpecification.cs" />
-    <Compile Include="Specification\CompositeSpecification.cs" />
-    <Compile Include="Specification\ExpressionFuncExtender.cs" />
-    <Compile Include="Specification\ExpressionSpecification.cs" />
-    <Compile Include="Specification\ExpressionVisitor.cs" />
-    <Compile Include="Specification\ICompositeSpecification.cs" />
-    <Compile Include="Specification\ISpecification.cs" />
-    <Compile Include="Specification\NotSpecification.cs" />
-    <Compile Include="Specification\OrSpecification.cs" />
-    <Compile Include="Specification\ParameterRebinder.cs" />
-    <Compile Include="Specification\Specification.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="说明.txt" />
+    <None Include="BDDDConfiguration.csd">
+      <Generator>CsdFileGenerator</Generator>
+      <LastGenOutput>BDDDConfiguration.csd.cs</LastGenOutput>
+    </None>
+    <None Include="BDDDConfiguration.csd.config">
+      <DependentUpon>BDDDConfiguration.csd</DependentUpon>
+    </None>
+    <None Include="BDDDConfiguration.csd.diagram">
+      <DependentUpon>BDDDConfiguration.csd</DependentUpon>
+    </None>
+    <None Include="BDDDConfiguration.csd.xsd">
+      <DependentUpon>BDDDConfiguration.csd</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
