@@ -6,7 +6,7 @@ using System.Text;
 namespace BDDD.Repository
 {
     /// <summary>
-    /// Represents that the implemented classes are repository transaction contexts.
+    /// 继承此接口的类具有管理仓储的能力
     /// </summary>
    public interface IRepositoryContext : IUnitOfWork, IDisposable
     {
@@ -14,27 +14,28 @@ namespace BDDD.Repository
         /// Gets the unique-identifier of the repository context.
         /// </summary>
         Guid ID { get; }
+
         /// <summary>
-        /// Registers a new object to the repository context.
+        /// 向仓储环境中添加一个新的对象，此对象不会被立即提交到数据库
+        /// 而是等待Commit()动作一起提交到数据库。
         /// </summary>
-        /// <param name="obj">The object to be registered.</param>
         void RegisterNew(object obj);
+
         /// <summary>
-        /// Registers a modified object to the repository context.
+        /// 向仓储环境中添加一个需要修改的对象，此对象不会被立即提交到数据库
+        /// 而是等待Commit()动作一起提交到数据库。
         /// </summary>
-        /// <param name="obj">The object to be registered.</param>
         void RegisterModified(object obj);
+
         /// <summary>
-        /// Registers a deleted object to the repository context.
+        /// 向仓储环境中删除一个对象，此对象不会被立即提交到数据库
+        /// 而是等待Commit()动作一起提交到数据库。
         /// </summary>
-        /// <param name="obj">The object to be registered.</param>
         void RegisterDeleted(object obj);
+
         /// <summary>
-        /// Gets the repository instance from the transaction context according
-        /// to the given aggregate root type.
+        /// 根据给定的聚合根，从当前的RepositoryContext中得到Repository对象
         /// </summary>
-        /// <typeparam name="TAggregateRoot">The type of the aggregate root.</typeparam>
-        /// <returns>The repository instance for the specified aggregate root type.</returns>
         IRepository<TAggregateRoot> GetRepository<TAggregateRoot>() where TAggregateRoot : class, IAggregateRoot;
     }
 }

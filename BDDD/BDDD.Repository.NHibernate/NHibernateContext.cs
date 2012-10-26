@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NHibernate;
+using NHibernate.Cfg;
 
 namespace BDDD.Repository.NHibernate
 {
-    public class NHibernateContext:INHibernateContext
+    public class NHibernateContext : INHibernateContext
     {
-        #region Private Fields
+        #region 变量
 
         [ThreadStatic]
         private readonly Guid id;
         [ThreadStatic]
         private bool committed = true;
         [ThreadStatic]
-        private readonly DatabaseSessionFactory databaseSessionFactory;
+        private readonly DBSessionFactory databaseSessionFactory;
         [ThreadStatic]
         private readonly ISession session = null;
         [ThreadStatic]
@@ -33,6 +34,13 @@ namespace BDDD.Repository.NHibernate
         public NHibernateContext()
         {
             id = Guid.NewGuid();
+        }
+
+        public NHibernateContext(Configuration nhibernateConfig)
+            : this()
+        {
+            databaseSessionFactory = new DBSessionFactory(nhibernateConfig);
+            session = databaseSessionFactory.Session;
         }
 
         public ISession Session

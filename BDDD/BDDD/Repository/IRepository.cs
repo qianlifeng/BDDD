@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using BDDD.Specification;
 
 namespace BDDD.Repository
 {
@@ -12,7 +13,7 @@ namespace BDDD.Repository
     {
         /// <summary>
         /// 获得当前仓储所处的仓储上下文对象
-        /// </summary>
+        /// </summary>     
         IRepositoryContext Context { get; }
 
         /// <summary>
@@ -22,18 +23,59 @@ namespace BDDD.Repository
         void Add(TAggregateRoot aggregateRoot);
 
         /// <summary>
+        /// Checkes whether the aggregate root, which matches the given specification, exists in the repository.
+        /// </summary>
+        /// <param name="specification">The specification with which the aggregate root should match.</param>
+        /// <returns>True if the aggregate root exists, otherwise false.</returns>
+        bool Exists(ISpecification<TAggregateRoot> specification);
+
+        /// <summary>
+        /// 移除仓储中的聚合根
+        /// </summary>
+        /// <param name="aggregateRoot">要移除的聚合根</param>
+        void Remove(TAggregateRoot aggregateRoot);
+
+        /// <summary>
+        /// 更新仓储中的聚合根
+        /// </summary>
+        /// <param name="aggregateRoot">聚合根</param>
+        void Update(TAggregateRoot aggregateRoot);
+
+        /// <summary>
         /// 根据主键得到一个聚合根对象
         /// </summary>
         /// <param name="key">聚合根的主键</param>
         /// <returns>聚合根</returns>
         TAggregateRoot GetByKey(object key);
 
+        TAggregateRoot GetSignal(ISpecification<TAggregateRoot> specification);
+
+        #region GetAll
+
         /// <summary>
         /// 得到当前对象仓储中的所有聚合根对象
         /// </summary>
         /// <returns>所有的聚合根</returns>
         IEnumerable<TAggregateRoot> GetAll();
-        
+
+        /// <summary>
+        /// 得到当前对象仓储中的所有聚合根对象
+        /// </summary>
+        /// <param name="specification">要筛选的规约</param>
+        /// <returns></returns>
+        IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification);
+
+        /// <summary>
+        /// 得到当前对象仓储中的所有聚合根对象
+        /// </summary>
+        /// <param name="specification">要筛选的规约</param>
+        /// <param name="pageNumber">当前页</param>
+        /// <param name="pageSize">每页页数</param>
+        /// <param name="sortPredicate">排序属性</param>
+        /// <param name="eagerLoadingProperties">需要提前加载的属性</param>
+        /// <returns></returns>
+        IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, params Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties);
+
         /// <summary>
         ///  得到当前对象仓储中的所有聚合根对象
         /// </summary>
@@ -42,138 +84,6 @@ namespace BDDD.Repository
         /// <returns>当前页的聚合根</returns>
         IEnumerable<TAggregateRoot> GetAll(int pageNumber, int pageSize);
 
-        /// <summary>
-        /// Gets all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
-        /// <returns>All the aggregate roots got from the repository, with the aggregate roots being sorted by
-        /// using the provided sort predicate and the sort order.</returns>
-        IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
-
-        /// <summary>
-        /// Gets all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">The number of objects per page.</param>
-        /// <returns>All the aggregate roots got from the repository for the specified page, with the aggregate roots being sorted by
-        /// using the provided sort predicate and the sort order.</returns>
-        IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, bool>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize);
-        /// <summary>
-        /// Gets all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
-        /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> GetAll(params Expression<Func<TAggregateRoot, bool>>[] eagerLoadingProperties);
-        
-        /// <summary>
-        /// Gets all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">The number of objects per page.</param>
-        /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
-        /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> GetAll(int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, bool>>[] eagerLoadingProperties);
-
-        /// <summary>
-        /// Gets all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
-        /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
-        /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, bool>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, bool>>[] eagerLoadingProperties);
-       
-        /// <summary>
-        /// Gets all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">The number of objects per page.</param>
-        /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
-        /// <returns>The aggregated roots.</returns>
-        IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, bool>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, bool>>[] eagerLoadingProperties);
-        /// <summary>
-        /// Finds all the aggregate roots from repository.
-        /// </summary>
-        /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> FindAll();
-        /// <summary>
-        /// Finds all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">The number of objects per page.</param>
-        /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> FindAll(int pageNumber, int pageSize);
-        /// <summary>
-        /// Finds all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
-        /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, bool>> sortPredicate, SortOrder sortOrder);
-        /// <summary>
-        /// Finds all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">The number of objects per page.</param>
-        /// <returns>The aggregate roots.</returns>
-        IEnumerable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, bool>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize);
-        /// <summary>
-        /// Finds all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
-        /// <returns>The aggregate root.</returns>
-        IEnumerable<TAggregateRoot> FindAll(params Expression<Func<TAggregateRoot, bool>>[] eagerLoadingProperties);
-        /// <summary>
-        /// Finds all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">The number of objects per page.</param>
-        /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
-        /// <returns>The aggregate root.</returns>
-        IEnumerable<TAggregateRoot> FindAll(int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, bool>>[] eagerLoadingProperties);
-        /// <summary>
-        /// Finds all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
-        /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
-        /// <returns>The aggregate root.</returns>
-        IEnumerable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, bool>> sortPredicate, SortOrder sortOrder, params Expression<Func<TAggregateRoot, bool>>[] eagerLoadingProperties);
-        /// <summary>
-        /// Finds all the aggregate roots from repository.
-        /// </summary>
-        /// <param name="sortPredicate">The sort predicate which is used for sorting.</param>
-        /// <param name="sortOrder">The <see cref="Apworks.Storage.SortOrder"/> enumeration which specifies the sort order.</param>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">The number of objects per page.</param>
-        /// <param name="eagerLoadingProperties">The properties for the aggregated objects that need to be loaded.</param>
-        /// <returns>The aggregate root.</returns>
-        IEnumerable<TAggregateRoot> FindAll(Expression<Func<TAggregateRoot, bool>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params Expression<Func<TAggregateRoot, bool>>[] eagerLoadingProperties);
-        
-        /// <summary>
-        /// Checkes whether the aggregate root, which matches the given specification, exists in the repository.
-        /// </summary>
-        /// <param name="specification">The specification with which the aggregate root should match.</param>
-        /// <returns>True if the aggregate root exists, otherwise false.</returns>
-        bool Exists(Expression<Func<TAggregateRoot,bool>> specification);
-        
-        /// <summary>
-        /// 移除仓储中的聚合根
-        /// </summary>
-        /// <param name="aggregateRoot">要移除的聚合根</param>
-        void Remove(TAggregateRoot aggregateRoot);
-        
-        /// <summary>
-        /// 更新仓储中的聚合根
-        /// </summary>
-        /// <param name="aggregateRoot">聚合根</param>
-        void Update(TAggregateRoot aggregateRoot);
+        #endregion
     }
 }

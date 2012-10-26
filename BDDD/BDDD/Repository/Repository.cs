@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BDDD.Specification;
+using System.Linq.Expressions;
 
 namespace BDDD.Repository
 {
     /// <summary>
     /// 仓储基类
     /// </summary>
-    /// <typeparam name="TAgrregateRoot"></typeparam>
-    public abstract class Repository<TAgrregateRoot> : IRepository<TAgrregateRoot>
-        where TAgrregateRoot : class,IAggregateRoot
+    /// <typeparam name="TAggregateRoot"></typeparam>
+    public abstract class Repository<TAggregateRoot> : IRepository<TAggregateRoot>
+        where TAggregateRoot : class,IAggregateRoot
     {
         private readonly IRepositoryContext context;
 
@@ -19,119 +21,86 @@ namespace BDDD.Repository
             this.context = context;
         }
 
-        #region IRepository 接口
+        #region Protected Method
+
+        //===========================
+        //将所有的这些方法延迟到不同的子类中去实现
+        //===========================
+
+        protected abstract void DoAdd(TAggregateRoot aggregateRoot);
+        protected abstract bool DoExists(ISpecification<TAggregateRoot> specification);
+        protected abstract void DoRemove(TAggregateRoot aggregateRoot);
+        protected abstract void DoUpdate(TAggregateRoot aggregateRoot);
+
+        protected abstract TAggregateRoot DoGetByKey(object key);
+        protected abstract TAggregateRoot DoGetSignal(ISpecification<TAggregateRoot> specification);
+        protected abstract IEnumerable<TAggregateRoot> DoGetAll();
+        protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification);
+        protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate, params System.Linq.Expressions.Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties);
+        protected abstract IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize);
+
+        #endregion
+
+        #region IRepository接口
 
         public IRepositoryContext Context
         {
             get { return context; }
         }
 
-        public void Add(TAgrregateRoot aggregateRoot)
+        public void Add(TAggregateRoot aggregateRoot)
         {
-            throw new NotImplementedException();
+            DoAdd(aggregateRoot);
         }
 
-        public TAgrregateRoot GetByKey(object key)
+        public bool Exists(Specification.ISpecification<TAggregateRoot> specification)
         {
-            throw new NotImplementedException();
+            return DoExists(specification);
         }
 
-        public IEnumerable<TAgrregateRoot> GetAll()
+        public void Remove(TAggregateRoot aggregateRoot)
         {
-            throw new NotImplementedException();
+            DoRemove(aggregateRoot);
         }
 
-        public IEnumerable<TAgrregateRoot> GetAll(int pageNumber, int pageSize)
+        public void Update(TAggregateRoot aggregateRoot)
         {
-            throw new NotImplementedException();
+            DoUpdate(aggregateRoot);
         }
 
-        public IEnumerable<TAgrregateRoot> GetAll(System.Linq.Expressions.Expression<Func<TAgrregateRoot, object>> sortPredicate, SortOrder sortOrder)
+        public TAggregateRoot GetByKey(object key)
         {
-            throw new NotImplementedException();
+            return DoGetByKey(key);
         }
 
-        public IEnumerable<TAgrregateRoot> GetAll(System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
+        public TAggregateRoot GetSignal(ISpecification<TAggregateRoot> specification)
         {
-            throw new NotImplementedException();
+            return DoGetSignal(specification);
         }
 
-        public IEnumerable<TAgrregateRoot> GetAll(params System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>>[] eagerLoadingProperties)
+        public IEnumerable<TAggregateRoot> GetAll()
         {
-            throw new NotImplementedException();
+            return DoGetAll();
         }
 
-        public IEnumerable<TAgrregateRoot> GetAll(int pageNumber, int pageSize, params System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>>[] eagerLoadingProperties)
+        public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification)
         {
-            throw new NotImplementedException();
+            return DoGetAll(specification);
         }
 
-        public IEnumerable<TAgrregateRoot> GetAll(System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>> sortPredicate, SortOrder sortOrder, params System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>>[] eagerLoadingProperties)
+        public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, params Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties)
         {
-            throw new NotImplementedException();
+            return DoGetAll(specification, pageNumber, pageSize, sortPredicate, eagerLoadingProperties);
         }
 
-        public IEnumerable<TAgrregateRoot> GetAll(System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>>[] eagerLoadingProperties)
+        public IEnumerable<TAggregateRoot> GetAll(int pageNumber, int pageSize)
         {
-            throw new NotImplementedException();
+            return DoGetAll(pageNumber, pageSize);
         }
-
-        public IEnumerable<TAgrregateRoot> FindAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TAgrregateRoot> FindAll(int pageNumber, int pageSize)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TAgrregateRoot> FindAll(System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>> sortPredicate, SortOrder sortOrder)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TAgrregateRoot> FindAll(System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TAgrregateRoot> FindAll(params System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>>[] eagerLoadingProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TAgrregateRoot> FindAll(int pageNumber, int pageSize, params System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>>[] eagerLoadingProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TAgrregateRoot> FindAll(System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>> sortPredicate, SortOrder sortOrder, params System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>>[] eagerLoadingProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TAgrregateRoot> FindAll(System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>> sortPredicate, SortOrder sortOrder, int pageNumber, int pageSize, params System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>>[] eagerLoadingProperties)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Exists(System.Linq.Expressions.Expression<Func<TAgrregateRoot, bool>> specification)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(TAgrregateRoot aggregateRoot)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(TAgrregateRoot aggregateRoot)
-        {
-            throw new NotImplementedException();
-        }
-
 
         #endregion
+
+
+
     }
 }
