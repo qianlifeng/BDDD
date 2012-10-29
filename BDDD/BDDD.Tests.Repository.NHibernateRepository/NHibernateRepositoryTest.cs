@@ -30,24 +30,11 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
         void application_AppInitEvent(IConfigSource source, ObjectContainer.IObjectContainer objectContainer)
         {
+            NHibernate.Cfg.Configuration nhibernateCfg = Helper.SetupNHibernateDatabase();
+
             UnityContainer c = objectContainer.GetRealObjectContainer<UnityContainer>();
-
-            NHibernate.Cfg.Configuration nhibernateCfg = Fluently.Configure()
-                   .Database(
-                       FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2008
-                           .ConnectionString(s => s.Server("127.0.0.1")
-                                   .Database("BDDD_NHibernate")
-                                   .TrustedConnection())
-                   )
-                   .Mappings(m => m.AutoMappings.Add(AutoMap.AssemblyOf<Customer>()))
-                   .BuildConfiguration();
-
-            NHibernate.Tool.hbm2ddl.SchemaExport schemaExport = new NHibernate.Tool.hbm2ddl.SchemaExport(nhibernateCfg);
-            schemaExport.Execute(false, true, false);
-
             c.RegisterInstance<NHibernate.Cfg.Configuration>(nhibernateCfg)
             .RegisterType<IRepositoryContext, NHibernateContext>(new InjectionConstructor(new ResolvedParameter<NHibernate.Cfg.Configuration>()))
-                //.RegisterType<IRepository<Customer>, NHibernateRepository<Customer>>(new InjectionConstructor(new ResolvedParameter<IRepositoryContext>()));
             .RegisterType<IRepository<Customer>, NHibernateRepository<Customer>>();
         }
 
