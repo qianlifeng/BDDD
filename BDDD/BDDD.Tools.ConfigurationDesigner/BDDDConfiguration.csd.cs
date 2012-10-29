@@ -125,6 +125,32 @@ namespace BDDD.Tools.ConfigurationDesigner
             }
         }
         #endregion
+        
+        #region ObjectContainer Property
+        /// <summary>
+        /// The XML name of the <see cref="ObjectContainer"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string ObjectContainerPropertyName = "objectContainer";
+        
+        /// <summary>
+        /// Gets or sets the ObjectContainer.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The ObjectContainer.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.BDDDConfigSection.ObjectContainerPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
+        public virtual global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement ObjectContainer
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement)(base[global::BDDD.Tools.ConfigurationDesigner.BDDDConfigSection.ObjectContainerPropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.BDDDConfigSection.ObjectContainerPropertyName] = value;
+            }
+        }
+        #endregion
     }
 }
 namespace BDDD.Tools.ConfigurationDesigner
@@ -218,6 +244,32 @@ namespace BDDD.Tools.ConfigurationDesigner
             set
             {
                 base[global::BDDD.Tools.ConfigurationDesigner.InterceptionElement.InterceptorsPropertyName] = value;
+            }
+        }
+        #endregion
+        
+        #region Contracts Property
+        /// <summary>
+        /// The XML name of the <see cref="Contracts"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string ContractsPropertyName = "contracts";
+        
+        /// <summary>
+        /// Gets or sets the Contracts.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The Contracts.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.InterceptionElement.ContractsPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
+        public virtual global::BDDD.Tools.ConfigurationDesigner.InterceptContractElementCollection Contracts
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.InterceptContractElementCollection)(base[global::BDDD.Tools.ConfigurationDesigner.InterceptionElement.ContractsPropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.InterceptionElement.ContractsPropertyName] = value;
             }
         }
         #endregion
@@ -462,6 +514,812 @@ namespace BDDD.Tools.ConfigurationDesigner
             set
             {
                 base[global::BDDD.Tools.ConfigurationDesigner.InterceptorElement.TypePropertyName] = value;
+            }
+        }
+        #endregion
+    }
+}
+namespace BDDD.Tools.ConfigurationDesigner
+{
+    
+    
+    /// <summary>
+    /// A collection of InterceptContractElement instances.
+    /// </summary>
+    [global::System.Configuration.ConfigurationCollectionAttribute(typeof(global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement), CollectionType=global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate, AddItemName=global::BDDD.Tools.ConfigurationDesigner.InterceptContractElementCollection.InterceptContractElementPropertyName)]
+    public partial class InterceptContractElementCollection : global::System.Configuration.ConfigurationElementCollection
+    {
+        
+        #region Constants
+        /// <summary>
+        /// The XML name of the individual <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> instances in this collection.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string InterceptContractElementPropertyName = "interceptContractElement";
+        #endregion
+        
+        #region Overrides
+        /// <summary>
+        /// Gets the type of the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <returns>The <see cref="global::System.Configuration.ConfigurationElementCollectionType"/> of this collection.</returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override global::System.Configuration.ConfigurationElementCollectionType CollectionType
+        {
+            get
+            {
+                return global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate;
+            }
+        }
+        
+        /// <summary>
+        /// Gets the name used to identify this collection of elements
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override string ElementName
+        {
+            get
+            {
+                return global::BDDD.Tools.ConfigurationDesigner.InterceptContractElementCollection.InterceptContractElementPropertyName;
+            }
+        }
+        
+        /// <summary>
+        /// Indicates whether the specified <see cref="global::System.Configuration.ConfigurationElement"/> exists in the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="elementName">The name of the element to verify.</param>
+        /// <returns>
+        /// <see langword="true"/> if the element exists in the collection; otherwise, <see langword="false"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override bool IsElementName(string elementName)
+        {
+            return (elementName == global::BDDD.Tools.ConfigurationDesigner.InterceptContractElementCollection.InterceptContractElementPropertyName);
+        }
+        
+        /// <summary>
+        /// Gets the element key for the specified configuration element.
+        /// </summary>
+        /// <param name="element">The <see cref="global::System.Configuration.ConfigurationElement"/> to return the key for.</param>
+        /// <returns>
+        /// An <see cref="object"/> that acts as the key for the specified <see cref="global::System.Configuration.ConfigurationElement"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override object GetElementKey(global::System.Configuration.ConfigurationElement element)
+        {
+            return ((global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement)(element)).Type;
+        }
+        
+        /// <summary>
+        /// Creates a new <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/>.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override global::System.Configuration.ConfigurationElement CreateNewElement()
+        {
+            return new global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement();
+        }
+        #endregion
+        
+        #region Indexer
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement this[int index]
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement)(base.BaseGet(index)));
+            }
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> with the specified key.
+        /// </summary>
+        /// <param name="type">The key of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement this[object type]
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement)(base.BaseGet(type)));
+            }
+        }
+        #endregion
+        
+        #region Add
+        /// <summary>
+        /// Adds the specified <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> to the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="interceptContractElement">The <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> to add.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public void Add(global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement interceptContractElement)
+        {
+            base.BaseAdd(interceptContractElement);
+        }
+        #endregion
+        
+        #region Remove
+        /// <summary>
+        /// Removes the specified <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> from the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="interceptContractElement">The <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> to remove.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public void Remove(global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement interceptContractElement)
+        {
+            base.BaseRemove(this.GetElementKey(interceptContractElement));
+        }
+        #endregion
+        
+        #region GetItem
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement GetItemAt(int index)
+        {
+            return ((global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement)(base.BaseGet(index)));
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> with the specified key.
+        /// </summary>
+        /// <param name="type">The key of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement GetItemByKey(string type)
+        {
+            return ((global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement)(base.BaseGet(((object)(type)))));
+        }
+        #endregion
+        
+        #region IsReadOnly override
+        /// <summary>
+        /// Gets a value indicating whether the element is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
+        #endregion
+    }
+}
+namespace BDDD.Tools.ConfigurationDesigner
+{
+    
+    
+    /// <summary>
+    /// The InterceptContractElement Configuration Element.
+    /// </summary>
+    public partial class InterceptContractElement : global::System.Configuration.ConfigurationElement
+    {
+        
+        #region IsReadOnly override
+        /// <summary>
+        /// Gets a value indicating whether the element is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
+        #endregion
+        
+        #region Type Property
+        /// <summary>
+        /// The XML name of the <see cref="Type"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string TypePropertyName = "type";
+        
+        /// <summary>
+        /// Gets or sets the Type.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The Type.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement.TypePropertyName, IsRequired=true, IsKey=true, IsDefaultCollection=false)]
+        public virtual string Type
+        {
+            get
+            {
+                return ((string)(base[global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement.TypePropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement.TypePropertyName] = value;
+            }
+        }
+        #endregion
+        
+        #region Methods Property
+        /// <summary>
+        /// The XML name of the <see cref="Methods"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string MethodsPropertyName = "methods";
+        
+        /// <summary>
+        /// Gets or sets the Methods.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The Methods.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement.MethodsPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
+        public virtual global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElementCollection Methods
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElementCollection)(base[global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement.MethodsPropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.InterceptContractElement.MethodsPropertyName] = value;
+            }
+        }
+        #endregion
+    }
+}
+namespace BDDD.Tools.ConfigurationDesigner
+{
+    
+    
+    /// <summary>
+    /// A collection of InterceptMethodElement instances.
+    /// </summary>
+    [global::System.Configuration.ConfigurationCollectionAttribute(typeof(global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement), CollectionType=global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate, AddItemName=global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElementCollection.InterceptMethodElementPropertyName)]
+    public partial class InterceptMethodElementCollection : global::System.Configuration.ConfigurationElementCollection
+    {
+        
+        #region Constants
+        /// <summary>
+        /// The XML name of the individual <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> instances in this collection.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string InterceptMethodElementPropertyName = "interceptMethodElement";
+        #endregion
+        
+        #region Overrides
+        /// <summary>
+        /// Gets the type of the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <returns>The <see cref="global::System.Configuration.ConfigurationElementCollectionType"/> of this collection.</returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override global::System.Configuration.ConfigurationElementCollectionType CollectionType
+        {
+            get
+            {
+                return global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate;
+            }
+        }
+        
+        /// <summary>
+        /// Gets the name used to identify this collection of elements
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override string ElementName
+        {
+            get
+            {
+                return global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElementCollection.InterceptMethodElementPropertyName;
+            }
+        }
+        
+        /// <summary>
+        /// Indicates whether the specified <see cref="global::System.Configuration.ConfigurationElement"/> exists in the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="elementName">The name of the element to verify.</param>
+        /// <returns>
+        /// <see langword="true"/> if the element exists in the collection; otherwise, <see langword="false"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override bool IsElementName(string elementName)
+        {
+            return (elementName == global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElementCollection.InterceptMethodElementPropertyName);
+        }
+        
+        /// <summary>
+        /// Gets the element key for the specified configuration element.
+        /// </summary>
+        /// <param name="element">The <see cref="global::System.Configuration.ConfigurationElement"/> to return the key for.</param>
+        /// <returns>
+        /// An <see cref="object"/> that acts as the key for the specified <see cref="global::System.Configuration.ConfigurationElement"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override object GetElementKey(global::System.Configuration.ConfigurationElement element)
+        {
+            return ((global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement)(element)).Signature;
+        }
+        
+        /// <summary>
+        /// Creates a new <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/>.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override global::System.Configuration.ConfigurationElement CreateNewElement()
+        {
+            return new global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement();
+        }
+        #endregion
+        
+        #region Indexer
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement this[int index]
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement)(base.BaseGet(index)));
+            }
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> with the specified key.
+        /// </summary>
+        /// <param name="signature">The key of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement this[object signature]
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement)(base.BaseGet(signature)));
+            }
+        }
+        #endregion
+        
+        #region Add
+        /// <summary>
+        /// Adds the specified <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> to the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="interceptMethodElement">The <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> to add.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public void Add(global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement interceptMethodElement)
+        {
+            base.BaseAdd(interceptMethodElement);
+        }
+        #endregion
+        
+        #region Remove
+        /// <summary>
+        /// Removes the specified <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> from the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="interceptMethodElement">The <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> to remove.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public void Remove(global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement interceptMethodElement)
+        {
+            base.BaseRemove(this.GetElementKey(interceptMethodElement));
+        }
+        #endregion
+        
+        #region GetItem
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement GetItemAt(int index)
+        {
+            return ((global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement)(base.BaseGet(index)));
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> with the specified key.
+        /// </summary>
+        /// <param name="signature">The key of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement GetItemByKey(string signature)
+        {
+            return ((global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement)(base.BaseGet(((object)(signature)))));
+        }
+        #endregion
+        
+        #region IsReadOnly override
+        /// <summary>
+        /// Gets a value indicating whether the element is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
+        #endregion
+    }
+}
+namespace BDDD.Tools.ConfigurationDesigner
+{
+    
+    
+    /// <summary>
+    /// The InterceptMethodElement Configuration Element.
+    /// </summary>
+    public partial class InterceptMethodElement : global::System.Configuration.ConfigurationElement
+    {
+        
+        #region IsReadOnly override
+        /// <summary>
+        /// Gets a value indicating whether the element is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
+        #endregion
+        
+        #region Signature Property
+        /// <summary>
+        /// The XML name of the <see cref="Signature"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string SignaturePropertyName = "signature";
+        
+        /// <summary>
+        /// Gets or sets the Signature.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The Signature.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement.SignaturePropertyName, IsRequired=true, IsKey=true, IsDefaultCollection=false)]
+        public virtual string Signature
+        {
+            get
+            {
+                return ((string)(base[global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement.SignaturePropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement.SignaturePropertyName] = value;
+            }
+        }
+        #endregion
+        
+        #region InterceptorRefs Property
+        /// <summary>
+        /// The XML name of the <see cref="InterceptorRefs"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string InterceptorRefsPropertyName = "interceptorRefs";
+        
+        /// <summary>
+        /// Gets or sets the InterceptorRefs.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The InterceptorRefs.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement.InterceptorRefsPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
+        public virtual global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElementCollection InterceptorRefs
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElementCollection)(base[global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement.InterceptorRefsPropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.InterceptMethodElement.InterceptorRefsPropertyName] = value;
+            }
+        }
+        #endregion
+    }
+}
+namespace BDDD.Tools.ConfigurationDesigner
+{
+    
+    
+    /// <summary>
+    /// A collection of InterceptorRefElement instances.
+    /// </summary>
+    [global::System.Configuration.ConfigurationCollectionAttribute(typeof(global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement), CollectionType=global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate, AddItemName=global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElementCollection.InterceptorRefElementPropertyName)]
+    public partial class InterceptorRefElementCollection : global::System.Configuration.ConfigurationElementCollection
+    {
+        
+        #region Constants
+        /// <summary>
+        /// The XML name of the individual <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> instances in this collection.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string InterceptorRefElementPropertyName = "interceptorRefElement";
+        #endregion
+        
+        #region Overrides
+        /// <summary>
+        /// Gets the type of the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <returns>The <see cref="global::System.Configuration.ConfigurationElementCollectionType"/> of this collection.</returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override global::System.Configuration.ConfigurationElementCollectionType CollectionType
+        {
+            get
+            {
+                return global::System.Configuration.ConfigurationElementCollectionType.BasicMapAlternate;
+            }
+        }
+        
+        /// <summary>
+        /// Gets the name used to identify this collection of elements
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override string ElementName
+        {
+            get
+            {
+                return global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElementCollection.InterceptorRefElementPropertyName;
+            }
+        }
+        
+        /// <summary>
+        /// Indicates whether the specified <see cref="global::System.Configuration.ConfigurationElement"/> exists in the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="elementName">The name of the element to verify.</param>
+        /// <returns>
+        /// <see langword="true"/> if the element exists in the collection; otherwise, <see langword="false"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override bool IsElementName(string elementName)
+        {
+            return (elementName == global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElementCollection.InterceptorRefElementPropertyName);
+        }
+        
+        /// <summary>
+        /// Gets the element key for the specified configuration element.
+        /// </summary>
+        /// <param name="element">The <see cref="global::System.Configuration.ConfigurationElement"/> to return the key for.</param>
+        /// <returns>
+        /// An <see cref="object"/> that acts as the key for the specified <see cref="global::System.Configuration.ConfigurationElement"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override object GetElementKey(global::System.Configuration.ConfigurationElement element)
+        {
+            return ((global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement)(element)).Name;
+        }
+        
+        /// <summary>
+        /// Creates a new <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/>.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/>.
+        /// </returns>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        protected override global::System.Configuration.ConfigurationElement CreateNewElement()
+        {
+            return new global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement();
+        }
+        #endregion
+        
+        #region Indexer
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement this[int index]
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement)(base.BaseGet(index)));
+            }
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> with the specified key.
+        /// </summary>
+        /// <param name="name">The key of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement this[object name]
+        {
+            get
+            {
+                return ((global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement)(base.BaseGet(name)));
+            }
+        }
+        #endregion
+        
+        #region Add
+        /// <summary>
+        /// Adds the specified <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> to the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="interceptorRefElement">The <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> to add.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public void Add(global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement interceptorRefElement)
+        {
+            base.BaseAdd(interceptorRefElement);
+        }
+        #endregion
+        
+        #region Remove
+        /// <summary>
+        /// Removes the specified <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> from the <see cref="global::System.Configuration.ConfigurationElementCollection"/>.
+        /// </summary>
+        /// <param name="interceptorRefElement">The <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> to remove.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public void Remove(global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement interceptorRefElement)
+        {
+            base.BaseRemove(this.GetElementKey(interceptorRefElement));
+        }
+        #endregion
+        
+        #region GetItem
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement GetItemAt(int index)
+        {
+            return ((global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement)(base.BaseGet(index)));
+        }
+        
+        /// <summary>
+        /// Gets the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> with the specified key.
+        /// </summary>
+        /// <param name="name">The key of the <see cref="global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement"/> to retrieve.</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement GetItemByKey(string name)
+        {
+            return ((global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement)(base.BaseGet(((object)(name)))));
+        }
+        #endregion
+        
+        #region IsReadOnly override
+        /// <summary>
+        /// Gets a value indicating whether the element is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
+        #endregion
+    }
+}
+namespace BDDD.Tools.ConfigurationDesigner
+{
+    
+    
+    /// <summary>
+    /// The InterceptorRefElement Configuration Element.
+    /// </summary>
+    public partial class InterceptorRefElement : global::System.Configuration.ConfigurationElement
+    {
+        
+        #region IsReadOnly override
+        /// <summary>
+        /// Gets a value indicating whether the element is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
+        #endregion
+        
+        #region Name Property
+        /// <summary>
+        /// The XML name of the <see cref="Name"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string NamePropertyName = "name";
+        
+        /// <summary>
+        /// Gets or sets the Name.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The Name.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement.NamePropertyName, IsRequired=true, IsKey=true, IsDefaultCollection=false)]
+        public virtual string Name
+        {
+            get
+            {
+                return ((string)(base[global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement.NamePropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.InterceptorRefElement.NamePropertyName] = value;
+            }
+        }
+        #endregion
+    }
+}
+namespace BDDD.Tools.ConfigurationDesigner
+{
+    
+    
+    /// <summary>
+    /// The ObjectContainerElement Configuration Element.
+    /// </summary>
+    public partial class ObjectContainerElement : global::System.Configuration.ConfigurationElement
+    {
+        
+        #region IsReadOnly override
+        /// <summary>
+        /// Gets a value indicating whether the element is read-only.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        public override bool IsReadOnly()
+        {
+            return false;
+        }
+        #endregion
+        
+        #region SectionName Property
+        /// <summary>
+        /// The XML name of the <see cref="SectionName"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string SectionNamePropertyName = "sectionName";
+        
+        /// <summary>
+        /// Gets or sets the SectionName.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The SectionName.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement.SectionNamePropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
+        public virtual string SectionName
+        {
+            get
+            {
+                return ((string)(base[global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement.SectionNamePropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement.SectionNamePropertyName] = value;
+            }
+        }
+        #endregion
+        
+        #region Provider Property
+        /// <summary>
+        /// The XML name of the <see cref="Provider"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string ProviderPropertyName = "provider";
+        
+        /// <summary>
+        /// Gets or sets the Provider.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The Provider.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement.ProviderPropertyName, IsRequired=true, IsKey=true, IsDefaultCollection=false)]
+        public virtual string Provider
+        {
+            get
+            {
+                return ((string)(base[global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement.ProviderPropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement.ProviderPropertyName] = value;
+            }
+        }
+        #endregion
+        
+        #region InitFromConfigFile Property
+        /// <summary>
+        /// The XML name of the <see cref="InitFromConfigFile"/> property.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        internal const string InitFromConfigFilePropertyName = "initFromConfigFile";
+        
+        /// <summary>
+        /// Gets or sets the InitFromConfigFile.
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
+        [global::System.ComponentModel.DescriptionAttribute("The InitFromConfigFile.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement.InitFromConfigFilePropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
+        public virtual bool InitFromConfigFile
+        {
+            get
+            {
+                return ((bool)(base[global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement.InitFromConfigFilePropertyName]));
+            }
+            set
+            {
+                base[global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement.InitFromConfigFilePropertyName] = value;
             }
         }
         #endregion

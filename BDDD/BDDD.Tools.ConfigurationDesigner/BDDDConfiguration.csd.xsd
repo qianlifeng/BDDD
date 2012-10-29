@@ -21,6 +21,11 @@
 					<xs:documentation>The Interception.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element minOccurs="0" name="objectContainer" type="tns:BDDD.Tools.ConfigurationDesigner.ObjectContainerElementCT">
+				<xs:annotation>
+					<xs:documentation>The ObjectContainer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="BDDD.Tools.ConfigurationDesigner.ApplicationElementCT">
@@ -37,6 +42,11 @@
 			<xs:element minOccurs="0" name="interceptors" type="tns:BDDD.Tools.ConfigurationDesigner.InterceptorElementCollectionCT">
 				<xs:annotation>
 					<xs:documentation>The Interceptors.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="contracts" type="tns:BDDD.Tools.ConfigurationDesigner.InterceptContractElementCollectionCT">
+				<xs:annotation>
+					<xs:documentation>The Contracts.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -61,6 +71,89 @@
 		<xs:attribute name="type" use="optional" type="xs:string">
 			<xs:annotation>
 				<xs:documentation>The Type.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BDDD.Tools.ConfigurationDesigner.InterceptContractElementCollectionCT">
+		<xs:sequence>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="interceptContractElement" type="tns:BDDD.Tools.ConfigurationDesigner.InterceptContractElementCT">
+				<xs:annotation>
+					<xs:documentation>The InterceptContractElement Configuration Element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BDDD.Tools.ConfigurationDesigner.InterceptContractElementCT">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="methods" type="tns:BDDD.Tools.ConfigurationDesigner.InterceptMethodElementCollectionCT">
+				<xs:annotation>
+					<xs:documentation>The Methods.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="type" use="required" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The Type.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BDDD.Tools.ConfigurationDesigner.InterceptMethodElementCollectionCT">
+		<xs:sequence>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="interceptMethodElement" type="tns:BDDD.Tools.ConfigurationDesigner.InterceptMethodElementCT">
+				<xs:annotation>
+					<xs:documentation>The InterceptMethodElement Configuration Element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BDDD.Tools.ConfigurationDesigner.InterceptMethodElementCT">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="interceptorRefs" type="tns:BDDD.Tools.ConfigurationDesigner.InterceptorRefElementCollectionCT">
+				<xs:annotation>
+					<xs:documentation>The InterceptorRefs.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="signature" use="required" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The Signature.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BDDD.Tools.ConfigurationDesigner.InterceptorRefElementCollectionCT">
+		<xs:sequence>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="interceptorRefElement" type="tns:BDDD.Tools.ConfigurationDesigner.InterceptorRefElementCT">
+				<xs:annotation>
+					<xs:documentation>The InterceptorRefElement Configuration Element.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BDDD.Tools.ConfigurationDesigner.InterceptorRefElementCT">
+		<xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="name" use="required" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The Name.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BDDD.Tools.ConfigurationDesigner.ObjectContainerElementCT">
+		<xs:sequence>
+		</xs:sequence>
+		<xs:attribute name="sectionName" use="optional" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The SectionName.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="provider" use="required" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The Provider.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="initFromConfigFile" use="required" type="xs:boolean">
+			<xs:annotation>
+				<xs:documentation>The InitFromConfigFile.</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>

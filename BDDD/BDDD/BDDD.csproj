@@ -43,14 +43,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\App.cs" />
+    <Compile Include="Application\AppRuntime.cs" />
     <Compile Include="BDDDException.cs" />
+    <Compile Include="Config\AppConfigSource.cs" />
     <Compile Include="Config\BDDDConfiguration.Partial.cs" />
     <Compile Include="Config\BDDDConfiguration.cs" />
     <Compile Include="Config\ConfigException.cs" />
     <Compile Include="Config\IConfigSource.cs" />
     <Compile Include="Config\ManualConfigSource.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="Interception\AdditionalInterfaceToProxyAttribute.cs" />
+    <Compile Include="Interception\BaseTypeForInterfaceProxyAttribute.cs" />
+    <Compile Include="Interception\InterceptorSelector.cs" />
+    <Compile Include="ObjectContainer\IObjectContainer.cs" />
+    <Compile Include="ObjectContainer\ObjectContainer.cs" />
+    <Compile Include="ObjectContainer\ServiceLocator.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IRepositoryContext.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
@@ -69,6 +79,7 @@
     <Compile Include="Specification\OrSpecification.cs" />
     <Compile Include="Specification\ParameterRebinder.cs" />
     <Compile Include="Specification\Specification.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="说明.txt" />
@@ -76,6 +87,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -23,6 +23,11 @@
             <configurationElementMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/InterceptionElement" />
           </type>
         </elementProperty>
+        <elementProperty name="ObjectContainer" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="objectContainer" isReadOnly="false">
+          <type>
+            <configurationElementMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/ObjectContainerElement" />
+          </type>
+        </elementProperty>
       </elementProperties>
     </configurationSection>
     <configurationElement name="ApplicationElement">
@@ -39,6 +44,11 @@
         <elementProperty name="Interceptors" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="interceptors" isReadOnly="false">
           <type>
             <configurationElementCollectionMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/InterceptorElementCollection" />
+          </type>
+        </elementProperty>
+        <elementProperty name="Contracts" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="contracts" isReadOnly="false">
+          <type>
+            <configurationElementCollectionMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/InterceptContractElementCollection" />
           </type>
         </elementProperty>
       </elementProperties>
@@ -58,6 +68,81 @@
         <attributeProperty name="Type" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="type" isReadOnly="false">
           <type>
             <externalTypeMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/String" />
+          </type>
+        </attributeProperty>
+      </attributeProperties>
+    </configurationElement>
+    <configurationElementCollection name="InterceptContractElementCollection" xmlItemName="interceptContractElement" codeGenOptions="Indexer, AddMethod, RemoveMethod, GetItemMethods">
+      <itemType>
+        <configurationElementMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/InterceptContractElement" />
+      </itemType>
+    </configurationElementCollection>
+    <configurationElement name="InterceptContractElement">
+      <attributeProperties>
+        <attributeProperty name="Type" isRequired="true" isKey="true" isDefaultCollection="false" xmlName="type" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/String" />
+          </type>
+        </attributeProperty>
+      </attributeProperties>
+      <elementProperties>
+        <elementProperty name="Methods" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="methods" isReadOnly="false">
+          <type>
+            <configurationElementCollectionMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/InterceptMethodElementCollection" />
+          </type>
+        </elementProperty>
+      </elementProperties>
+    </configurationElement>
+    <configurationElementCollection name="InterceptMethodElementCollection" xmlItemName="interceptMethodElement" codeGenOptions="Indexer, AddMethod, RemoveMethod, GetItemMethods">
+      <itemType>
+        <configurationElementMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/InterceptMethodElement" />
+      </itemType>
+    </configurationElementCollection>
+    <configurationElement name="InterceptMethodElement">
+      <attributeProperties>
+        <attributeProperty name="Signature" isRequired="true" isKey="true" isDefaultCollection="false" xmlName="signature" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/String" />
+          </type>
+        </attributeProperty>
+      </attributeProperties>
+      <elementProperties>
+        <elementProperty name="InterceptorRefs" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="interceptorRefs" isReadOnly="false">
+          <type>
+            <configurationElementCollectionMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/InterceptorRefElementCollection" />
+          </type>
+        </elementProperty>
+      </elementProperties>
+    </configurationElement>
+    <configurationElementCollection name="InterceptorRefElementCollection" xmlItemName="interceptorRefElement" codeGenOptions="Indexer, AddMethod, RemoveMethod, GetItemMethods">
+      <itemType>
+        <configurationElementMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/InterceptorRefElement" />
+      </itemType>
+    </configurationElementCollection>
+    <configurationElement name="InterceptorRefElement">
+      <attributeProperties>
+        <attributeProperty name="Name" isRequired="true" isKey="true" isDefaultCollection="false" xmlName="name" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/String" />
+          </type>
+        </attributeProperty>
+      </attributeProperties>
+    </configurationElement>
+    <configurationElement name="ObjectContainerElement">
+      <attributeProperties>
+        <attributeProperty name="SectionName" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="sectionName" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/String" />
+          </type>
+        </attributeProperty>
+        <attributeProperty name="Provider" isRequired="true" isKey="true" isDefaultCollection="false" xmlName="provider" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/String" />
+          </type>
+        </attributeProperty>
+        <attributeProperty name="InitFromConfigFile" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="initFromConfigFile" isReadOnly="false">
+          <type>
+            <externalTypeMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/Boolean" />
           </type>
         </attributeProperty>
       </attributeProperties>
