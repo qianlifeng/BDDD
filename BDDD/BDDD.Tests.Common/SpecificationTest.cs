@@ -35,12 +35,12 @@ namespace BDDD.Tests.Common
         [Description("测试Specification的And功能")]
         public void AndTest()
         {
-            User u1 = new User("test1", 11);
-            User u2 = new User("qianlifeng", 11);
+            Customer u1 = new Customer("test1", 11);
+            Customer u2 = new Customer("qianlifeng", 11);
 
-            ISpecification<User> left = Specification<User>.Eval(o => o.Name == "qianlifeng");
-            ISpecification<User> right = Specification<User>.Eval(o => o.Age == 11);
-            ISpecification<User> spec = left.And(right);
+            ISpecification<Customer> left = Specification<Customer>.Eval(o => o.Name == "qianlifeng");
+            ISpecification<Customer> right = Specification<Customer>.Eval(o => o.Age == 11);
+            ISpecification<Customer> spec = left.And(right);
             Assert.IsTrue(spec.IsSatisfiedBy(u2));
         }
 
@@ -48,12 +48,12 @@ namespace BDDD.Tests.Common
         [Description("测试Specification的Or功能")]
         public void OrTest()
         {
-            User u1 = new User("test1", 11);
-            User u2 = new User("qianlifeng", 11);
+            Customer u1 = new Customer("test1", 11);
+            Customer u2 = new Customer("qianlifeng", 11);
 
-            ISpecification<User> left = Specification<User>.Eval(o => o.Name == "qianlifeng");
-            ISpecification<User> right = Specification<User>.Eval(o => o.Name == "test1");
-            ISpecification<User> spec = left.Or(right);
+            ISpecification<Customer> left = Specification<Customer>.Eval(o => o.Name == "qianlifeng");
+            ISpecification<Customer> right = Specification<Customer>.Eval(o => o.Name == "test1");
+            ISpecification<Customer> spec = left.Or(right);
             Assert.IsTrue(spec.IsSatisfiedBy(u2));
             Assert.IsTrue(spec.IsSatisfiedBy(u1));
         }
@@ -62,9 +62,9 @@ namespace BDDD.Tests.Common
         [Description("测试Specification的Not功能")]
         public void NotTest()
         {
-            User u1 = new User("test1", 11);
+            Customer u1 = new Customer("test1", 11);
 
-            ISpecification<User> spec = Specification<User>.Eval(o => o.Name == "test1").Not();
+            ISpecification<Customer> spec = Specification<Customer>.Eval(o => o.Name == "test1").Not();
             Assert.IsFalse(spec.IsSatisfiedBy(u1));
         }
     }

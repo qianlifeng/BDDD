@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\App.cs" />
+    <Compile Include="Application\AppInitEventArgs.cs" />
     <Compile Include="Application\AppRuntime.cs" />
     <Compile Include="BDDDException.cs" />
     <Compile Include="Config\AppConfigSource.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="IEntity.cs" />
     <Compile Include="Interception\AdditionalInterfaceToProxyAttribute.cs" />
     <Compile Include="Interception\BaseTypeForInterfaceProxyAttribute.cs" />
+    <Compile Include="Interception\ExceptionHandlerInterceptor.cs" />
     <Compile Include="Interception\InterceptorSelector.cs" />
     <Compile Include="ObjectContainer\IObjectContainer.cs" />
     <Compile Include="ObjectContainer\ObjectContainer.cs" />

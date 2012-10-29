@@ -62,6 +62,7 @@ namespace BDDD.ObjectContainer
 
         protected abstract T DoGetService<T>() where T : class;
         protected abstract object DoGetService(Type serviceType);
+        protected abstract T DoGetRealObjectContainer<T>() where T : class;
 
         #region IObjectContainer接口
 
@@ -77,6 +78,15 @@ namespace BDDD.ObjectContainer
             return GetProxyObject(serviceType, serviceImpl);
         }
 
+        public T GetRealObjectContainer<T>() where T:class
+        {
+           T serviceImpl = DoGetRealObjectContainer<T>();
+           return GetProxyObject(typeof(T), serviceImpl) as T;
+        }
+
         #endregion
+
+
+
     }
 }

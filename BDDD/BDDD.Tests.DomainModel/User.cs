@@ -5,16 +5,38 @@ using System.Text;
 
 namespace BDDD.Tests.DomainModel
 {
-    public class User
+    public class Customer : IAggregateRoot
     {
-        public User(string name, int age)
+        private Guid id;
+
+        public Customer() { }
+
+        public Customer(string name, int age)
         {
             Name = name;
             Age = age;
+            id = new Guid();
         }
 
         public virtual string Name { get; protected set; }
 
         public virtual int Age { get; protected set; }
+
+        public virtual Guid ID
+        {
+            get
+            {
+                return id;
+            }
+             set
+            {
+                id = value;
+            }
+        }
+
+        public virtual bool Equals(IEntity other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

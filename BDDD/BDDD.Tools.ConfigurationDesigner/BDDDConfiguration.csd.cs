@@ -74,32 +74,6 @@ namespace BDDD.Tools.ConfigurationDesigner
         }
         #endregion
         
-        #region Application Property
-        /// <summary>
-        /// The XML name of the <see cref="Application"/> property.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
-        internal const string ApplicationPropertyName = "application";
-        
-        /// <summary>
-        /// Gets or sets the Application.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
-        [global::System.ComponentModel.DescriptionAttribute("The Application.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.BDDDConfigSection.ApplicationPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
-        public virtual global::BDDD.Tools.ConfigurationDesigner.ApplicationElement Application
-        {
-            get
-            {
-                return ((global::BDDD.Tools.ConfigurationDesigner.ApplicationElement)(base[global::BDDD.Tools.ConfigurationDesigner.BDDDConfigSection.ApplicationPropertyName]));
-            }
-            set
-            {
-                base[global::BDDD.Tools.ConfigurationDesigner.BDDDConfigSection.ApplicationPropertyName] = value;
-            }
-        }
-        #endregion
-        
         #region Interception Property
         /// <summary>
         /// The XML name of the <see cref="Interception"/> property.
@@ -138,7 +112,7 @@ namespace BDDD.Tools.ConfigurationDesigner
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
         [global::System.ComponentModel.DescriptionAttribute("The ObjectContainer.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.BDDDConfigSection.ObjectContainerPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.BDDDConfigSection.ObjectContainerPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
         public virtual global::BDDD.Tools.ConfigurationDesigner.ObjectContainerElement ObjectContainer
         {
             get
@@ -148,54 +122,6 @@ namespace BDDD.Tools.ConfigurationDesigner
             set
             {
                 base[global::BDDD.Tools.ConfigurationDesigner.BDDDConfigSection.ObjectContainerPropertyName] = value;
-            }
-        }
-        #endregion
-    }
-}
-namespace BDDD.Tools.ConfigurationDesigner
-{
-    
-    
-    /// <summary>
-    /// The ApplicationElement Configuration Element.
-    /// </summary>
-    public partial class ApplicationElement : global::System.Configuration.ConfigurationElement
-    {
-        
-        #region IsReadOnly override
-        /// <summary>
-        /// Gets a value indicating whether the element is read-only.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
-        public override bool IsReadOnly()
-        {
-            return false;
-        }
-        #endregion
-        
-        #region Provider Property
-        /// <summary>
-        /// The XML name of the <see cref="Provider"/> property.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
-        internal const string ProviderPropertyName = "provider";
-        
-        /// <summary>
-        /// Gets or sets the Provider.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.0.5")]
-        [global::System.ComponentModel.DescriptionAttribute("The Provider.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::BDDD.Tools.ConfigurationDesigner.ApplicationElement.ProviderPropertyName, IsRequired=true, IsKey=true, IsDefaultCollection=false)]
-        public virtual string Provider
-        {
-            get
-            {
-                return ((string)(base[global::BDDD.Tools.ConfigurationDesigner.ApplicationElement.ProviderPropertyName]));
-            }
-            set
-            {
-                base[global::BDDD.Tools.ConfigurationDesigner.ApplicationElement.ProviderPropertyName] = value;
             }
         }
         #endregion

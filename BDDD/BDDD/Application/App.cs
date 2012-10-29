@@ -8,11 +8,14 @@ using BDDD.Config;
 
 namespace BDDD.Application
 {
-    public class App
+    public sealed class App
     {
         private IConfigSource configSource;
         private IObjectContainer objectContainer;
         private List<IInterceptor> interceptors;
+
+        public delegate void AppInitHandle(IConfigSource source, IObjectContainer objectContainer);
+        public event AppInitHandle AppInitEvent;
 
         public App(IConfigSource configSource)
         {
@@ -20,12 +23,11 @@ namespace BDDD.Application
                 throw new ArgumentNullException("configSource 为空");
             if (configSource.Config == null)
                 throw new ConfigException("没有定义配置信息");
-            if (configSource.Config.Application == null)
-                throw new ConfigException("当前配置文件中没有定义Application信息");
             if (configSource.Config.ObjectContainer == null)
                 throw new ConfigException("当前配置文件中没有定义ObjectContainer信息");
             if (string.IsNullOrEmpty(configSource.Config.ObjectContainer.Provider))
                 throw new ConfigException("当前配置文件中没有定义ObjectContainer的Provider信息");
+            this.configSource = configSource;
 
             //从配置文件中加载ObjectContainer
             Type objectContainerType = Type.GetType(configSource.Config.ObjectContainer.Provider);
@@ -34,20 +36,19 @@ namespace BDDD.Application
             this.objectContainer = Activator.CreateInstance(objectContainerType) as ObjectContainer.ObjectContainer;
 
             //从配置文件中加载Interceptors
-            this.interceptors = new List<IInterceptor>();
-            if (this.configSource.Config.Interception != null && this.configSource.Config.Interception.Interceptors != null)
+            interceptors = new List<IInterceptor>();
+            if (configSource.Config.Interception != null && configSource.Config.Interception.Interceptors != null)
             {
-                foreach (InterceptorElement interceptorElement in this.configSource.Config.Interception.Interceptors)
+                foreach (InterceptorElement interceptorElement in configSource.Config.Interception.Interceptors)
                 {
                     Type interceptorType = Type.GetType(interceptorElement.Type);
                     if (interceptorType == null)
                         throw new ConfigException("找不到类型为{0}的拦截器", interceptorElement.Type);
                     IInterceptor interceptor = (IInterceptor)Activator.CreateInstance(interceptorType);
-                    this.interceptors.Add(interceptor);
+                    interceptors.Add(interceptor);
                 }
             }
 
-            this.configSource = configSource;
         }
 
         public IConfigSource ConfigSource
@@ -65,9 +66,17 @@ namespace BDDD.Application
             get { return interceptors; }
         }
 
+        private void HandleAppInitEvent()
+        {
+            if (AppInitEvent != null)
+            {
+                AppInitEvent(configSource, objectContainer);
+            }
+        }
+
         public void Start()
         {
-            throw new NotImplementedException();
+            HandleAppInitEvent();
         }
     }
 }

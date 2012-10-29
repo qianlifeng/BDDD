@@ -13,32 +13,18 @@
   <configurationElements>
     <configurationSection name="BDDDConfigSection" codeGenOptions="Singleton, XmlnsProperty" xmlSectionName="bDDDConfigSection">
       <elementProperties>
-        <elementProperty name="Application" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="application" isReadOnly="false">
-          <type>
-            <configurationElementMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/ApplicationElement" />
-          </type>
-        </elementProperty>
         <elementProperty name="Interception" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="interception" isReadOnly="false">
           <type>
             <configurationElementMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/InterceptionElement" />
           </type>
         </elementProperty>
-        <elementProperty name="ObjectContainer" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="objectContainer" isReadOnly="false">
+        <elementProperty name="ObjectContainer" isRequired="true" isKey="false" isDefaultCollection="false" xmlName="objectContainer" isReadOnly="false">
           <type>
             <configurationElementMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/ObjectContainerElement" />
           </type>
         </elementProperty>
       </elementProperties>
     </configurationSection>
-    <configurationElement name="ApplicationElement">
-      <attributeProperties>
-        <attributeProperty name="Provider" isRequired="true" isKey="true" isDefaultCollection="false" xmlName="provider" isReadOnly="false">
-          <type>
-            <externalTypeMoniker name="/cf70c3cb-9cf6-40b7-a92c-105745794eaf/String" />
-          </type>
-        </attributeProperty>
-      </attributeProperties>
-    </configurationElement>
     <configurationElement name="InterceptionElement">
       <elementProperties>
         <elementProperty name="Interceptors" isRequired="false" isKey="false" isDefaultCollection="false" xmlName="interceptors" isReadOnly="false">

@@ -36,15 +36,9 @@ namespace BDDD.Application
                 {
                     lock (lockObj)
                     {
-                        if (configSource.Config == null || configSource.Config.Application == null)
-                            throw new ConfigException("configSource中的application配置信息不存在");
-                        string typeName = configSource.Config.Application.Provider;
-                        if (string.IsNullOrEmpty(typeName))
-                            throw new ConfigException("应用程序的Application provider没有配置");
-                        Type type = Type.GetType(typeName);
-                        if (type == null)
-                            throw new BDDDException("配置错误，不存在应用程序类型：{0}", typeName);
-                        instance.currentApplication = (App)Activator.CreateInstance(type, new object[] { configSource });
+                        if (configSource.Config == null)
+                            throw new ConfigException("configSource的配置信息不存在");
+                        instance.currentApplication = new App(configSource);
                     }
                 }
             }

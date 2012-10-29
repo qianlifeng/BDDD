@@ -27,5 +27,10 @@ namespace BDDD.ObjectContainer
         {
             return objectContainer.GetService(serviceType);
         }
+
+        protected override T DoGetRealObjectContainer<T>()
+        {
+            return objectContainer.GetRealObjectContainer<T>();
+        }
     }
 }

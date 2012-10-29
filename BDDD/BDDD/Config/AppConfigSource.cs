@@ -7,7 +7,6 @@ namespace BDDD.Config
 {
     public class AppConfigSource:IConfigSource
     {
-
         public BDDDConfigSection Config
         {
             get { throw new NotImplementedException(); }

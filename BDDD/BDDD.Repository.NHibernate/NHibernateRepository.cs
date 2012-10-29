@@ -9,7 +9,7 @@ using BDDD.Specification;
 
 namespace BDDD.Repository.NHibernate
 {
-    public class NHibernateRepository<TAggregateRoot> : Repository<TAggregateRoot>
+    public class NHibernateRepository<TAggregateRoot> : Repository<TAggregateRoot> where TAggregateRoot : class,IAggregateRoot
     {
         private readonly ISession session = null;
 
@@ -49,7 +49,7 @@ namespace BDDD.Repository.NHibernate
             throw new NotImplementedException();
         }
 
-        protected override TAggregateRoot GetSignal(ISpecification<TAggregateRoot> specification)
+        protected override TAggregateRoot DoGetSignal(ISpecification<TAggregateRoot> specification)
         {
             return session.Query<TAggregateRoot>().Where(specification.GetExpression()).FirstOrDefault();
         }
