@@ -15,12 +15,12 @@ namespace BDDD.Tests.DomainModel
         {
             Name = name;
             Age = age;
-            id = new Guid();
+            id = Guid.NewGuid();
         }
 
-        public virtual string Name { get; protected set; }
+        public virtual string Name { get;  set; }
 
-        public virtual int Age { get; protected set; }
+        public virtual int Age { get;  set; }
 
         public virtual Guid ID
         {

@@ -17,7 +17,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             NHibernate.Cfg.Configuration nhibernateCfg = Fluently.Configure()
                    .Database(
                        FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2008
-                           .ConnectionString(s => s.Server("127.0.0.1")
+                           .ConnectionString(s => s.Server("localhost")
                                    .Database("BDDD_NHibernate")
                                    .TrustedConnection())
                    )

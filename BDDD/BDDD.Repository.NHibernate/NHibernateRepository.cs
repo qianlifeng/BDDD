@@ -36,7 +36,7 @@ namespace BDDD.Repository.NHibernate
 
         protected override void DoRemove(TAggregateRoot aggregateRoot)
         {
-            throw new NotImplementedException();
+            session.Delete(aggregateRoot);
         }
 
         protected override void DoUpdate(TAggregateRoot aggregateRoot)
@@ -46,7 +46,7 @@ namespace BDDD.Repository.NHibernate
 
         protected override TAggregateRoot DoGetByKey(object key)
         {
-            throw new NotImplementedException();
+            return session.Get<TAggregateRoot>(key);
         }
 
         protected override TAggregateRoot DoGetSignal(ISpecification<TAggregateRoot> specification)
@@ -56,7 +56,7 @@ namespace BDDD.Repository.NHibernate
 
         protected override IEnumerable<TAggregateRoot> DoGetAll()
         {
-            throw new NotImplementedException();
+            return session.QueryOver<TAggregateRoot>().List();
         }
 
         protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification)

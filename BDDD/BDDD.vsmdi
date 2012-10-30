@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TestLists xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestList name="Repository" id="11ec555d-5194-4a79-b5f7-7bdc3f067f9a" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="8f5e60b8-b345-0d7c-7bce-83e8036e5507" name="NHibernateRepositoryTest_AddAggregateRootToRepository_WithoutCommit" storage="bddd.tests.repository.nhibernaterepository\bin\debug\bddd.tests.repository.nhibernaterepository.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="23c1a259-4894-70a1-1c8b-7d1734621cb5" name="NHibernateRepositoryTest_DeleteAggregateRootToRepository" storage="bddd.tests.repository.nhibernaterepository\bin\debug\bddd.tests.repository.nhibernaterepository.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="057c7021-68af-635e-bcdb-e8dff4cceaf3" name="NHibernateRepositoryTest_UpdateAggregateRootToRepository" storage="bddd.tests.repository.nhibernaterepository\bin\debug\bddd.tests.repository.nhibernaterepository.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="f0fdad28-cc5c-1f75-d6ab-1c3e3106d8b9" name="NHibernateRepositoryTest_AddAggregateRootToRepository" storage="bddd.tests.repository.nhibernaterepository\bin\debug\bddd.tests.repository.nhibernaterepository.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
   <TestList name="Config" id="301b7c6e-11c5-4861-9634-84fe072a1bf8" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
     <TestLinks>
       <TestLink id="4ef510a2-741a-2b7e-50e5-1addd0f644e6" name="ManualConfigSource_AddInterceptorRef" storage="bddd.tests.common\bin\debug\bddd.tests.common.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
