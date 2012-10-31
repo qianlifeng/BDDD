@@ -67,9 +67,6 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             };
         }
 
-
-
-
         [TestMethod]
         [Description("添加聚合根_内部不包含其他实体")]
         public void NHibernateRepositoryTest_AddAggregateRootToRepository()
@@ -93,11 +90,6 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
                 customerRepository.Add(newCustomer);
-
-                IRepository<OrderItem> itemRepository = ctx.GetRepository<OrderItem>();
-                itemRepository.Add(item1);
-                itemRepository.Add(item2);
-                ctx.Commit();
 
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orderRepository.Add(customersOrder1);

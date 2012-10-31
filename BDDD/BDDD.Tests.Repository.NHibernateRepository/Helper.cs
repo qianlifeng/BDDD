@@ -28,5 +28,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             schemaExport.Execute(false, true, false);
             return nhibernateCfg;
         }
+
+
     }
 }

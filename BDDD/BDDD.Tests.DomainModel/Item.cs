@@ -5,24 +5,17 @@ using System.Text;
 
 namespace BDDD.Tests.DomainModel
 {
-    public class Customer : IAggregateRoot
+    public class Item : IEntity
     {
         private Guid id;
 
-        public Customer() { }
+        public virtual string ItemName { get; set; }
+        public virtual ItemCategory Category { get; set; }
 
-        public Customer(string name, int age)
+        public Item()
         {
-            Name = name;
-            Age = age;
             id = Guid.NewGuid();
         }
-
-        public virtual string Name { get; set; }
-
-        public virtual int Age { get; set; }
-
-        public virtual List<PostalAddress> PostalAddresses { get; set; }
 
         public virtual Guid ID
         {

@@ -8,7 +8,8 @@ namespace BDDD.Tests.DomainModel
     public class OrderItem : IEntity
     {
         private Guid id;
-        public virtual string ItemName { get; set; }
+        public virtual int Quantity { get; set; }
+        public virtual Item Item { get; set; }
 
         public OrderItem()
         {
