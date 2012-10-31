@@ -13,7 +13,7 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
             Id(m => m.ID);
             Map(m => m.Name);
             Map(m => m.Age);
-            Map(m => m.PostalAddresses);
+            HasMany<PostalAddress>(m => m.PostalAddresses).AsSet().Cascade.All();
         }
     }
 }
