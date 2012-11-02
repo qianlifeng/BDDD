@@ -79,6 +79,10 @@
       <Project>{D66BFC08-2481-4456-B7FD-02C1E65A089B}</Project>
       <Name>BDDD.Tests.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BDDD.Tests.DomainModel.NHibernateMapper\BDDD.Tests.DomainModel.NHibernateMapper.csproj">
+      <Project>{BDA57EB4-3012-4277-A0B6-D97FBE5A3FAC}</Project>
+      <Name>BDDD.Tests.DomainModel.NHibernateMapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BDDD.Tests.DomainModel\BDDD.Tests.DomainModel.csproj">
       <Project>{3C8790B8-FA0C-4750-B680-DA86D98C0D2F}</Project>
       <Name>BDDD.Tests.DomainModel</Name>

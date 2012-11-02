@@ -10,7 +10,20 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
     {
         public PostalAddressMap()
         {
-                  
+            Id(m => m.ID);
+            Map(m => m.City);
+            Map(m => m.Phone);
+            Map(m => m.Street);
+        }
+    }
+
+    public class PostalAddressComponentMap : ComponentMap<PostalAddress>
+    {
+        public PostalAddressComponentMap()
+        {
+            Map(m => m.City);
+            Map(m => m.Phone);
+            Map(m => m.Street);
         }
     }
 }

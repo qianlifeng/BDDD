@@ -18,13 +18,23 @@ namespace BDDD.Tests.Repository.NHibernateRepository
     [TestClass]
     public class NHibernateRepositoryTest
     {
+        #region - Variable -
+
+
         static App application;
-        Customer newCustomer;
+        Customer customerScott;
         Order customersOrder1;
         Order customersOrder2;
-        OrderItem item1;
-        OrderItem item2;
+        OrderItem orderItem1;
+        OrderItem orderItem2;
+        Item item1;
+        Item item2;
+        ItemCategory itemCategory;
+        
 
+        #endregion
+
+        #region - Method -
 
         [ClassInitialize]
         public static void StartBDDD(TestContext context)
@@ -47,23 +57,29 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [TestInitialize]
         public void InitModel()
         {
-            newCustomer = new Customer("scott", 11);
-            item1 = new OrderItem { ItemName = "item1" };
-            item2 = new OrderItem { ItemName = "item2" };
+            Helper.ResetDB();
+
+            itemCategory = new ItemCategory { CategoryName = "日常用品" };
+            item1 = new Item { Category = itemCategory, ItemName = "洗衣粉" };
+            item2 = new Item { Category = itemCategory, ItemName = "肥皂" };
+
+            customerScott = new Customer("scott", 11);
+            orderItem1 = new OrderItem { Item = item1, Quantity = 1};
+            orderItem2 = new OrderItem { Item = item2, Quantity = 2 };
 
             customersOrder1 = new Order
             {
                 CreatedDate = DateTime.Now,
-                Customer = newCustomer,
-                OrderName = "orderName1",
-                Items = new List<OrderItem> { item1, item2 }
+                Customer = customerScott,
+                OrderName = "账单1",
+                Items = new List<OrderItem> { orderItem1, orderItem2 }
             };
             customersOrder2 = new Order
             {
                 CreatedDate = DateTime.Now,
-                Customer = newCustomer,
-                OrderName = "orderName2",
-                Items = new List<OrderItem> { item1 }
+                Customer = customerScott,
+                OrderName = "账单2",
+                Items = new List<OrderItem> { orderItem1 }
             };
         }
 
@@ -74,22 +90,23 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
-                customerRepository.Add(newCustomer);
+                customerRepository.Add(customerScott);
                 ctx.Commit();
 
-                Customer c = customerRepository.GetByKey(newCustomer.ID);
+                Customer c = customerRepository.GetByKey(customerScott.ID);
                 Assert.IsNotNull(c);
-                Assert.AreEqual<Guid>(newCustomer.ID, c.ID);
+                Assert.AreEqual<Guid>(customerScott.ID, c.ID);
             }
         }
+
         [TestMethod]
         [Description("添加聚合根_内部包含其他实体")]
         public void NHibernateRepositoryTest_AddAggregateRootToRepository_WithChildEntityInside()
         {
             using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
-                IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
-                customerRepository.Add(newCustomer);
+                //IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
+                //customerRepository.Add(customerScott);
 
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orderRepository.Add(customersOrder1);
@@ -109,9 +126,9 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
-                customerRepository.Add(newCustomer);
+                customerRepository.Add(customerScott);
 
-                Customer c = customerRepository.GetByKey(newCustomer.ID);
+                Customer c = customerRepository.GetByKey(customerScott.ID);
                 Assert.IsNull(c);
             }
         }
@@ -123,12 +140,12 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
-                customerRepository.Add(newCustomer);
+                customerRepository.Add(customerScott);
                 ctx.Commit();
 
-                Assert.IsNotNull(newCustomer);
+                Assert.IsNotNull(customerScott);
 
-                Customer c = customerRepository.GetByKey(newCustomer.ID);
+                Customer c = customerRepository.GetByKey(customerScott.ID);
                 c.Name = "update";
                 ctx.Commit();
 
@@ -145,12 +162,12 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
-                customerRepository.Add(newCustomer);
+                customerRepository.Add(customerScott);
                 ctx.Commit();
 
-                Assert.IsNotNull(newCustomer);
+                Assert.IsNotNull(customerScott);
 
-                Customer c = customerRepository.GetByKey(newCustomer.ID);
+                Customer c = customerRepository.GetByKey(customerScott.ID);
                 customerRepository.Remove(c);
                 ctx.Commit();
 
@@ -182,7 +199,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             }
         }
 
-
+        #endregion
 
     }
 }

@@ -22,7 +22,7 @@ namespace BDDD.Tests.DomainModel
 
         public virtual int Age { get; set; }
 
-        public virtual List<PostalAddress> PostalAddresses { get; set; }
+        public virtual IList<PostalAddress> PostalAddresses { get; set; }
 
         public virtual Guid ID
         {
