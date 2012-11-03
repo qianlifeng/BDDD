@@ -6,6 +6,7 @@ using FluentNHibernate.Cfg;
 using BDDD.Tests.DomainModel;
 using FluentNHibernate.Automapping;
 using BDDD.Tests.DomainModel.NHibernateMapper;
+using FluentNHibernate.Conventions.Helpers;
 
 namespace BDDD.Tests.Repository.NHibernateRepository
 {
@@ -24,7 +25,9 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                                   .Database("BDDD_NHibernate")
                                   .TrustedConnection())
                   )
-                  .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CustomerMap).Assembly))
+                  .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CustomerMap).Assembly)
+                      .Conventions.Add(ForeignKey.EndsWith("Id"))
+                      )
                   .BuildConfiguration();
 
             ResetDB();

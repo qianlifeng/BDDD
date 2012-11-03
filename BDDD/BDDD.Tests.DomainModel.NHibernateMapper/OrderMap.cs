@@ -10,11 +10,11 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
     {
         public OrderMap()
         {
-            Id(m => m.ID);
+            Id(m => m.ID).GeneratedBy.Guid();
             Map(m => m.OrderName);
             Map(m => m.CreatedDate);
             References(m => m.Customer).Cascade.All();
-            HasMany(m => m.Items).Cascade.All();
+            HasMany(m => m.Items).Cascade.SaveUpdate();
             Component(m => m.postalAddress);
         }
     }

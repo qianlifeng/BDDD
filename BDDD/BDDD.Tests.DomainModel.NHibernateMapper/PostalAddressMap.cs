@@ -10,7 +10,7 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
     {
         public PostalAddressMap()
         {
-            Id(m => m.ID);
+            Id(m => m.ID).GeneratedBy.Guid();
             Map(m => m.City);
             Map(m => m.Phone);
             Map(m => m.Street);

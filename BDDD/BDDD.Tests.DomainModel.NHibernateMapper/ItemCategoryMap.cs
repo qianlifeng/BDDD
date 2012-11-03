@@ -10,7 +10,7 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
     {
         public ItemCategoryMap()
         {
-            Id(m => m.ID);
+            Id(m => m.ID).GeneratedBy.Guid();
             Map(m => m.CategoryName);
         }
     }

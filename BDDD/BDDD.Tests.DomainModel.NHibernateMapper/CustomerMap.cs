@@ -10,7 +10,7 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
     {
         public CustomerMap()
         {
-            Id(m => m.ID);
+            Id(m => m.ID).GeneratedBy.Guid();
             Map(m => m.Name);
             Map(m => m.Age);
             HasMany<PostalAddress>(m => m.PostalAddresses).AsSet().Cascade.All();

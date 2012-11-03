@@ -5,26 +5,14 @@ using System.Text;
 
 namespace BDDD.Tests.DomainModel
 {
-    public class ItemCategory : IEntity
+    public class ItemCategory : IAggregateRoot
     {
-        private Guid id;
         public virtual string CategoryName { get; set; }
-
-        public ItemCategory()
-        {
-            id = Guid.NewGuid();
-        }
 
         public virtual Guid ID
         {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                id = new Guid();
-            }
+            get;
+            set;
         }
 
         public virtual bool Equals(IEntity other)

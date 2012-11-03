@@ -10,9 +10,9 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
     {
        public ItemMap()
        {
-           Id(m => m.ID);
+           Id(m => m.ID).GeneratedBy.Guid();
            Map(m => m.ItemName);
-           References(m => m.Category).Cascade.All();
+           References(m => m.Category).Cascade.SaveUpdate();
        }
     }
 }
