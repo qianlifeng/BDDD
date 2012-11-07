@@ -7,6 +7,13 @@ namespace BDDD.Repository.MongoDB
 {
     public class MongoDBRepository<TAggregateRoot> : Repository<TAggregateRoot> where TAggregateRoot : class,IAggregateRoot
     {
+        IMongoDBContext context;
+
+        public MongoDBRepository(IMongoDBContext context):base(context)
+        {
+            this.context = context;
+        }
+
         protected override void DoAdd(TAggregateRoot aggregateRoot)
         {
             throw new NotImplementedException();
@@ -47,7 +54,7 @@ namespace BDDD.Repository.MongoDB
             throw new NotImplementedException();
         }
 
-        protected override IEnumerable<TAggregateRoot> DoGetAll(Specification.ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate, params System.Linq.Expressions.Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties)
+        protected override IEnumerable<TAggregateRoot> DoGetAll(Specification.ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder, params System.Linq.Expressions.Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties)
         {
             throw new NotImplementedException();
         }

@@ -74,7 +74,7 @@ namespace BDDD.Repository
         /// <param name="sortPredicate">排序属性</param>
         /// <param name="eagerLoadingProperties">需要提前加载的属性</param>
         /// <returns></returns>
-        IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, params Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties);
+        IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder,params Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties);
 
         /// <summary>
         ///  得到当前对象仓储中的所有聚合根对象

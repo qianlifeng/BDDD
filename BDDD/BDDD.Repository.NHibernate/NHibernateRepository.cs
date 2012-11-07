@@ -6,6 +6,7 @@ using NHibernate;
 using NHibernate.Linq;
 using BDDD.Repository.NHibernate.Properties;
 using BDDD.Specification;
+using System.Linq.Expressions;
 
 namespace BDDD.Repository.NHibernate
 {
@@ -64,9 +65,29 @@ namespace BDDD.Repository.NHibernate
             return session.Query<TAggregateRoot>().Where(specification.GetExpression());
         }
 
-        protected override IEnumerable<TAggregateRoot> DoGetAll(Specification.ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate, params System.Linq.Expressions.Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties)
+        protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder, params System.Linq.Expressions.Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties)
         {
-            throw new NotImplementedException();
+            if (pageNumber <= 0)
+                throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "PageNumber必须大于0");
+            if (pageSize <= 0)
+                throw new ArgumentOutOfRangeException("pageSize", pageSize, "pageSize必须大于0");
+            var query = this.session.Query<TAggregateRoot>().Where(specification.GetExpression());
+            int skip = (pageNumber - 1) * pageSize;
+            int take = pageSize;
+            switch (sortOrder)
+            {
+                case SortOrder.Ascending:
+                    if (sortPredicate != null)
+                        return query.OrderBy(sortPredicate).Skip(skip).Take(take).ToList();
+                    break;
+                case SortOrder.Descending:
+                    if (sortPredicate != null)
+                        return query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToList();
+                    break;
+                default:
+                    break;
+            }
+            return query.Skip(skip).Take(take).ToList();
         }
 
         protected override IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize)

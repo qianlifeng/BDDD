@@ -65,7 +65,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             customerScott = new Customer("scott", 11);
             orderItem1 = new OrderItem { Item = item1, Quantity = 1 };
             orderItem2 = new OrderItem { Item = item2, Quantity = 2 };
-            address1 = new PostalAddress{City = "苏州",Phone="15",Street="莲花新训"};
+            address1 = new PostalAddress { City = "苏州", Phone = "15", Street = "莲花新训" };
 
             customersOrder1 = new Order
             {
@@ -100,7 +100,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                 Customer c = customerRepository.GetByKey(customerScott.ID);
                 Assert.IsNotNull(c);
                 Assert.AreEqual<Guid>(customerScott.ID, c.ID);
-               
+
                 ItemCategory category = itemCategoryRepository.GetByKey(itemCategory.ID);
                 Assert.IsNotNull(category);
                 Assert.AreEqual<Guid>(category.ID, itemCategory.ID);
@@ -223,7 +223,6 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
                 Assert.IsNotNull(customers);
                 Assert.AreEqual<int>(3, customers.Count());
-                Assert.AreEqual<string>("scott1", customers.First().Name);
             }
         }
 
@@ -249,5 +248,91 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                 Assert.AreEqual<string>("scott3", customers.First().Name);
             }
         }
+
+
+        [TestMethod]
+        [Description("获得指定条件的所有聚合根_带分页")]
+        public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_SpecifiactionPage()
+        {
+            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            {
+                IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
+                Customer u1 = new Customer("scott1", 12);
+                Customer u2 = new Customer("scott2", 13);
+                Customer u3 = new Customer("scott3", 14);
+                Customer u4 = new Customer("scott4", 15);
+                Customer u5 = new Customer("scott5", 16);
+                Customer u6 = new Customer("scott6", 17);
+                Customer u7 = new Customer("scott7", 18);
+                Customer u8 = new Customer("scott8", 19);
+                customerRepository.Add(u1);
+                customerRepository.Add(u2);
+                customerRepository.Add(u3);
+                customerRepository.Add(u4);
+                customerRepository.Add(u5);
+                customerRepository.Add(u6);
+                customerRepository.Add(u7);
+                customerRepository.Add(u8);
+                ctx.Commit();
+
+                IEnumerable<Customer> customers = customerRepository.GetAll(
+                    Specification<Customer>.Eval(o => o.Age > 10)
+                    , 1, 3, o => o.Name, SortOrder.Descending, o => o.PostalAddresses
+                    );
+
+                Assert.IsNotNull(customers);
+                Assert.AreEqual<int>(3, customers.Count());
+                Assert.AreEqual<string>("scott8", customers.First().Name);
+
+                customers = customerRepository.GetAll(
+                    Specification<Customer>.Eval(o => o.Age > 14)
+                    , 1, 2, o => o.Name, SortOrder.Descending, o => o.PostalAddresses
+                    );
+
+                Assert.IsNotNull(customers);
+                Assert.AreEqual<int>(2, customers.Count());
+                Assert.AreEqual<string>("scott8", customers.First().Name);
+            }
+        }
+
+        [TestMethod]
+        [Description("获得指定条件的所有聚合根_带分页_带eager加载")]
+        public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_SpecifiactionPageEager()
+        {
+            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            {
+                IRepository<Order> orderRepository = ctx.GetRepository<Order>();
+                Order u1 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "1", postalAddress = address1 };
+                Order u2 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "2", postalAddress = address1 };
+                Order u3 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "3", postalAddress = address1 };
+                Order u4 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "4", postalAddress = address1 };
+                Order u5 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "5", postalAddress = address1 };
+                Order u6 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "6", postalAddress = address1 };
+                Order u7 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "7", postalAddress = address1 };
+
+                orderRepository.Add(u1);
+                orderRepository.Add(u2);
+                orderRepository.Add(u3);
+                orderRepository.Add(u4);
+                orderRepository.Add(u5);
+                orderRepository.Add(u6);
+                orderRepository.Add(u7);
+                ctx.Commit();
+
+                IEnumerable<Order> customers = orderRepository.GetAll(
+                    Specification<Order>.Eval(o => o.OrderName != null)
+                    , 1, 3, o => o.OrderName, SortOrder.Descending, o => o.Customer
+                    );
+
+                Assert.IsNotNull(customers);
+                Assert.AreEqual<int>(3, customers.Count());
+                Assert.AreEqual<string>("7", customers.First().OrderName);
+
+                Assert.IsTrue(customers.First().Customer != null);
+                Assert.IsTrue(customers.First().Customer.Name == "scott");
+            }
+        }
+
+
     }
 }
