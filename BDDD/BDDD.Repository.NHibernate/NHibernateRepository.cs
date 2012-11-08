@@ -37,12 +37,12 @@ namespace BDDD.Repository.NHibernate
 
         protected override void DoRemove(TAggregateRoot aggregateRoot)
         {
-            session.Delete(aggregateRoot);
+            Context.RegisterDeleted(aggregateRoot);
         }
 
         protected override void DoUpdate(TAggregateRoot aggregateRoot)
         {
-            throw new NotImplementedException();
+            Context.RegisterModified(aggregateRoot);
         }
 
         protected override TAggregateRoot DoGetByKey(object key)

@@ -299,6 +299,8 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("获得指定条件的所有聚合根_带分页_带eager加载")]
         public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_SpecifiactionPageEager()
         {
+            IEnumerable<Order> customers = null;
+
             using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
@@ -319,20 +321,18 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                 orderRepository.Add(u7);
                 ctx.Commit();
 
-                IEnumerable<Order> customers = orderRepository.GetAll(
-                    Specification<Order>.Eval(o => o.OrderName != null)
-                    , 1, 3, o => o.OrderName, SortOrder.Descending, o => o.Customer
-                    );
-
-                Assert.IsNotNull(customers);
-                Assert.AreEqual<int>(3, customers.Count());
-                Assert.AreEqual<string>("7", customers.First().OrderName);
-
-                Assert.IsTrue(customers.First().Customer != null);
-                Assert.IsTrue(customers.First().Customer.Name == "scott");
+                customers = orderRepository.GetAll(
+                   Specification<Order>.Eval(o => o.OrderName != null)
+                   , 1, 3, o => o.OrderName, SortOrder.Descending, o => o.Customer
+                   );
             }
+
+            Assert.IsNotNull(customers);
+            Assert.AreEqual<int>(3, customers.Count());
+            Assert.AreEqual<string>("7", customers.First().OrderName);
+
+            Assert.IsTrue(customers.First().Customer != null);
+            Assert.IsTrue(customers.First().Customer.Name == "scott");
         }
-
-
     }
 }
