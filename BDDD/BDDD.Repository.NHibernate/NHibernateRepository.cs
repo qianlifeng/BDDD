@@ -72,6 +72,10 @@ namespace BDDD.Repository.NHibernate
             if (pageSize <= 0)
                 throw new ArgumentOutOfRangeException("pageSize", pageSize, "pageSize必须大于0");
             var query = this.session.Query<TAggregateRoot>().Where(specification.GetExpression());
+            foreach (var eager in eagerLoadingProperties)
+            {
+                query = query.Fetch(eager);
+            }
             int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
             switch (sortOrder)
