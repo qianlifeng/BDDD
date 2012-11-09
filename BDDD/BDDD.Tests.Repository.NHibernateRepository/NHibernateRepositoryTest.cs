@@ -49,8 +49,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             NHibernate.Cfg.Configuration nhibernateCfg = Helper.SetupNHibernateDatabase();
             UnityContainer c = objectContainer.GetRealObjectContainer<UnityContainer>();
             c.RegisterInstance<NHibernate.Cfg.Configuration>(nhibernateCfg)
-            .RegisterType<IRepositoryContext, NHibernateContext>(new InjectionConstructor(new ResolvedParameter<NHibernate.Cfg.Configuration>()))
-            .RegisterType<IRepository<Customer>, NHibernateRepository<Customer>>();
+            .RegisterType<IRepositoryContext, NHibernateContext>(new InjectionConstructor(new ResolvedParameter<NHibernate.Cfg.Configuration>()));
         }
 
         [TestInitialize]
@@ -299,8 +298,6 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("获得指定条件的所有聚合根_带分页_带eager加载")]
         public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_SpecifiactionPageEager()
         {
-            IEnumerable<Order> customers = null;
-
             using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
@@ -321,18 +318,28 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                 orderRepository.Add(u7);
                 ctx.Commit();
 
-                customers = orderRepository.GetAll(
+                //如果在同一个session下面获取所有的order，那么这个order的子对象会被加载
+                //因为上面添加的时候已经存在于这个session里面了。所以为了测试立即加载应该
+                //新开一个session进行查询
+            }
+
+
+            IEnumerable<Order> orders = null;
+            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            {
+                IRepository<Order> orderRepository = ctx.GetRepository<Order>();
+                orders = orderRepository.GetAll(
                    Specification<Order>.Eval(o => o.OrderName != null)
-                   , 1, 3, o => o.OrderName, SortOrder.Descending, o => o.Customer
+                   , 1, 3, o => o.OrderName, SortOrder.Descending,o => o.Customer
                    );
             }
 
-            Assert.IsNotNull(customers);
-            Assert.AreEqual<int>(3, customers.Count());
-            Assert.AreEqual<string>("7", customers.First().OrderName);
+            Assert.IsNotNull(orders);
+            Assert.AreEqual<int>(3, orders.Count());
+            Assert.AreEqual<string>("7", orders.First().OrderName);
 
-            Assert.IsTrue(customers.First().Customer != null);
-            Assert.IsTrue(customers.First().Customer.Name == "scott");
+            Assert.IsTrue(orders.First().Customer != null);
+            Assert.IsTrue(orders.First().Customer.Name == "scott");
         }
     }
 }

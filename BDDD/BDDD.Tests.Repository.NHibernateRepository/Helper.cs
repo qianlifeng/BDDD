@@ -43,6 +43,5 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             }
         }
 
-
     }
 }

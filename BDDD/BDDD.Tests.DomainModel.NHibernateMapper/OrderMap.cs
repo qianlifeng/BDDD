@@ -13,7 +13,7 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
             Id(m => m.ID).GeneratedBy.Guid();
             Map(m => m.OrderName);
             Map(m => m.CreatedDate);
-            References(m => m.Customer).Cascade.All();
+            References(m => m.Customer) .Cascade.SaveUpdate();
             HasMany(m => m.Items).Cascade.SaveUpdate();
             Component(m => m.postalAddress);
         }
