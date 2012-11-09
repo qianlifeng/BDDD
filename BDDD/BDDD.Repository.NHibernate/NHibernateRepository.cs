@@ -72,26 +72,27 @@ namespace BDDD.Repository.NHibernate
             if (pageSize <= 0)
                 throw new ArgumentOutOfRangeException("pageSize", pageSize, "pageSize必须大于0");
             var query = this.session.Query<TAggregateRoot>().Where(specification.GetExpression());
-            foreach (var eager in eagerLoadingProperties)
-            {
-                query = query.Fetch(eager);
-            }
             int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
             switch (sortOrder)
             {
                 case SortOrder.Ascending:
                     if (sortPredicate != null)
-                        return query.OrderBy(sortPredicate).Skip(skip).Take(take).ToList();
+                        query = query.OrderBy(sortPredicate).Skip(skip).Take(take);
                     break;
                 case SortOrder.Descending:
                     if (sortPredicate != null)
-                        return query.OrderByDescending(sortPredicate).Skip(skip).Take(take).ToList();
+                        query = query.OrderByDescending(sortPredicate).Skip(skip).Take(take);
                     break;
                 default:
                     break;
             }
-            return query.Skip(skip).Take(take).ToList();
+
+            foreach (var eager in eagerLoadingProperties)
+            {
+                query = query.Fetch(eager);
+            }
+            return query.ToList();
         }
 
         protected override IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize)
