@@ -330,7 +330,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orders = orderRepository.GetAll(
                    Specification<Order>.Eval(o => o.OrderName != null)
-                   , 1, 3, o => o.OrderName, SortOrder.Descending,o =>o.Customer
+                   , 1, 3, o => o.OrderName, SortOrder.Descending,o =>o.Items,o=>o.Customer
                    );
             }
 
