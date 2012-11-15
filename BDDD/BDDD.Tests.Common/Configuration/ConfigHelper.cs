@@ -14,5 +14,14 @@ namespace BDDD.Tests.Common.Configuration
             source.ObjectContainer = typeof(BDDD.ObjectContainers.Unity.UnityObjectContainer);
             return source;
         }
+
+        /// <summary>
+        /// 从配置文件中获得配置信息
+        /// </summary>
+        /// <returns></returns>
+        public static IConfigSource GetAppConfigSource()
+        {
+            return new AppConfigSource();
+        }
     }
 }
