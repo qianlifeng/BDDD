@@ -34,6 +34,17 @@ namespace BDDD.Application
             if (objectContainerType == null)
                 throw new ConfigException("没有找到类型为{0}的ObjectContainer", configSource.Config.ObjectContainer.Provider);
             this.objectContainer = Activator.CreateInstance(objectContainerType) as ObjectContainer.ObjectContainer;
+            //如果需要从配置文件中加载映射关系
+            if (configSource.Config.ObjectContainer.InitFromConfigFile)
+            {
+                string sectionName = configSource.Config.ObjectContainer.SectionName;
+                if (!string.IsNullOrEmpty(sectionName))
+                {
+                    objectContainer.InitializeFromConfigFile(sectionName);
+                }
+                else
+                    throw new ConfigException("当ObejctContainer配置信息中的InitFromConfigFile属性为true的时候，必须同时提供Section name属性");
+            }
 
             //从配置文件中加载Interceptors
             interceptors = new List<IInterceptor>();

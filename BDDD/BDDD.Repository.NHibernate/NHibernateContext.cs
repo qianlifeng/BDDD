@@ -36,10 +36,10 @@ namespace BDDD.Repository.NHibernate
             id = Guid.NewGuid();
         }
 
-        public NHibernateContext(Configuration nhibernateConfig)
+        public NHibernateContext(INHibernateConfiguration nhibernateConfig)
             : this()
         {
-            databaseSessionFactory = new DBSessionFactory(nhibernateConfig);
+            databaseSessionFactory = new DBSessionFactory(nhibernateConfig.GetNHibernateConfiguration());
             session = databaseSessionFactory.Session;
         }
 

@@ -6,6 +6,9 @@ using BDDD.Application;
 
 namespace BDDD.ObjectContainer
 {
+    /// <summary>
+    /// 提供了一种从IOC容器中获得对象的便捷方式
+    /// </summary>
     public class ServiceLocator : ObjectContainer
     {
         private readonly IObjectContainer objectContainer = AppRuntime.Instance.CurrentApplication.ObjectContainer;
@@ -13,7 +16,7 @@ namespace BDDD.ObjectContainer
 
         private ServiceLocator() { }
 
-        public static ServiceLocator Instance
+        public static ServiceLocator Instance   
         {
             get { return instance; }
         }
@@ -31,6 +34,11 @@ namespace BDDD.ObjectContainer
         protected override T DoGetRealObjectContainer<T>()
         {
             return objectContainer.GetRealObjectContainer<T>();
+        }
+
+        protected override void DoInitializeFromConfigFile(string configSectionName)
+        {
+            objectContainer.InitializeFromConfigFile(configSectionName);
         }
     }
 }

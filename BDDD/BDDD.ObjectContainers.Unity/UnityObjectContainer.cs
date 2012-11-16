@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Configuration;
+using System.Configuration;
 
 namespace BDDD.ObjectContainers.Unity
 {
@@ -30,6 +32,12 @@ namespace BDDD.ObjectContainers.Unity
             if (typeof(T).Equals(typeof(UnityContainer)))
                 return (T)this.container;
             throw new BDDDException("当前的传入的类型应该是 '{0}' 类型.", typeof(UnityContainer));
+        }
+
+        protected override void DoInitializeFromConfigFile(string configSectionName)
+        {
+            UnityConfigurationSection section = (UnityConfigurationSection)ConfigurationManager.GetSection(configSectionName);
+            section.Configure(container);
         }
     }
 }

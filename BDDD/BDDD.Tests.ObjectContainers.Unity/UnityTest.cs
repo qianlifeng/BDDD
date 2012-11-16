@@ -7,6 +7,10 @@ using BDDD.Application;
 using BDDD.Config;
 using BDDD.ObjectContainer;
 using BDDD.Tests.Common.Configuration;
+using BDDD.Repository;
+using FluentNHibernate.Cfg;
+using BDDD.Tests.DomainModel.NHibernateMapper;
+using FluentNHibernate.Conventions.Helpers;
 
 namespace BDDD.Tests.ObjectContainers.Unity
 {
@@ -18,6 +22,9 @@ namespace BDDD.Tests.ObjectContainers.Unity
         {
             App app = AppRuntime.Create(ConfigHelper.GetAppConfigSource());
             app.Start();
+
+            IRepositoryContext context = ServiceLocator.Instance.GetService<IRepositoryContext>();
+            Assert.IsNotNull(context);
         }
     }
 }
