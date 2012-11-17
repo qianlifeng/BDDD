@@ -1,0 +1,103 @@
+﻿using System;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BDDD.Tests.Common.Configuration;
+using BDDD.Config;
+using BDDD.Interception;
+using BDDD.Application;
+using BDDD.Repository;
+using System.Reflection;
+using Microsoft.Practices.Unity;
+using BDDD.Repository.NHibernate;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Conventions.Helpers;
+using BDDD.Tests.DomainModel.NHibernateMapper;
+using BDDD.ObjectContainer;
+using BDDD.Tests.DomainModel;
+
+namespace BDDD.Tests.Interceptions
+{
+    [TestClass]
+    public class AddInterceptions
+    {
+        static Type typeWantToIntercept = typeof(IRepository<>);
+        static MethodInfo addMethod;
+        static NHibernate.Cfg.Configuration nhibernateCfg;
+
+        [ClassInitialize]
+        public static void InitialData(TestContext context)
+        {
+            addMethod = typeWantToIntercept.GetMethod("Add", BindingFlags.Public | BindingFlags.Instance);
+
+            nhibernateCfg = Fluently.Configure()
+                 .Database(
+                     FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2008
+                         .ConnectionString(s => s.Server("localhost")
+                                 .Database("BDDD_NHibernate")
+                                 .TrustedConnection())
+                 )
+                 .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CustomerMap).Assembly)
+                     .Conventions.Add(ForeignKey.EndsWith("Id"))
+                     )
+                 .BuildConfiguration();
+        }
+
+        [TestMethod]
+        [Description("添加拦截器测试")]
+        public void AddInterceptor()
+        {
+            ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
+            configSource.AddInterceptor("ExceptionHandler", typeof(ExceptionHandlerInterceptor));
+
+            App app = AppRuntime.Create(configSource);
+            app.Start();
+
+            Assert.AreEqual<int>(1, app.Interceptors.Count());
+        }
+
+        [TestMethod]
+        [Description("添加拦截器测试_添加拦截任务")]
+        public void AddInterceptor_AddInterceptorRef()
+        {
+            ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
+            configSource.AddInterceptor(typeof(ExceptionHandlerInterceptor));
+            configSource.AddInterceptorRef(typeWantToIntercept, addMethod, "ExceptionHandler");
+
+            App app = AppRuntime.Create(configSource);
+            app.Start();
+
+            Assert.AreEqual<int>(1, app.Interceptors.Count());
+            Assert.AreEqual<string>(app.ConfigSource.Config.Interception.Contracts.GetItemAt(0).Type,
+                typeWantToIntercept.AssemblyQualifiedName);
+        }
+
+        [TestMethod]
+        [Description("测试拦截器是否可用")]
+        public void AddInterceptor_TestInterceptor()
+        {
+            ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
+            configSource.AddInterceptor(typeof(ExceptionHandlerInterceptor));
+            configSource.AddInterceptorRef(typeWantToIntercept, addMethod, "ExceptionHandler");
+
+            App app = AppRuntime.Create(configSource);
+            UnityContainer container = app.ObjectContainer.GetRealObjectContainer<UnityContainer>();
+            container.RegisterType<INHibernateConfiguration, NHibernateConfiguration>(
+                new InjectionConstructor(nhibernateCfg));
+            container.RegisterType<IRepositoryContext, NHibernateContext>(
+                new InjectionConstructor(new ResolvedParameter<INHibernateConfiguration>()));
+            
+            app.Start();
+
+            using (IRepositoryContext context = ServiceLocator.Instance.GetService<IRepositoryContext>())
+            {
+                IRepository<ItemCategory> customerRepository = context.GetRepository<ItemCategory>();
+                ItemCategory itemCategory = new ItemCategory { CategoryName = "日常用品" };
+
+                customerRepository.Add(itemCategory);
+                context.Commit();
+            }
+        }
+    }
+}

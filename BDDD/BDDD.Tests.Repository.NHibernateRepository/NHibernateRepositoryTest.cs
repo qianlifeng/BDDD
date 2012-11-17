@@ -46,10 +46,11 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
         static void application_AppInitEvent(IConfigSource source, ObjectContainer.IObjectContainer objectContainer)
         {
-            NHibernate.Cfg.Configuration nhibernateCfg = Helper.SetupNHibernateDatabase();
             UnityContainer c = objectContainer.GetRealObjectContainer<UnityContainer>();
-            c.RegisterInstance<NHibernate.Cfg.Configuration>(nhibernateCfg)
-            .RegisterType<IRepositoryContext, NHibernateContext>(new InjectionConstructor(new ResolvedParameter<NHibernate.Cfg.Configuration>()));
+            c.RegisterType<INHibernateConfiguration, NHibernateConfiguration>(
+                new InjectionConstructor(Helper.SetupNHibernateDatabase()));
+            c.RegisterType<IRepositoryContext, NHibernateContext>(
+                new InjectionConstructor(new ResolvedParameter<INHibernateConfiguration>()));
         }
 
         [TestInitialize]
@@ -330,7 +331,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orders = orderRepository.GetAll(
                    Specification<Order>.Eval(o => o.OrderName != null)
-                   , 1, 3, o => o.OrderName, SortOrder.Descending,o =>o.Items,o=>o.Customer
+                   , 1, 3, o => o.OrderName, SortOrder.Descending, o => o.Items, o => o.Customer
                    );
             }
 

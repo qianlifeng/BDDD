@@ -13,12 +13,15 @@ namespace BDDD.Application
         private IConfigSource configSource;
         private IObjectContainer objectContainer;
         private List<IInterceptor> interceptors;
+        private Guid id;
 
         public delegate void AppInitHandle(IConfigSource source, IObjectContainer objectContainer);
         public event AppInitHandle AppInitEvent;
 
         public App(IConfigSource configSource)
         {
+            id = Guid.NewGuid();
+
             if (configSource == null)
                 throw new ArgumentNullException("configSource 为空");
             if (configSource.Config == null)
@@ -33,7 +36,7 @@ namespace BDDD.Application
             Type objectContainerType = Type.GetType(configSource.Config.ObjectContainer.Provider);
             if (objectContainerType == null)
                 throw new ConfigException("没有找到类型为{0}的ObjectContainer", configSource.Config.ObjectContainer.Provider);
-            this.objectContainer = Activator.CreateInstance(objectContainerType) as ObjectContainer.ObjectContainer;
+            objectContainer = Activator.CreateInstance(objectContainerType) as ObjectContainer.ObjectContainer;
             //如果需要从配置文件中加载映射关系
             if (configSource.Config.ObjectContainer.InitFromConfigFile)
             {
@@ -59,7 +62,6 @@ namespace BDDD.Application
                     interceptors.Add(interceptor);
                 }
             }
-
         }
 
         public IConfigSource ConfigSource

@@ -11,9 +11,11 @@ namespace BDDD.ObjectContainers.Unity
     public class UnityObjectContainer : ObjectContainer.ObjectContainer
     {
         private readonly IUnityContainer container;
+        private Guid id;
 
         public UnityObjectContainer()
         {
+            id = Guid.NewGuid();
             container = new Microsoft.Practices.Unity.UnityContainer();
         }
 
@@ -30,7 +32,7 @@ namespace BDDD.ObjectContainers.Unity
         protected override T DoGetRealObjectContainer<T>()
         {
             if (typeof(T).Equals(typeof(UnityContainer)))
-                return (T)this.container;
+                return (T)container;
             throw new BDDDException("当前的传入的类型应该是 '{0}' 类型.", typeof(UnityContainer));
         }
 

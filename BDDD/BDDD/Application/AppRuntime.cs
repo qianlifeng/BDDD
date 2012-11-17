@@ -25,7 +25,7 @@ namespace BDDD.Application
 
         public App CurrentApplication
         {
-            get { return currentApplication; }
+            get { return instance.currentApplication; }
         }
 
         public static App Create(IConfigSource configSource)

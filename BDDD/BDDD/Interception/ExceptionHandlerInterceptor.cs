@@ -6,6 +6,9 @@ using Castle.DynamicProxy;
 
 namespace BDDD.Interception
 {
+    /// <summary>
+    /// 异常拦截器
+    /// </summary>
     public class ExceptionHandlerInterceptor:IInterceptor
     {
         public void Intercept(IInvocation invocation)

@@ -23,6 +23,12 @@ namespace BDDD.ObjectContainer
             proxyGenerationOptions = new ProxyGenerationOptions { Selector = interceptorSelector };
         }
 
+        /// <summary>
+        /// 利用从Ioc容器中获得对象的契机来进行对象的替换
+        /// </summary>
+        /// <param name="targetType"></param>
+        /// <param name="targetObject"></param>
+        /// <returns></returns>
         private object GetProxyObject(Type targetType, object targetObject)
         {
             IInterceptor[] interceptors = AppRuntime.Instance.CurrentApplication.Interceptors.ToArray();
@@ -91,8 +97,5 @@ namespace BDDD.ObjectContainer
         }
 
         #endregion
-
-
-
     }
 }

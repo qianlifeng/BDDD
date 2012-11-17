@@ -18,10 +18,10 @@ namespace BDDD.Tests.ObjectContainers.Unity
     public class UnityTest
     {
         [TestMethod]
-        public void StartApp()
+        [Description("从配置文件中获得Ioc注册信息")]
+        public void GetContainerFromFile()
         {
-            App app = AppRuntime.Create(ConfigHelper.GetAppConfigSource());
-            app.Start();
+            AppRuntime.Create(ConfigHelper.GetAppConfigSource()).Start();
 
             IRepositoryContext context = ServiceLocator.Instance.GetService<IRepositoryContext>();
             Assert.IsNotNull(context);
