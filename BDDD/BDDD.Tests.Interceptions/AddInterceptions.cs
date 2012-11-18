@@ -22,15 +22,12 @@ namespace BDDD.Tests.Interceptions
     [TestClass]
     public class AddInterceptions
     {
-        static Type typeWantToIntercept = typeof(IRepositoryContext);
-        static MethodInfo addMethod;
+
         static NHibernate.Cfg.Configuration nhibernateCfg;
 
         [ClassInitialize]
         public static void InitialData(TestContext context)
         {
-            addMethod = typeWantToIntercept.GetMethod("RegisterNew", BindingFlags.Public | BindingFlags.Instance);
-
             nhibernateCfg = Fluently.Configure()
                  .Database(
                      FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2008
@@ -61,6 +58,10 @@ namespace BDDD.Tests.Interceptions
         [Description("添加拦截器测试_添加拦截任务")]
         public void AddInterceptor_AddInterceptorRef()
         {
+            Type typeWantToIntercept = typeof(IRepositoryContext);
+            MethodInfo addMethod = typeWantToIntercept.GetMethod("RegisterNew", BindingFlags.Public | BindingFlags.Instance);
+            Assert.IsNotNull(addMethod);
+
             ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
             configSource.AddInterceptor(typeof(ExceptionHandlerInterceptor));
             configSource.AddInterceptorRef(typeWantToIntercept, addMethod, "ExceptionHandler");
@@ -77,13 +78,16 @@ namespace BDDD.Tests.Interceptions
         [Description("测试拦截器是否可用")]
         public void AddInterceptor_TestInterceptor()
         {
+            Type typeWantToIntercept = typeof(IRepositoryContext);
+            MethodInfo addMethod = typeWantToIntercept.GetMethod("RegisterNew", BindingFlags.Public | BindingFlags.Instance);
+            Assert.IsNotNull(addMethod);
+
             ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
             configSource.AddInterceptor("ExceptionHandler", typeof(ExceptionHandlerInterceptor));
             configSource.AddInterceptorRef(typeWantToIntercept, addMethod, "ExceptionHandler");
 
             App app = AppRuntime.Create(configSource);
             app.Start();
-
             UnityContainer container = AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>();
             container.RegisterType<INHibernateConfiguration, NHibernateConfiguration>(
                 new InjectionConstructor(nhibernateCfg));
