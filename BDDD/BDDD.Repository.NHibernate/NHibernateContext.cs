@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using NHibernate;
 using NHibernate.Cfg;
+using BDDD.Application;
+using BDDD.ObjectContainer;
 
 namespace BDDD.Repository.NHibernate
 {

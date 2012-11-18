@@ -46,6 +46,8 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
         static void application_AppInitEvent(IConfigSource source, ObjectContainer.IObjectContainer objectContainer)
         {
+            Assert.AreEqual(AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>(), AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>());
+
             UnityContainer c = objectContainer.GetRealObjectContainer<UnityContainer>();
             c.RegisterType<INHibernateConfiguration, NHibernateConfiguration>(
                 new InjectionConstructor(Helper.SetupNHibernateDatabase()));

@@ -22,14 +22,14 @@ namespace BDDD.Tests.Interceptions
     [TestClass]
     public class AddInterceptions
     {
-        static Type typeWantToIntercept = typeof(IRepository<>);
+        static Type typeWantToIntercept = typeof(IRepositoryContext);
         static MethodInfo addMethod;
         static NHibernate.Cfg.Configuration nhibernateCfg;
 
         [ClassInitialize]
         public static void InitialData(TestContext context)
         {
-            addMethod = typeWantToIntercept.GetMethod("Add", BindingFlags.Public | BindingFlags.Instance);
+            addMethod = typeWantToIntercept.GetMethod("RegisterNew", BindingFlags.Public | BindingFlags.Instance);
 
             nhibernateCfg = Fluently.Configure()
                  .Database(
@@ -78,17 +78,17 @@ namespace BDDD.Tests.Interceptions
         public void AddInterceptor_TestInterceptor()
         {
             ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
-            configSource.AddInterceptor(typeof(ExceptionHandlerInterceptor));
+            configSource.AddInterceptor("ExceptionHandler", typeof(ExceptionHandlerInterceptor));
             configSource.AddInterceptorRef(typeWantToIntercept, addMethod, "ExceptionHandler");
 
             App app = AppRuntime.Create(configSource);
-            UnityContainer container = app.ObjectContainer.GetRealObjectContainer<UnityContainer>();
+            app.Start();
+
+            UnityContainer container = AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>();
             container.RegisterType<INHibernateConfiguration, NHibernateConfiguration>(
                 new InjectionConstructor(nhibernateCfg));
             container.RegisterType<IRepositoryContext, NHibernateContext>(
                 new InjectionConstructor(new ResolvedParameter<INHibernateConfiguration>()));
-            
-            app.Start();
 
             using (IRepositoryContext context = ServiceLocator.Instance.GetService<IRepositoryContext>())
             {

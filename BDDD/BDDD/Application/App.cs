@@ -10,9 +10,9 @@ namespace BDDD.Application
 {
     public sealed class App
     {
-        private IConfigSource configSource;
-        private IObjectContainer objectContainer;
-        private List<IInterceptor> interceptors;
+        private readonly IConfigSource configSource;
+        private readonly IObjectContainer objectContainer;
+        private readonly List<IInterceptor> interceptors = new List<IInterceptor>();
         private Guid id;
 
         public delegate void AppInitHandle(IConfigSource source, IObjectContainer objectContainer);
@@ -21,7 +21,6 @@ namespace BDDD.Application
         public App(IConfigSource configSource)
         {
             id = Guid.NewGuid();
-
             if (configSource == null)
                 throw new ArgumentNullException("configSource 为空");
             if (configSource.Config == null)
@@ -30,13 +29,14 @@ namespace BDDD.Application
                 throw new ConfigException("当前配置文件中没有定义ObjectContainer信息");
             if (string.IsNullOrEmpty(configSource.Config.ObjectContainer.Provider))
                 throw new ConfigException("当前配置文件中没有定义ObjectContainer的Provider信息");
+            
             this.configSource = configSource;
 
             //从配置文件中加载ObjectContainer
             Type objectContainerType = Type.GetType(configSource.Config.ObjectContainer.Provider);
             if (objectContainerType == null)
                 throw new ConfigException("没有找到类型为{0}的ObjectContainer", configSource.Config.ObjectContainer.Provider);
-            objectContainer = Activator.CreateInstance(objectContainerType) as ObjectContainer.ObjectContainer;
+            objectContainer = Activator.CreateInstance(objectContainerType) as BDDD.ObjectContainer.ObjectContainer;
             //如果需要从配置文件中加载映射关系
             if (configSource.Config.ObjectContainer.InitFromConfigFile)
             {
@@ -50,8 +50,8 @@ namespace BDDD.Application
             }
 
             //从配置文件中加载Interceptors
-            interceptors = new List<IInterceptor>();
-            if (configSource.Config.Interception != null && configSource.Config.Interception.Interceptors != null)
+            if (configSource.Config.Interception != null 
+                && configSource.Config.Interception.Interceptors != null)
             {
                 foreach (InterceptorElement interceptorElement in configSource.Config.Interception.Interceptors)
                 {
@@ -87,6 +87,9 @@ namespace BDDD.Application
             }
         }
 
+        /// <summary>
+        /// 启动框架
+        /// </summary>
         public void Start()
         {
             HandleAppInitEvent();

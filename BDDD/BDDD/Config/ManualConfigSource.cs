@@ -40,12 +40,12 @@ namespace BDDD.Config
         public void AddInterceptor(string name, Type interceptorType)
         {
             if (!typeof(IInterceptor).IsAssignableFrom(interceptorType))
-                throw new ConfigException("'{0}' 不是一个可用的拦截类型", interceptorType);
+                throw new ConfigException("'{0}' 不是一个可用的拦截类型，拦截器必须继承 IInterceptor 接口", interceptorType);
 
-            if (this.config.Interception == null)
-                this.config.Interception = new InterceptionElement();
-            if (this.config.Interception.Interceptors == null)
-                this.config.Interception.Interceptors = new InterceptorElementCollection();
+            if (config.Interception == null)
+                config.Interception = new InterceptionElement();
+            if (config.Interception.Interceptors == null)
+                config.Interception.Interceptors = new InterceptorElementCollection();
             //如果已经存在相同名字或者类型的拦截器，则直接返回
             foreach (InterceptorElement interceptor in config.Interception.Interceptors)
             {

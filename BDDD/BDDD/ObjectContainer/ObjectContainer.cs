@@ -8,7 +8,7 @@ using BDDD.Application;
 
 namespace BDDD.ObjectContainer
 {
-    public abstract class ObjectContainer:IObjectContainer
+    public abstract class ObjectContainer : IObjectContainer
     {
         #region 变量
 
@@ -33,8 +33,7 @@ namespace BDDD.ObjectContainer
         {
             IInterceptor[] interceptors = AppRuntime.Instance.CurrentApplication.Interceptors.ToArray();
 
-            if (interceptors == null ||
-                interceptors.Length == 0)
+            if (interceptors == null || interceptors.Length == 0)
                 return targetObject;
 
             if (targetType.IsInterface)
@@ -75,8 +74,8 @@ namespace BDDD.ObjectContainer
 
         public T GetService<T>() where T : class
         {
-             T serviceImpl =DoGetService<T>();
-             return GetProxyObject(typeof(T), serviceImpl) as T;
+            T serviceImpl = DoGetService<T>();
+            return GetProxyObject(typeof(T), serviceImpl) as T;
         }
 
         public object GetService(Type serviceType)
@@ -85,10 +84,14 @@ namespace BDDD.ObjectContainer
             return GetProxyObject(serviceType, serviceImpl);
         }
 
-        public T GetRealObjectContainer<T>() where T:class
+        public T GetRealObjectContainer<T>() where T : class
         {
-           T serviceImpl = DoGetRealObjectContainer<T>();
-           return GetProxyObject(typeof(T), serviceImpl) as T;
+            //todo:当ManualConfigSource中添加了interceptor后，这里返回的ObjectContainer
+            //每次都不一样，暂时找不到原因，临时解决是对于objectContainer
+            //不添加拦截方法，ObjectContainer只是用于注册关系，一般不需要拦截
+            T serviceImpl = DoGetRealObjectContainer<T>();
+            //return GetProxyObject(typeof(T), serviceImpl) as T;
+            return serviceImpl;
         }
 
         public void InitializeFromConfigFile(string configSectionName)
