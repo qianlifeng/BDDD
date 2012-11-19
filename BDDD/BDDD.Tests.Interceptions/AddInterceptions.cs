@@ -79,12 +79,12 @@ namespace BDDD.Tests.Interceptions
         public void AddInterceptor_TestInterceptor()
         {
             Type typeWantToIntercept = typeof(IRepositoryContext);
-            MethodInfo addMethod = typeWantToIntercept.GetMethod("RegisterNew", BindingFlags.Public | BindingFlags.Instance);
+            MethodInfo addMethod = typeWantToIntercept.GetMethod("GetRepository", BindingFlags.Public | BindingFlags.Instance);
             Assert.IsNotNull(addMethod);
 
             ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
-            configSource.AddInterceptor("ExceptionHandler", typeof(ExceptionHandlerInterceptor));
-            configSource.AddInterceptorRef(typeWantToIntercept, addMethod, "ExceptionHandler");
+            configSource.AddInterceptor("TestHandler", typeof(TestInterceptor));
+            configSource.AddInterceptorRef(typeWantToIntercept, addMethod, "TestHandler");
 
             App app = AppRuntime.Create(configSource);
             app.Start();
@@ -102,6 +102,8 @@ namespace BDDD.Tests.Interceptions
                 customerRepository.Add(itemCategory);
                 context.Commit();
             }
+
+            Assert.IsTrue(TestInterceptor.execCount == 1);
         }
     }
 }
