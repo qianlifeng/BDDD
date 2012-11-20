@@ -82,7 +82,7 @@ namespace BDDD.Repository.NHibernate
             }
             else
             {
-                var repository = new NHibernateRepository<TAggregateRoot>(this);
+                var repository = ServiceLocator.Instance.GetService<IRepository<TAggregateRoot>>(); //new NHibernateRepository<TAggregateRoot>(this);
                 lock (sync)
                 {
                     repositories.Add(key, repository);

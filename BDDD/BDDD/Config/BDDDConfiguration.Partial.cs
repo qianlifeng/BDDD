@@ -83,11 +83,10 @@ namespace BDDD.Config
         }
 
         /// <summary>
-        /// Returns a list of <see cref="System.String"/> values which represents the types
-        /// of interceptors references by the given method.
+        /// 从配置中查找所有需要对该类型的该方法进行拦截的所有拦截器
         /// </summary>
-        /// <param name="contractType">The type for the method.</param>
-        /// <param name="method">The method.</param>
+        /// <param name="contractType">需要被拦截的类型</param>
+        /// <param name="method">需要被拦截的方法</param>
         /// <returns>A list of <see cref="System.String"/> values which contains the interceptor types.</returns>
         public IEnumerable<string> GetInterceptorTypes(Type contractType, MethodInfo method)
         {

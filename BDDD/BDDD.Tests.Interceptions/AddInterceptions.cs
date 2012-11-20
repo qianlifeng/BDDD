@@ -79,7 +79,7 @@ namespace BDDD.Tests.Interceptions
         public void AddInterceptor_TestInterceptor()
         {
             Type typeWantToIntercept = typeof(IRepositoryContext);
-            MethodInfo addMethod = typeWantToIntercept.GetMethod("GetRepository", BindingFlags.Public | BindingFlags.Instance);
+            MethodInfo addMethod = typeWantToIntercept.GetMethod("RegisterNew", BindingFlags.Public | BindingFlags.Instance);
             Assert.IsNotNull(addMethod);
 
             ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
@@ -93,6 +93,8 @@ namespace BDDD.Tests.Interceptions
                 new InjectionConstructor(nhibernateCfg));
             container.RegisterType<IRepositoryContext, NHibernateContext>(
                 new InjectionConstructor(new ResolvedParameter<INHibernateConfiguration>()));
+            container.RegisterType<IRepository<ItemCategory>, NHibernateRepository<ItemCategory>>(
+                new InjectionConstructor(new ResolvedParameter<IRepositoryContext>()));
 
             using (IRepositoryContext context = ServiceLocator.Instance.GetService<IRepositoryContext>())
             {

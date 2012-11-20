@@ -38,13 +38,19 @@ namespace BDDD.Interception
             return null;
         }
 
-        #region IInterceptorSelector接口
-
-        public IInterceptor[] SelectInterceptors(Type type, System.Reflection.MethodInfo method, IInterceptor[] interceptors)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type">已经经过透明代理的类型（此处的参数是真实类型）</param>
+        /// <param name="method">透明代理调用的方法</param>
+        /// <param name="interceptors">可用的拦截器</param>
+        /// <returns></returns>
+        public IInterceptor[] SelectInterceptors(Type type, MethodInfo method, IInterceptor[] interceptors)
         {
             IConfigSource configSource = AppRuntime.Instance.CurrentApplication.ConfigSource;
             List<IInterceptor> selectedInterceptors = new List<IInterceptor>();
 
+            //从配置中查找所有需要对该类型的该方法进行拦截的所有拦截器
             IEnumerable<string> interceptorTypes = configSource.Config.GetInterceptorTypes(type, method);
             if (interceptorTypes == null)
             {
@@ -83,6 +89,7 @@ namespace BDDD.Interception
 
             if (interceptorTypes != null && interceptorTypes.Count() > 0)
             {
+                //从所有拦截器中过滤匹配找到的拦截器
                 foreach (var interceptor in interceptors)
                 {
                     if (interceptorTypes.Any(p => interceptor.GetType().AssemblyQualifiedName.Equals(p)))
@@ -92,7 +99,5 @@ namespace BDDD.Interception
 
             return selectedInterceptors.ToArray();
         }
-
-        #endregion
     }
 }
