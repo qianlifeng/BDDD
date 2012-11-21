@@ -44,5 +44,10 @@ namespace BDDD.Application
             }
             return instance.currentApplication;
         }
+
+        public void CloseCurrentApplication()
+        {
+            currentApplication = null;
+        }
     }
 }

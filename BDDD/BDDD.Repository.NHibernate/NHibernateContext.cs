@@ -82,7 +82,8 @@ namespace BDDD.Repository.NHibernate
             }
             else
             {
-                var repository = ServiceLocator.Instance.GetService<IRepository<TAggregateRoot>>(); //new NHibernateRepository<TAggregateRoot>(this);
+                //todo:unity不支持泛型注册，所以这里如果使用GetService的话具体类型的注册就会很多
+                var repository = new NHibernateRepository<TAggregateRoot>(this); //ServiceLocator.Instance.GetService<IRepository<TAggregateRoot>>(); 
                 lock (sync)
                 {
                     repositories.Add(key, repository);

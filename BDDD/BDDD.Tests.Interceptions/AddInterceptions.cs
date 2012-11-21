@@ -41,6 +41,15 @@ namespace BDDD.Tests.Interceptions
                  .BuildConfiguration();
         }
 
+        [TestInitialize]
+        public void ResetApp()
+        {
+            if (AppRuntime.Instance.CurrentApplication != null)
+            {
+                AppRuntime.Instance.CloseCurrentApplication();
+            }
+        }
+
         [TestMethod]
         [Description("添加拦截器测试")]
         public void AddInterceptor()
@@ -64,22 +73,21 @@ namespace BDDD.Tests.Interceptions
 
             ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
             configSource.AddInterceptor(typeof(ExceptionHandlerInterceptor));
-            configSource.AddInterceptorRef(typeWantToIntercept, addMethod, "ExceptionHandler");
-
+            configSource.AddInterceptorRef(typeWantToIntercept, addMethod, typeof(ExceptionHandlerInterceptor).AssemblyQualifiedName);
             App app = AppRuntime.Create(configSource);
             app.Start();
 
             Assert.AreEqual<int>(1, app.Interceptors.Count());
-            Assert.AreEqual<string>(app.ConfigSource.Config.Interception.Contracts.GetItemAt(0).Type,
-                typeWantToIntercept.AssemblyQualifiedName);
+            Assert.AreEqual<string>(typeWantToIntercept.AssemblyQualifiedName,
+                app.ConfigSource.Config.Interception.Contracts.GetItemAt(0).Type);
         }
 
         [TestMethod]
         [Description("测试拦截器是否可用")]
         public void AddInterceptor_TestInterceptor()
         {
-            Type typeWantToIntercept = typeof(IRepositoryContext);
-            MethodInfo addMethod = typeWantToIntercept.GetMethod("RegisterNew", BindingFlags.Public | BindingFlags.Instance);
+            Type typeWantToIntercept = typeof(IUnitOfWork);
+            MethodInfo addMethod = typeWantToIntercept.GetMethod("Commit", BindingFlags.Public | BindingFlags.Instance);
             Assert.IsNotNull(addMethod);
 
             ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
@@ -93,14 +101,13 @@ namespace BDDD.Tests.Interceptions
                 new InjectionConstructor(nhibernateCfg));
             container.RegisterType<IRepositoryContext, NHibernateContext>(
                 new InjectionConstructor(new ResolvedParameter<INHibernateConfiguration>()));
-            container.RegisterType<IRepository<ItemCategory>, NHibernateRepository<ItemCategory>>(
-                new InjectionConstructor(new ResolvedParameter<IRepositoryContext>()));
 
             using (IRepositoryContext context = ServiceLocator.Instance.GetService<IRepositoryContext>())
             {
                 IRepository<ItemCategory> customerRepository = context.GetRepository<ItemCategory>();
                 ItemCategory itemCategory = new ItemCategory { CategoryName = "日常用品" };
 
+                //这里的cutsomerRepository没有使用透明代理，所以他的方法不会被拦截
                 customerRepository.Add(itemCategory);
                 context.Commit();
             }
