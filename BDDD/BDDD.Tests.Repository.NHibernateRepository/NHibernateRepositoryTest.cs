@@ -46,7 +46,8 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
         static void application_AppInitEvent(IConfigSource source, ObjectContainer.IObjectContainer objectContainer)
         {
-            Assert.AreEqual(AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>(), AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>());
+            Assert.AreEqual(AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>(), 
+                AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>());
 
             UnityContainer c = objectContainer.GetRealObjectContainer<UnityContainer>();
             c.RegisterType<INHibernateConfiguration, NHibernateConfiguration>(
@@ -326,14 +327,13 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                 //新开一个session进行查询
             }
 
-
             IEnumerable<Order> orders = null;
             using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orders = orderRepository.GetAll(
                    Specification<Order>.Eval(o => o.OrderName != null)
-                   , 1, 3, o => o.OrderName, SortOrder.Descending, o => o.Items, o => o.Customer
+                   , 1, 3, o => o.OrderName, SortOrder.Descending,o=>o.Customer,o=>o.Items
                    );
             }
 
@@ -343,6 +343,9 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
             Assert.IsTrue(orders.First().Customer != null);
             Assert.IsTrue(orders.First().Customer.Name == "scott");
+
+            Assert.IsTrue(orders.First().Items != null);
+            Assert.IsTrue(orders.First().Items[0].Quantity > 0);
         }
     }
 }
