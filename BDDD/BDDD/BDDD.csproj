@@ -47,6 +47,10 @@
     <Compile Include="Application\AppInitEventArgs.cs" />
     <Compile Include="Application\AppRuntime.cs" />
     <Compile Include="BDDDException.cs" />
+    <Compile Include="Cache\AbsoluteTimeExpiration.cs" />
+    <Compile Include="Cache\Cache.cs" />
+    <Compile Include="Cache\ICache.cs" />
+    <Compile Include="Cache\ICacheExpiration.cs" />
     <Compile Include="Config\AppConfigSource.cs" />
     <Compile Include="Config\BDDDConfiguration.Partial.cs" />
     <Compile Include="Config\BDDDConfiguration.cs" />

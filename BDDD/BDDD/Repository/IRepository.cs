@@ -48,6 +48,11 @@ namespace BDDD.Repository
         /// <returns>聚合根</returns>
         TAggregateRoot GetByKey(object key);
 
+        /// <summary>
+        /// 获得单个聚合根
+        /// </summary>
+        /// <param name="specification">搜索条件</param>
+        /// <returns>返回的聚合根，如果不存在则为null</returns>
         TAggregateRoot GetSignal(ISpecification<TAggregateRoot> specification);
 
         #region GetAll
@@ -72,9 +77,8 @@ namespace BDDD.Repository
         /// <param name="pageNumber">当前页</param>
         /// <param name="pageSize">每页页数</param>
         /// <param name="sortPredicate">排序属性</param>
-        /// <param name="eagerLoadingProperties">需要提前加载的属性</param>
         /// <returns></returns>
-        IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder,params Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties);
+        IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
 
         /// <summary>
         ///  得到当前对象仓储中的所有聚合根对象
@@ -83,6 +87,16 @@ namespace BDDD.Repository
         /// <param name="pageSize">每页大小</param>
         /// <returns>当前页的聚合根</returns>
         IEnumerable<TAggregateRoot> GetAll(int pageNumber, int pageSize);
+
+        /// <summary>
+        ///  得到当前对象仓储中的所有聚合根对象
+        /// </summary>
+        /// <param name="pageNumber">页号</param>
+        /// <param name="pageSize">每页大小</param>
+        /// <param name="sortPredicate">排序属性</param>
+        /// <param name="sortOrder">排序方式</param>
+        /// <returns>当前页的聚合根</returns>
+        IEnumerable<TAggregateRoot> GetAll(int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
 
         #endregion
     }

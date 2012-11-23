@@ -65,7 +65,7 @@ namespace BDDD.Repository.NHibernate
             return session.Query<TAggregateRoot>().Where(specification.GetExpression());
         }
 
-        protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder, params System.Linq.Expressions.Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties)
+        protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder)
         {
             if (pageNumber <= 0)
                 throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "PageNumber必须大于0");
@@ -87,17 +87,44 @@ namespace BDDD.Repository.NHibernate
                 default:
                     break;
             }
-
-            foreach (var eager in eagerLoadingProperties)
-            {
-                query = query.Fetch(eager);
-            }
             return query.ToList();
         }
 
         protected override IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize)
         {
-            throw new NotImplementedException();
+            if (pageNumber <= 0)
+                throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "PageNumber必须大于0");
+            if (pageSize <= 0)
+                throw new ArgumentOutOfRangeException("pageSize", pageSize, "pageSize必须大于0");
+            var query = this.session.Query<TAggregateRoot>();
+            int skip = (pageNumber - 1) * pageSize;
+            int take = pageSize;
+            return query.Skip(skip).Take(take).ToList();
+        }
+
+        protected override IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder)
+        {
+            if (pageNumber <= 0)
+                throw new ArgumentOutOfRangeException("pageNumber", pageNumber, "PageNumber必须大于0");
+            if (pageSize <= 0)
+                throw new ArgumentOutOfRangeException("pageSize", pageSize, "pageSize必须大于0");
+            var query = this.session.Query<TAggregateRoot>();
+            int skip = (pageNumber - 1) * pageSize;
+            int take = pageSize;
+            switch (sortOrder)
+            {
+                case SortOrder.Ascending:
+                    if (sortPredicate != null)
+                        query = query.OrderBy(sortPredicate).Skip(skip).Take(take);
+                    break;
+                case SortOrder.Descending:
+                    if (sortPredicate != null)
+                        query = query.OrderByDescending(sortPredicate).Skip(skip).Take(take);
+                    break;
+                default:
+                    break;
+            }
+            return query.ToList();
         }
 
         #endregion

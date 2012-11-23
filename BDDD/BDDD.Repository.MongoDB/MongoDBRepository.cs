@@ -54,7 +54,7 @@ namespace BDDD.Repository.MongoDB
             throw new NotImplementedException();
         }
 
-        protected override IEnumerable<TAggregateRoot> DoGetAll(Specification.ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder, params System.Linq.Expressions.Expression<Func<TAggregateRoot, object>>[] eagerLoadingProperties)
+        protected override IEnumerable<TAggregateRoot> DoGetAll(Specification.ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder)
         {
             throw new NotImplementedException();
         }

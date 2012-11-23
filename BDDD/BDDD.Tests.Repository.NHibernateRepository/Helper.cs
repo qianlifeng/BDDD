@@ -24,6 +24,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                           .ConnectionString(s => s.Server("localhost")
                                   .Database("BDDD_NHibernate")
                                   .TrustedConnection())
+                                  .ShowSql()
                   )
                   .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CustomerMap).Assembly)
                       .Conventions.Add(ForeignKey.EndsWith("Id"))
