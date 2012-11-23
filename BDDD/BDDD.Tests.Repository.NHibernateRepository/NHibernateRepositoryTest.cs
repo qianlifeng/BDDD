@@ -46,7 +46,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
         static void application_AppInitEvent(IConfigSource source, ObjectContainer.IObjectContainer objectContainer)
         {
-            Assert.AreEqual(AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>(), 
+            Assert.AreEqual(AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>(),
                 AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>());
 
             UnityContainer c = objectContainer.GetRealObjectContainer<UnityContainer>();
@@ -208,6 +208,30 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         }
 
         [TestMethod]
+        [Description("获得单个聚合根")]
+        public void NHibernateRepositoryTest_GetSignalAggregateRoot()
+        {
+            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            {
+                IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
+                Customer u1 = new Customer("scott1", 12);
+                Customer u2 = new Customer("scott2", 12);
+                Customer u3 = new Customer("scott3", 12);
+                customerRepository.Add(u1);
+                customerRepository.Add(u2);
+                customerRepository.Add(u3);
+                ctx.Commit();
+
+                Customer customers = customerRepository.GetSignal(Specification<Customer>.Eval(o => o.Name == "scott1"));
+                Assert.IsNotNull(customers);
+                Assert.AreEqual<string>("scott1", customers.Name);
+
+                customers = customerRepository.GetSignal(Specification<Customer>.Eval(o => o.Name == "scott112131313"));
+                Assert.IsNull(customers);
+            }
+        }
+
+        [TestMethod]
         [Description("获得所有聚合根")]
         public void NHibernateRepositoryTest_GetAllAggregateRootToRepository()
         {
@@ -294,6 +318,88 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             Assert.IsNotNull(orders);
             Assert.AreEqual<int>(3, orders.Count());
             Assert.AreEqual<string>("7", orders.First().OrderName);
+        }
+
+        [TestMethod]
+        [Description("获得指定条件的所有聚合根_带分页")]
+        public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_Page()
+        {
+            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            {
+                IRepository<Order> orderRepository = ctx.GetRepository<Order>();
+                Order u1 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "1", postalAddress = address1 };
+                Order u2 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "2", postalAddress = address1 };
+                Order u3 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "3", postalAddress = address1 };
+                Order u4 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "4", postalAddress = address1 };
+                Order u5 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "5", postalAddress = address1 };
+                Order u6 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "6", postalAddress = address1 };
+                Order u7 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "7", postalAddress = address1 };
+
+                orderRepository.Add(u1);
+                orderRepository.Add(u2);
+                orderRepository.Add(u3);
+                orderRepository.Add(u4);
+                orderRepository.Add(u5);
+                orderRepository.Add(u6);
+                orderRepository.Add(u7);
+                ctx.Commit();
+
+                //如果在同一个session下面获取所有的order，那么这个order的子对象会被加载
+                //因为上面添加的时候已经存在于这个session里面了。所以为了测试立即加载应该
+                //新开一个session进行查询
+            }
+
+            IEnumerable<Order> orders = null;
+            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            {
+                IRepository<Order> orderRepository = ctx.GetRepository<Order>();
+                orders = orderRepository.GetAll(1, 3);
+            }
+
+            Assert.IsNotNull(orders);
+            Assert.AreEqual<int>(3, orders.Count());
+        }
+
+        [TestMethod]
+        [Description("获得指定条件的所有聚合根_带分页_没有条件")]
+        public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_NoSpecifiaction_Page()
+        {
+            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            {
+                IRepository<Order> orderRepository = ctx.GetRepository<Order>();
+                Order u1 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "1", postalAddress = address1 };
+                Order u2 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "2", postalAddress = address1 };
+                Order u3 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "3", postalAddress = address1 };
+                Order u4 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "4", postalAddress = address1 };
+                Order u5 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "5", postalAddress = address1 };
+                Order u6 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "6", postalAddress = address1 };
+                Order u7 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "7", postalAddress = address1 };
+
+                orderRepository.Add(u1);
+                orderRepository.Add(u2);
+                orderRepository.Add(u3);
+                orderRepository.Add(u4);
+                orderRepository.Add(u5);
+                orderRepository.Add(u6);
+                orderRepository.Add(u7);
+                ctx.Commit();
+
+                //如果在同一个session下面获取所有的order，那么这个order的子对象会被加载
+                //因为上面添加的时候已经存在于这个session里面了。所以为了测试立即加载应该
+                //新开一个session进行查询
+            }
+
+            IEnumerable<Order> orders = null;
+            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            {
+                IRepository<Order> orderRepository = ctx.GetRepository<Order>();
+                orders = orderRepository.GetAll(1, 3, o => o.OrderName, SortOrder.Ascending
+                   );
+            }
+
+            Assert.IsNotNull(orders);
+            Assert.AreEqual<int>(3, orders.Count());
+            Assert.AreEqual<string>("1", orders.First().OrderName);
         }
     }
 }

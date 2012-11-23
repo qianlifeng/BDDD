@@ -36,8 +36,9 @@ namespace BDDD.Repository
         protected abstract TAggregateRoot DoGetSignal(ISpecification<TAggregateRoot> specification);
         protected abstract IEnumerable<TAggregateRoot> DoGetAll();
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification);
-        protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder);
+        protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize);
+        protected abstract IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
 
         #endregion
 
@@ -88,7 +89,7 @@ namespace BDDD.Repository
             return DoGetAll(specification);
         }
 
-        public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder)
+        public IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder)
         {
             return DoGetAll(specification, pageNumber, pageSize, sortPredicate, sortOrder);
         }
@@ -98,9 +99,11 @@ namespace BDDD.Repository
             return DoGetAll(pageNumber, pageSize);
         }
 
+        public IEnumerable<TAggregateRoot> GetAll(int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder)
+        {
+            return DoGetAll(pageNumber, pageSize, sortPredicate, sortOrder);
+        }
+
         #endregion
-
-
-
     }
 }
