@@ -25,5 +25,10 @@ namespace BDDD.ObjectContainer
         {
             return objectContainer.GetService<T>();
         }
+
+        public  T GetService<T>(string name) where T : class
+        {
+            return objectContainer.GetService<T>(name);
+        }
     }
 }

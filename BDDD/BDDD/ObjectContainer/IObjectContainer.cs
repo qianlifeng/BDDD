@@ -5,9 +5,18 @@ using System.Text;
 
 namespace BDDD.ObjectContainer
 {
-    public interface IObjectContainer:IServiceProvider
+    public interface IObjectContainer : IServiceProvider
     {
         T GetService<T>() where T : class;
+
+        /// <summary>
+        /// 从容器中根据指定的名字获得已注册的对象，
+        /// 某些情况下存在需要同时用到一个接口的多个实现类
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        T GetService<T>(string name) where T : class;
 
         /// <summary>
         /// 具有从配置文件加载依赖关系的能力

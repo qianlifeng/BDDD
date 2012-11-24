@@ -8,20 +8,20 @@ namespace BDDD.Cache
     /// <summary>
     /// 绝对时间过期策略，即从缓存项加入开始，达到固定时间后过期
     /// </summary>
-    public class AbsoluteTimeExpiration : ICacheExpiration
+    public abstract class AbsoluteTimeExpiration : ICacheExpiration
     {
-        private DateTime startTime;
-        private DateTime expirationTime;
+        protected TimeSpan expirationTime;
+
+        protected abstract T DoGetExpirationStrategy<T>() where T : class;
 
         public AbsoluteTimeExpiration(TimeSpan timespan)
         {
-            startTime = DateTime.Now;
-            expirationTime = startTime.Add(timespan);
+            expirationTime = timespan;
         }
 
-        public bool HasExpirationed()
+        public T GetExpirationStrategy<T>() where T:class
         {
-            return DateTime.Now > expirationTime;
+            return DoGetExpirationStrategy<T>();
         }
     }
 }

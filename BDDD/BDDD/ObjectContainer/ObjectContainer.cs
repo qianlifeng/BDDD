@@ -66,6 +66,7 @@ namespace BDDD.ObjectContainer
         }
 
         protected abstract T DoGetService<T>() where T : class;
+        protected abstract T DoGetService<T>(string name) where T : class;
         protected abstract object DoGetService(Type serviceType);
         protected abstract T DoGetRealObjectContainer<T>() where T : class;
         protected abstract void DoInitializeFromConfigFile(string configSectionName);
@@ -75,6 +76,12 @@ namespace BDDD.ObjectContainer
         public T GetService<T>() where T : class
         {
             T serviceImpl = DoGetService<T>();
+            return GetProxyObject(typeof(T), serviceImpl) as T;
+        }
+
+        public T GetService<T>(string name) where T : class
+        {
+            T serviceImpl = DoGetService<T>(name);
             return GetProxyObject(typeof(T), serviceImpl) as T;
         }
 
@@ -100,5 +107,6 @@ namespace BDDD.ObjectContainer
         }
 
         #endregion
+
     }
 }

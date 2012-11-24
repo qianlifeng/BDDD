@@ -24,6 +24,11 @@ namespace BDDD.ObjectContainers.Unity
             return realUnityContainer.Resolve<T>();
         }
 
+        protected override T DoGetService<T>(string name)
+        {
+            return realUnityContainer.Resolve<T>(name);
+        }
+
         protected override object DoGetService(Type serviceType)
         {
             return realUnityContainer.Resolve(serviceType);
@@ -41,5 +46,7 @@ namespace BDDD.ObjectContainers.Unity
             UnityConfigurationSection section = (UnityConfigurationSection)ConfigurationManager.GetSection(configSectionName);
             section.Configure(realUnityContainer);
         }
+
+
     }
 }

@@ -5,8 +5,11 @@ using System.Text;
 
 namespace BDDD.Cache
 {
-    interface ICacheExpiration
+    /// <summary>
+    /// 实现此接口的类表示了不同的缓存过期策略
+    /// </summary>
+    public interface ICacheExpiration
     {
-        bool HasExpirationed();
+        T GetExpirationStrategy<T>() where T : class;
     }
 }
