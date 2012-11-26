@@ -22,7 +22,7 @@ namespace BDDD.Cache.MSEnterpriseLibrary
                     typeof(T).AssemblyQualifiedName,
                     typeof(ICacheItemExpiration).AssemblyQualifiedName);
 
-            SlidingTime slidingTime = new SlidingTime(expirationTime);
+            SlidingTime slidingTime = new SlidingTime(ExpirationTime);
             return slidingTime as T;
         }
     }

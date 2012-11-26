@@ -10,8 +10,7 @@ namespace BDDD.Cache
     /// </summary>
     public abstract class AbsoluteTimeExpiration : ICacheExpiration
     {
-        protected TimeSpan expirationTime;
-
+        private TimeSpan expirationTime;
         protected abstract T DoGetExpirationStrategy<T>() where T : class;
 
         public AbsoluteTimeExpiration(TimeSpan timespan)
@@ -19,7 +18,15 @@ namespace BDDD.Cache
             expirationTime = timespan;
         }
 
-        public T GetExpirationStrategy<T>() where T:class
+        /// <summary>
+        /// 过期时间
+        /// </summary>
+        public TimeSpan ExpirationTime
+        {
+            get { return expirationTime; }
+        }
+
+        public T GetExpirationStrategy<T>() where T : class
         {
             return DoGetExpirationStrategy<T>();
         }
