@@ -11,6 +11,7 @@ namespace BDDD.Cache.Memcached
             : base(timeSpan)
         {
 
+
         }
 
         protected override T DoGetExpirationStrategy<T>()

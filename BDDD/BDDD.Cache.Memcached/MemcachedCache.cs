@@ -13,7 +13,7 @@ namespace BDDD.Cache.Memcached
     /// </summary>
     public class MemcachedCache : Cache
     {
-        MemcachedClient client = new MemcachedClient("memcached");
+        private readonly MemcachedClient client = new MemcachedClient("memcached");
 
         protected override T DoGetCache<T>(string key)
         {
@@ -22,7 +22,11 @@ namespace BDDD.Cache.Memcached
 
         protected override void DoAddCache(string key, object obj, ICacheExpiration expiration)
         {
-            client.Store(StoreMode.Add, key, obj, expiration.GetExpirationStrategy<AbsoluteTimeExpiration>().ExpirationTime);
+            bool isSuccess = client.Store(StoreMode.Add, key, obj, expiration.GetExpirationStrategy<AbsoluteTimeExpiration>().ExpirationTime);
+            if (!isSuccess)
+            {
+                throw new CacheException("添加失败");
+            }
         }
 
         protected override void DoRemoveCache(string key)
