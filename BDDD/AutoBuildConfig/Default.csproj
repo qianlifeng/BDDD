@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+    </PropertyGroup>
+    <Target Name="Build">
+        <RemoveDir Directories="..\bin" />
+        <CallTarget Targets="BuildProject" />
+        <CallTarget Targets="AfterBuild" />
+    </Target>
+    <Target  Name="BuildProject">
+        <MSBuild Projects="BDDD.csproj"/>
+        <MSBuild Projects="BDDD.ObjectContainers.Unity.csproj"/>
+        <MSBuild Projects="BDDD.Repository.NHibernate.csproj"/>
+        <MSBuild Projects="BDDD.Cache.MSEnterpriseLibrary.csproj"/>
+    </Target>
+    <Target Name="AfterBuild">
+        <ItemGroup>
+            <DeleteAfterBuild Include="..\bin\*.xml" />
+            <DeleteAfterBuild Include="..\bin\*.pdb" />
+        </ItemGroup>
+        <RemoveDir Directories="obj" />
+        <Delete Files="@(DeleteAfterBuild)" />
+    </Target>
+</Project>
