@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BDDD.Tests.DomainModel
 {
-    public class Order : IAggregateRoot
+    public class Order : IAggregateRoot<Guid>
     {
         public virtual string OrderName { get; set; }
         public virtual DateTime CreatedDate { get; set; }
@@ -14,10 +14,5 @@ namespace BDDD.Tests.DomainModel
         public virtual PostalAddress postalAddress { get; set; }
 
         public virtual Guid ID { get; set; }
-
-        public virtual bool Equals(IEntity other)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

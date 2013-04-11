@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BDDD.Tests.DomainModel
 {
-    public class ItemCategory : IAggregateRoot
+    public class ItemCategory : IAggregateRoot<Guid>
     {
         public virtual string CategoryName { get; set; }
 
@@ -15,9 +15,6 @@ namespace BDDD.Tests.DomainModel
             set;
         }
 
-        public virtual bool Equals(IEntity other)
-        {
-            throw new NotImplementedException();
-        }
+  
     }
 }

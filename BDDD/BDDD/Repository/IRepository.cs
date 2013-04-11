@@ -9,7 +9,7 @@ namespace BDDD.Repository
     /// 实现此接口的类是一个聚合根仓储
     /// </summary>
     /// <typeparam name="TAggregateRoot">聚合根</typeparam>
-    public interface IRepository<TAggregateRoot> where TAggregateRoot : class, IAggregateRoot
+    public interface IRepository<TAggregateRoot> where TAggregateRoot : class
     {
         /// <summary>
         /// 获得当前仓储所处的仓储上下文对象

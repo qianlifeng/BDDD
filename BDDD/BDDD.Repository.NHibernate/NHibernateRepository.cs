@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 
 namespace BDDD.Repository.NHibernate
 {
-    public class NHibernateRepository<TAggregateRoot> : Repository<TAggregateRoot> where TAggregateRoot : class,IAggregateRoot
+    public class NHibernateRepository<TAggregateRoot> : Repository<TAggregateRoot> where TAggregateRoot : class
     {
         private readonly ISession session = null;
 

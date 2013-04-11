@@ -36,6 +36,6 @@ namespace BDDD.Repository
         /// <summary>
         /// 根据给定的聚合根，从当前的RepositoryContext中得到Repository对象
         /// </summary>
-        IRepository<TAggregateRoot> GetRepository<TAggregateRoot>() where TAggregateRoot : class, IAggregateRoot;
+        IRepository<TAggregateRoot> GetRepository<TAggregateRoot>() where TAggregateRoot : class;
     }
 }

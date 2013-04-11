@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BDDD.Tests.DomainModel
 {
-    public class PostalAddress:IEntity
+    public class PostalAddress:IEntity<Guid>
     {
         public virtual string City { get; set; }
         public virtual string Street { get; set; }
@@ -13,9 +13,5 @@ namespace BDDD.Tests.DomainModel
 
         public virtual Guid ID { get; set; }
 
-        public virtual bool Equals(IEntity other)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

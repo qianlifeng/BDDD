@@ -73,8 +73,15 @@ namespace BDDD.Repository.NHibernate
             committed = false;
         }
 
-        public IRepository<TAggregateRoot> GetRepository<TAggregateRoot>() where TAggregateRoot : class, IAggregateRoot
+        public IRepository<TAggregateRoot> GetRepository<TAggregateRoot>() where TAggregateRoot : class
         {
+            //约定大于配置，这里不再校验
+            //为了api接口的美观，这里没有直接使用泛型约束TAggregateRoot一定要实现IAggregate接口
+            //if (typeof(TAggregateRoot).GetInterface("IAggregateRoot", true) == null)
+            //{
+            //    throw new RepositoryException("聚合根必须实现IAggregateRoot接口");
+            //}
+
             string key = typeof(TAggregateRoot).AssemblyQualifiedName;
             if (repositories.ContainsKey(key))
             {

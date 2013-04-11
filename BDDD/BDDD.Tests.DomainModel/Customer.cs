@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BDDD.Tests.DomainModel
 {
-    public class Customer : IAggregateRoot
+    public class Customer : IAggregateRoot<Guid>
     {
         public Customer() { }
 
@@ -27,9 +27,5 @@ namespace BDDD.Tests.DomainModel
             set;
         }
 
-        public virtual bool Equals(IEntity other)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

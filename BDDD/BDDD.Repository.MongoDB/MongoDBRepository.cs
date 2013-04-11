@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BDDD.Repository.MongoDB
 {
-    public class MongoDBRepository<TAggregateRoot> : Repository<TAggregateRoot> where TAggregateRoot : class,IAggregateRoot
+    public class MongoDBRepository<TAggregateRoot> : Repository<TAggregateRoot> where TAggregateRoot : class
     {
         IMongoDBContext context;
 

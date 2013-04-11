@@ -10,9 +10,10 @@ namespace BDDD.Repository
     /// <summary>
     /// 仓储基类
     /// </summary>
-    /// <typeparam name="TAggregateRoot"></typeparam>
+    /// <typeparam name="TAggregateRoot">仓储类型</typeparam>
+    /// <typeparam name="T">仓储主键类型</typeparam>
     public abstract class Repository<TAggregateRoot> : IRepository<TAggregateRoot>
-        where TAggregateRoot : class,IAggregateRoot
+        where TAggregateRoot : class
     {
         private readonly IRepositoryContext context;
 
