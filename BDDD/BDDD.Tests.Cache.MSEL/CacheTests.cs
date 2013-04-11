@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BDDD.Cache;
-using BDDD.Tests.DomainModel;
-using BDDD.Tests.Common.Configuration;
-using BDDD.Config;
 using BDDD.Application;
-using Microsoft.Practices.Unity;
+using BDDD.Cache;
 using BDDD.Cache.MSEnterpriseLibrary;
+using BDDD.Config;
 using BDDD.ObjectContainer;
-using Microsoft.Practices.EnterpriseLibrary.Caching;
-using System.Threading;
+using BDDD.Tests.Common.Configuration;
+using BDDD.Tests.DomainModel;
+using Microsoft.Practices.Unity;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BDDD.Tests.Cache.MSEL
 {
@@ -41,10 +36,9 @@ namespace BDDD.Tests.Cache.MSEL
         public void AddCache()
         {
             Customer c = new Customer("scott1", 10);
-            BDDD.Cache.CacheManager.AddCache("test1", c,
-                ServiceLocator.Instance.GetService<AbsoluteTimeExpiration>("SCache"));
+            CacheManager.AddCache("test1", c,ServiceLocator.Instance.GetService<AbsoluteTimeExpiration>("SCache"));
 
-            Customer cachedCustomer = BDDD.Cache.CacheManager.GetCache<Customer>("test1");
+            Customer cachedCustomer = CacheManager.GetCache<Customer>("test1");
             Assert.IsNotNull(cachedCustomer);
             Assert.AreEqual<string>(cachedCustomer.Name, "scott1");
         }

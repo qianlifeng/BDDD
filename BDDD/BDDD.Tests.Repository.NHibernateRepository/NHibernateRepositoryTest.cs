@@ -13,6 +13,7 @@ using BDDD.Repository.NHibernate;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Automapping;
 using BDDD.Specification;
+using BDDD.ObjectContainer;
 
 namespace BDDD.Tests.Repository.NHibernateRepository
 {
@@ -92,7 +93,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("添加聚合根_内部不包含其他实体")]
         public void NHibernateRepositoryTest_AddAggregateRootToRepository()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (IRepositoryContext ctx = ServiceLocator.Instance.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
                 customerRepository.Add(customerScott);
