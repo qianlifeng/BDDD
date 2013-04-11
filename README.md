@@ -14,7 +14,8 @@ BDDD,Base Library For DDD Partern
 
 **如何使用**  
 1. 下载本项目，解压后找到根目录下的AutoBuild.bat运行（确定本机已经安装.net framework 3.5）  
-2. 运行成功后会自动在根目录下生成一个bin目录，里面包含了所有BDDD的DLL，直接在项目中引用这些DLL即可。
+2. 运行成功后会自动在根目录下生成一个bin目录，里面包含了所有BDDD的DLL，直接在项目中引用这些DLL即可。  
+3. 阅读 [如何在项目中使用BDDD？](https://github.com/qianlifeng/BDDD/wiki/%E5%A6%82%E4%BD%95%E9%9B%86%E5%90%88BDDD%E5%88%B0%E9%A1%B9%E7%9B%AE%E4%B8%AD%EF%BC%9F)
 
 **项目结构**  
 1. BDDD 项目核心，定义了用于领域开发的各种概念模型。包括  
