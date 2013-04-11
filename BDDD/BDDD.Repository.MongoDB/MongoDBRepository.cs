@@ -68,5 +68,15 @@ namespace BDDD.Repository.MongoDB
         {
             throw new NotImplementedException();
         }
+
+        protected override IEnumerable<TAggregateRoot> DoGetAll(System.Linq.Expressions.Expression<Func<TAggregateRoot, bool>> specification)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override IEnumerable<TAggregateRoot> DoGetAll(System.Linq.Expressions.Expression<Func<TAggregateRoot, bool>> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -37,6 +37,8 @@ namespace BDDD.Repository
         protected abstract IEnumerable<TAggregateRoot> DoGetAll();
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification);
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
+        protected abstract IEnumerable<TAggregateRoot> DoGetAll(Expression<Func<TAggregateRoot, bool>> specification);
+        protected abstract IEnumerable<TAggregateRoot> DoGetAll(Expression<Func<TAggregateRoot, bool>> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize);
         protected abstract IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
 
@@ -94,6 +96,16 @@ namespace BDDD.Repository
             return DoGetAll(specification, pageNumber, pageSize, sortPredicate, sortOrder);
         }
 
+        public IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, bool>> specification)
+        {
+            return DoGetAll(specification);
+        }
+
+        public IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, bool>> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder)
+        {
+            return DoGetAll(specification, pageNumber, pageSize, sortPredicate, sortOrder);
+        }
+
         public IEnumerable<TAggregateRoot> GetAll(int pageNumber, int pageSize)
         {
             return DoGetAll(pageNumber, pageSize);
@@ -105,5 +117,7 @@ namespace BDDD.Repository
         }
 
         #endregion
+
+
     }
 }

@@ -318,6 +318,17 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             Assert.IsNotNull(orders);
             Assert.AreEqual<int>(3, orders.Count());
             Assert.AreEqual<string>("7", orders.First().OrderName);
+
+            orders = null;
+            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            {
+                IRepository<Order> orderRepository = ctx.GetRepository<Order>();
+                orders = orderRepository.GetAll(o => o.OrderName != null, 1, 3, o => o.OrderName, SortOrder.Descending);
+            }
+
+            Assert.IsNotNull(orders);
+            Assert.AreEqual<int>(3, orders.Count());
+            Assert.AreEqual<string>("7", orders.First().OrderName);
         }
 
         [TestMethod]

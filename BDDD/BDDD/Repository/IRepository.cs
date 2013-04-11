@@ -73,12 +73,29 @@ namespace BDDD.Repository
         /// <summary>
         /// 得到当前对象仓储中的所有聚合根对象
         /// </summary>
+        /// <param name="specification">要筛选的表达式</param>
+        /// <returns></returns>
+        IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, bool>> specification);
+
+        /// <summary>
+        /// 得到当前对象仓储中的所有聚合根对象
+        /// </summary>
         /// <param name="specification">要筛选的规约</param>
         /// <param name="pageNumber">当前页</param>
         /// <param name="pageSize">每页页数</param>
         /// <param name="sortPredicate">排序属性</param>
         /// <returns></returns>
         IEnumerable<TAggregateRoot> GetAll(ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
+
+        /// <summary>
+        /// 得到当前对象仓储中的所有聚合根对象
+        /// </summary>
+        /// <param name="specification">要筛选的规约</param>
+        /// <param name="pageNumber">当前页</param>
+        /// <param name="pageSize">每页页数</param>
+        /// <param name="sortPredicate">排序属性</param>
+        /// <returns></returns>
+        IEnumerable<TAggregateRoot> GetAll(Expression<Func<TAggregateRoot, bool>> specification, int pageNumber, int pageSize, Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder);
 
         /// <summary>
         ///  得到当前对象仓储中的所有聚合根对象
