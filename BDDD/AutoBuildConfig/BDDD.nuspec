@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>BDDD</id>
+        <version>0.1.0.0</version>
+        <authors>qianlifeng</authors>
+        <owners>qianlifeng</owners>
+        <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+        <projectUrl>https://github.com/qianlifeng/BDDD</projectUrl>
+        <iconUrl>http://www.nuget.org/favicon.ico</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Base Library For DDD Partern</description>
+        <releaseNotes></releaseNotes>
+        <copyright>Copyright 2013</copyright>
+        <tags>DDD</tags>
+        <dependencies>
+            <dependency id="Castle.Core" version="3.1.0" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\bin\BDDD.dll" target="lib\net35" />
+    </files>
+</package>

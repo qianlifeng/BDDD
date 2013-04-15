@@ -1,5 +1,7 @@
 ﻿该项目学习自：http://apworks.codeplex.com/
 
+已完成：
+1.主键标志扩展，不仅仅是guid （20130415）
+
 等待完善：
-1.主键标志扩展，不仅仅是guid
 2.Nhibernate的automapping
