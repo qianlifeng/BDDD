@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using BDDD.Commands;
 
-namespace BDDD.Tests.Buses.Commands
+namespace BDDD.Tests.Bus.Commands
 {
     public class ChangeCategoryNameCommand : ICommand<Guid>
     {

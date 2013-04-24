@@ -29,7 +29,8 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                   .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CustomerMap).Assembly)
                       .Conventions.Add(ForeignKey.EndsWith("Id"))
                       )
-                  .BuildConfiguration();
+                .ExposeConfiguration(c => c.SetProperty("current_session_context_class", "web"))
+                .BuildConfiguration();
 
             ResetDB();
             return nhibernateCfg;

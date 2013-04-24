@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using BDDD.Commands;
 using BDDD.Repository;
-using BDDD.Tests.Buses.Commands;
+using BDDD.Tests.Bus.Commands;
 
-namespace BDDD.Tests.Buses.CommandHandlers
+namespace BDDD.Tests.Bus.CommandHandlers
 {
     public class ChangeCategoryNameCommandHandler : CommandHandler<ChangeCategoryNameCommand>
     {
@@ -19,6 +19,7 @@ namespace BDDD.Tests.Buses.CommandHandlers
                 //repository.Save<SourcedCustomer>(cust);
                 //repository.Commit();
                 //return true;
+                Console.WriteLine("ChangeCategoryNameCommandHandler was handled");
                 return true;
             }
         }

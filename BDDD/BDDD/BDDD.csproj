@@ -47,6 +47,9 @@
     <Compile Include="Application\AppInitEventArgs.cs" />
     <Compile Include="Application\AppRuntime.cs" />
     <Compile Include="BDDDException.cs" />
+    <Compile Include="Bus\IEventBus.cs" />
+    <Compile Include="Bus\IBus.cs" />
+    <Compile Include="Bus\ICommandBus.cs" />
     <Compile Include="Cache\AbsoluteTimeExpiration.cs" />
     <Compile Include="Cache\Cache.cs" />
     <Compile Include="Cache\CacheException.cs" />
@@ -64,8 +67,11 @@
     <Compile Include="Config\IConfigSource.cs" />
     <Compile Include="Config\ManualConfigSource.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Events\EventHandler.cs" />
     <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IHandler.cs" />

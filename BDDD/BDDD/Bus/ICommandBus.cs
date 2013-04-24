@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BDDD.Commands;
 
-namespace BDDD.Tests.Buses
+namespace BDDD.Bus
 {
-    public class Class1
+    public interface ICommandBus<TKey>: IBus<ICommand<TKey>>
     {
     }
 }
