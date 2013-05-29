@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NHibernate.Cfg;
+﻿using NHibernate.Cfg;
 
 namespace BDDD.Repository.NHibernate
 {
@@ -11,13 +7,11 @@ namespace BDDD.Repository.NHibernate
         private Configuration config;
 
         public NHibernateConfiguration()
-            : base()
         {
             config = new Configuration().Configure();
         }
 
         public NHibernateConfiguration(string fileName)
-            : base()
         {
             config = new Configuration().Configure(fileName);
         }

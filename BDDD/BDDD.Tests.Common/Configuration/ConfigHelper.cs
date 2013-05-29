@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BDDD.Config;
+﻿using BDDD.Config;
+using BDDD.ObjectContainers.Unity;
 
 namespace BDDD.Tests.Common.Configuration
 {
@@ -10,13 +7,13 @@ namespace BDDD.Tests.Common.Configuration
     {
         public static ManualConfigSource GetManualConfigSource()
         {
-            ManualConfigSource source = new ManualConfigSource();
-            source.ObjectContainer = typeof(BDDD.ObjectContainers.Unity.UnityObjectContainer);
+            var source = new ManualConfigSource();
+            source.ObjectContainer = typeof (UnityObjectContainer);
             return source;
         }
 
         /// <summary>
-        /// 从配置文件中获得配置信息
+        ///     从配置文件中获得配置信息
         /// </summary>
         /// <returns></returns>
         public static IConfigSource GetAppConfigSource()

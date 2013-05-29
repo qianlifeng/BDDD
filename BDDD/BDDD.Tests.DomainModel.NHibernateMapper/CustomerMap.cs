@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 
 namespace BDDD.Tests.DomainModel.NHibernateMapper
 {
@@ -13,7 +9,7 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
             Id(m => m.ID).GeneratedBy.Guid();
             Map(m => m.Name);
             Map(m => m.Age);
-            HasMany<PostalAddress>(m => m.PostalAddresses).Cascade.SaveUpdate();
+            HasMany(m => m.PostalAddresses).Cascade.SaveUpdate();
         }
     }
 }

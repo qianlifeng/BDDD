@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace BDDD.Config
 {
@@ -15,14 +11,14 @@ namespace BDDD.Config
             LoadConfig(Constants.DEFALT_CONFIG_SECTION_NAME);
         }
 
-        private void LoadConfig(string configSectionName)
-        {
-            config = (BDDDConfigSection)ConfigurationManager.GetSection(configSectionName);
-        }
-
         public BDDDConfigSection Config
         {
             get { return config; }
+        }
+
+        private void LoadConfig(string configSectionName)
+        {
+            config = (BDDDConfigSection) ConfigurationManager.GetSection(configSectionName);
         }
     }
 }

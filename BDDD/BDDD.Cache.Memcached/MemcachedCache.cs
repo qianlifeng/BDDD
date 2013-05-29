@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Enyim.Caching;
+﻿using Enyim.Caching;
 using Enyim.Caching.Memcached;
 
 namespace BDDD.Cache.Memcached
 {
     /// <summary>
-    /// 基于Memcached的缓存类
-    /// 使用方法：http://blog.csdn.net/dinglang_2009/article/details/6917794
+    ///     基于Memcached的缓存类
+    ///     使用方法：http://blog.csdn.net/dinglang_2009/article/details/6917794
     /// </summary>
     public class MemcachedCache : Cache
     {
@@ -22,7 +18,8 @@ namespace BDDD.Cache.Memcached
 
         protected override void DoAddCache(string key, object obj, ICacheExpiration expiration)
         {
-            bool isSuccess = client.Store(StoreMode.Add, key, obj, expiration.GetExpirationStrategy<AbsoluteTimeExpiration>().ExpirationTime);
+            bool isSuccess = client.Store(StoreMode.Add, key, obj,
+                                          expiration.GetExpirationStrategy<AbsoluteTimeExpiration>().ExpirationTime);
             if (!isSuccess)
             {
                 throw new CacheException("添加失败");

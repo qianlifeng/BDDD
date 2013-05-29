@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BDDD.Config;
+﻿using BDDD.Config;
 
 namespace BDDD.Application
 {
@@ -11,16 +7,15 @@ namespace BDDD.Application
         private static readonly AppRuntime instance = new AppRuntime();
         private static readonly object lockObj = new object();
 
-        private App currentApplication = null;
+        private App currentApplication;
 
-        private AppRuntime() { }
+        private AppRuntime()
+        {
+        }
 
         public static AppRuntime Instance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
         }
 
         public App CurrentApplication

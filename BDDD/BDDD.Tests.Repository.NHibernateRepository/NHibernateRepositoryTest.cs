@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BDDD.Repository;
 using BDDD.Application;
 using BDDD.Config;
+using BDDD.ObjectContainer;
+using BDDD.Repository;
+using BDDD.Repository.NHibernate;
+using BDDD.Specification;
 using BDDD.Tests.Common.Configuration;
 using BDDD.Tests.DomainModel;
 using Microsoft.Practices.Unity;
-using BDDD.Repository.NHibernate;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Automapping;
-using BDDD.Specification;
-using BDDD.ObjectContainer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BDDD.Tests.Repository.NHibernateRepository
 {
@@ -22,17 +19,16 @@ namespace BDDD.Tests.Repository.NHibernateRepository
     {
         #region - Variable -
 
-
-        static App application;
-        Customer customerScott;
-        Order customersOrder1;
-        Order customersOrder2;
-        OrderItem orderItem1;
-        OrderItem orderItem2;
-        Item item1;
-        Item item2;
-        ItemCategory itemCategory;
-        PostalAddress address1;
+        private static App application;
+        private PostalAddress address1;
+        private Customer customerScott;
+        private Order customersOrder1;
+        private Order customersOrder2;
+        private Item item1;
+        private Item item2;
+        private ItemCategory itemCategory;
+        private OrderItem orderItem1;
+        private OrderItem orderItem2;
 
         #endregion
 
@@ -41,16 +37,17 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         {
             ManualConfigSource configSource = ConfigHelper.GetManualConfigSource();
             application = AppRuntime.Create(configSource);
-            application.AppInitEvent += new App.AppInitHandle(application_AppInitEvent);
+            application.AppInitEvent += application_AppInitEvent;
             application.Start();
         }
 
-        static void application_AppInitEvent(IConfigSource source, ObjectContainer.IObjectContainer objectContainer)
+        private static void application_AppInitEvent(IConfigSource source, IObjectContainer objectContainer)
         {
-            Assert.AreEqual(AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>(),
+            Assert.AreEqual(
+                AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>(),
                 AppRuntime.Instance.CurrentApplication.ObjectContainer.GetRealObjectContainer<UnityContainer>());
 
-            UnityContainer c = objectContainer.GetRealObjectContainer<UnityContainer>();
+            var c = objectContainer.GetRealObjectContainer<UnityContainer>();
             c.RegisterType<INHibernateConfiguration, NHibernateConfiguration>(
                 new InjectionConstructor(Helper.SetupNHibernateDatabase()));
             c.RegisterType<IRepositoryContext, NHibernateContext>(
@@ -62,38 +59,38 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         {
             Helper.ResetDB();
 
-            itemCategory = new ItemCategory { CategoryName = "日常用品" };
-            item1 = new Item { Category = itemCategory, ItemName = "洗衣粉" };
-            item2 = new Item { Category = itemCategory, ItemName = "肥皂" };
+            itemCategory = new ItemCategory {CategoryName = "日常用品"};
+            item1 = new Item {Category = itemCategory, ItemName = "洗衣粉"};
+            item2 = new Item {Category = itemCategory, ItemName = "肥皂"};
 
             customerScott = new Customer("scott", 11);
-            orderItem1 = new OrderItem { Item = item1, Quantity = 1 };
-            orderItem2 = new OrderItem { Item = item2, Quantity = 2 };
-            address1 = new PostalAddress { City = "苏州", Phone = "15", Street = "莲花新训" };
+            orderItem1 = new OrderItem {Item = item1, Quantity = 1};
+            orderItem2 = new OrderItem {Item = item2, Quantity = 2};
+            address1 = new PostalAddress {City = "苏州", Phone = "15", Street = "莲花新训"};
 
             customersOrder1 = new Order
-            {
-                CreatedDate = DateTime.Now,
-                Customer = customerScott,
-                OrderName = "账单1",
-                Items = new List<OrderItem> { orderItem1, orderItem2 },
-                postalAddress = address1
-            };
+                {
+                    CreatedDate = DateTime.Now,
+                    Customer = customerScott,
+                    OrderName = "账单1",
+                    Items = new List<OrderItem> {orderItem1, orderItem2},
+                    postalAddress = address1
+                };
             customersOrder2 = new Order
-            {
-                CreatedDate = DateTime.Now,
-                Customer = customerScott,
-                OrderName = "账单2",
-                Items = new List<OrderItem> { orderItem1 },
-                postalAddress = address1
-            };
+                {
+                    CreatedDate = DateTime.Now,
+                    Customer = customerScott,
+                    OrderName = "账单2",
+                    Items = new List<OrderItem> {orderItem1},
+                    postalAddress = address1
+                };
         }
 
         [TestMethod]
         [Description("添加聚合根_内部不包含其他实体")]
         public void NHibernateRepositoryTest_AddAggregateRootToRepository()
         {
-            using (IRepositoryContext ctx = ServiceLocator.Instance.GetService<IRepositoryContext>())
+            using (var ctx = ServiceLocator.Instance.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
                 customerRepository.Add(customerScott);
@@ -103,11 +100,11 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
                 Customer c = customerRepository.GetByKey(customerScott.ID);
                 Assert.IsNotNull(c);
-                Assert.AreEqual<Guid>(customerScott.ID, c.ID);
+                Assert.AreEqual(customerScott.ID, c.ID);
 
                 ItemCategory category = itemCategoryRepository.GetByKey(itemCategory.ID);
                 Assert.IsNotNull(category);
-                Assert.AreEqual<Guid>(category.ID, itemCategory.ID);
+                Assert.AreEqual(category.ID, itemCategory.ID);
             }
         }
 
@@ -115,7 +112,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("添加聚合根_内部包含其他未持久化实体")]
         public void NHibernateRepositoryTest_AddAggregateRootToRepository_WithChildEntityInside()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orderRepository.Add(customersOrder1);
@@ -131,14 +128,14 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("添加聚合根_内部包含其他已经持久化实体")]
         public void NHibernateRepositoryTest_AddAggregateRootToRepository_WithPersistedChildEntityInside()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
                 customerRepository.Add(customerScott);
                 ctx.Commit();
                 Customer c = customerRepository.GetByKey(customerScott.ID);
                 Assert.IsNotNull(c);
-                Assert.AreEqual<Guid>(customerScott.ID, c.ID);
+                Assert.AreEqual(customerScott.ID, c.ID);
 
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orderRepository.Add(customersOrder1);
@@ -155,7 +152,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("添加聚合根_不提交")]
         public void NHibernateRepositoryTest_AddAggregateRootToRepository_WithoutCommit()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
                 customerRepository.Add(customerScott);
@@ -169,7 +166,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("更新聚合根")]
         public void NHibernateRepositoryTest_UpdateAggregateRootToRepository()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
                 customerRepository.Add(customerScott);
@@ -183,7 +180,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
                 c = customerRepository.GetByKey(c.ID);
                 Assert.IsNotNull(c);
-                Assert.AreEqual<string>("update", c.Name);
+                Assert.AreEqual("update", c.Name);
             }
         }
 
@@ -191,7 +188,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("删除聚合根_聚合根不被其他聚合根引用")]
         public void NHibernateRepositoryTest_DeleteAggregateRootToRepository()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
                 customerRepository.Add(customerScott);
@@ -212,12 +209,12 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("获得单个聚合根")]
         public void NHibernateRepositoryTest_GetSignalAggregateRoot()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
-                Customer u1 = new Customer("scott1", 12);
-                Customer u2 = new Customer("scott2", 12);
-                Customer u3 = new Customer("scott3", 12);
+                var u1 = new Customer("scott1", 12);
+                var u2 = new Customer("scott2", 12);
+                var u3 = new Customer("scott3", 12);
                 customerRepository.Add(u1);
                 customerRepository.Add(u2);
                 customerRepository.Add(u3);
@@ -225,7 +222,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
 
                 Customer customers = customerRepository.GetSignal(Specification<Customer>.Eval(o => o.Name == "scott1"));
                 Assert.IsNotNull(customers);
-                Assert.AreEqual<string>("scott1", customers.Name);
+                Assert.AreEqual("scott1", customers.Name);
 
                 customers = customerRepository.GetSignal(Specification<Customer>.Eval(o => o.Name == "scott112131313"));
                 Assert.IsNull(customers);
@@ -236,12 +233,12 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("获得所有聚合根")]
         public void NHibernateRepositoryTest_GetAllAggregateRootToRepository()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
-                Customer u1 = new Customer("scott1", 12);
-                Customer u2 = new Customer("scott2", 12);
-                Customer u3 = new Customer("scott3", 12);
+                var u1 = new Customer("scott1", 12);
+                var u2 = new Customer("scott2", 12);
+                var u3 = new Customer("scott3", 12);
                 customerRepository.Add(u1);
                 customerRepository.Add(u2);
                 customerRepository.Add(u3);
@@ -250,7 +247,7 @@ namespace BDDD.Tests.Repository.NHibernateRepository
                 IEnumerable<Customer> customers = customerRepository.GetAll();
 
                 Assert.IsNotNull(customers);
-                Assert.AreEqual<int>(3, customers.Count());
+                Assert.AreEqual(3, customers.Count());
             }
         }
 
@@ -258,22 +255,23 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("获得指定条件的所有聚合根")]
         public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_Specifiaction()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Customer> customerRepository = ctx.GetRepository<Customer>();
-                Customer u1 = new Customer("scott1", 12);
-                Customer u2 = new Customer("scott2", 12);
-                Customer u3 = new Customer("scott3", 12);
+                var u1 = new Customer("scott1", 12);
+                var u2 = new Customer("scott2", 12);
+                var u3 = new Customer("scott3", 12);
                 customerRepository.Add(u1);
                 customerRepository.Add(u2);
                 customerRepository.Add(u3);
                 ctx.Commit();
 
-                IEnumerable<Customer> customers = customerRepository.GetAll(Specification<Customer>.Eval(o => o.Name.Contains("3")));
+                IEnumerable<Customer> customers =
+                    customerRepository.GetAll(Specification<Customer>.Eval(o => o.Name.Contains("3")));
 
                 Assert.IsNotNull(customers);
-                Assert.AreEqual<int>(1, customers.Count());
-                Assert.AreEqual<string>("scott3", customers.First().Name);
+                Assert.AreEqual(1, customers.Count());
+                Assert.AreEqual("scott3", customers.First().Name);
             }
         }
 
@@ -281,16 +279,65 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         [Description("获得指定条件的所有聚合根_带分页")]
         public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_Specifiaction_Page()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
-                Order u1 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "1", postalAddress = address1 };
-                Order u2 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "2", postalAddress = address1 };
-                Order u3 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "3", postalAddress = address1 };
-                Order u4 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "4", postalAddress = address1 };
-                Order u5 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "5", postalAddress = address1 };
-                Order u6 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "6", postalAddress = address1 };
-                Order u7 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "7", postalAddress = address1 };
+                var u1 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "1",
+                        postalAddress = address1
+                    };
+                var u2 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "2",
+                        postalAddress = address1
+                    };
+                var u3 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "3",
+                        postalAddress = address1
+                    };
+                var u4 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "4",
+                        postalAddress = address1
+                    };
+                var u5 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "5",
+                        postalAddress = address1
+                    };
+                var u6 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "6",
+                        postalAddress = address1
+                    };
+                var u7 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "7",
+                        postalAddress = address1
+                    };
 
                 orderRepository.Add(u1);
                 orderRepository.Add(u2);
@@ -307,45 +354,94 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             }
 
             IEnumerable<Order> orders = null;
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orders = orderRepository.GetAll(
-                   Specification<Order>.Eval(o => o.OrderName != null)
-                   , 1, 3, o => o.OrderName, SortOrder.Descending
-                   );
+                    Specification<Order>.Eval(o => o.OrderName != null)
+                    , 1, 3, o => o.OrderName, SortOrder.Descending
+                    );
             }
 
             Assert.IsNotNull(orders);
-            Assert.AreEqual<int>(3, orders.Count());
-            Assert.AreEqual<string>("7", orders.First().OrderName);
+            Assert.AreEqual(3, orders.Count());
+            Assert.AreEqual("7", orders.First().OrderName);
 
             orders = null;
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orders = orderRepository.GetAll(o => o.OrderName != null, 1, 3, o => o.OrderName, SortOrder.Descending);
             }
 
             Assert.IsNotNull(orders);
-            Assert.AreEqual<int>(3, orders.Count());
-            Assert.AreEqual<string>("7", orders.First().OrderName);
+            Assert.AreEqual(3, orders.Count());
+            Assert.AreEqual("7", orders.First().OrderName);
         }
 
         [TestMethod]
         [Description("获得指定条件的所有聚合根_带分页")]
         public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_Page()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
-                Order u1 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "1", postalAddress = address1 };
-                Order u2 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "2", postalAddress = address1 };
-                Order u3 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "3", postalAddress = address1 };
-                Order u4 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "4", postalAddress = address1 };
-                Order u5 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "5", postalAddress = address1 };
-                Order u6 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "6", postalAddress = address1 };
-                Order u7 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "7", postalAddress = address1 };
+                var u1 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "1",
+                        postalAddress = address1
+                    };
+                var u2 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "2",
+                        postalAddress = address1
+                    };
+                var u3 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "3",
+                        postalAddress = address1
+                    };
+                var u4 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "4",
+                        postalAddress = address1
+                    };
+                var u5 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "5",
+                        postalAddress = address1
+                    };
+                var u6 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "6",
+                        postalAddress = address1
+                    };
+                var u7 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "7",
+                        postalAddress = address1
+                    };
 
                 orderRepository.Add(u1);
                 orderRepository.Add(u2);
@@ -362,30 +458,79 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             }
 
             IEnumerable<Order> orders = null;
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orders = orderRepository.GetAll(1, 3);
             }
 
             Assert.IsNotNull(orders);
-            Assert.AreEqual<int>(3, orders.Count());
+            Assert.AreEqual(3, orders.Count());
         }
 
         [TestMethod]
         [Description("获得指定条件的所有聚合根_带分页_没有条件")]
         public void NHibernateRepositoryTest_GetAllAggregateRootToRepository_NoSpecifiaction_Page()
         {
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
-                Order u1 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "1", postalAddress = address1 };
-                Order u2 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "2", postalAddress = address1 };
-                Order u3 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "3", postalAddress = address1 };
-                Order u4 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "4", postalAddress = address1 };
-                Order u5 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "5", postalAddress = address1 };
-                Order u6 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "6", postalAddress = address1 };
-                Order u7 = new Order { Customer = customerScott, CreatedDate = DateTime.Now, Items = new List<OrderItem> { orderItem1, orderItem2 }, OrderName = "7", postalAddress = address1 };
+                var u1 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "1",
+                        postalAddress = address1
+                    };
+                var u2 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "2",
+                        postalAddress = address1
+                    };
+                var u3 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "3",
+                        postalAddress = address1
+                    };
+                var u4 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "4",
+                        postalAddress = address1
+                    };
+                var u5 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "5",
+                        postalAddress = address1
+                    };
+                var u6 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "6",
+                        postalAddress = address1
+                    };
+                var u7 = new Order
+                    {
+                        Customer = customerScott,
+                        CreatedDate = DateTime.Now,
+                        Items = new List<OrderItem> {orderItem1, orderItem2},
+                        OrderName = "7",
+                        postalAddress = address1
+                    };
 
                 orderRepository.Add(u1);
                 orderRepository.Add(u2);
@@ -402,16 +547,16 @@ namespace BDDD.Tests.Repository.NHibernateRepository
             }
 
             IEnumerable<Order> orders = null;
-            using (IRepositoryContext ctx = application.ObjectContainer.GetService<IRepositoryContext>())
+            using (var ctx = application.ObjectContainer.GetService<IRepositoryContext>())
             {
                 IRepository<Order> orderRepository = ctx.GetRepository<Order>();
                 orders = orderRepository.GetAll(1, 3, o => o.OrderName, SortOrder.Ascending
-                   );
+                    );
             }
 
             Assert.IsNotNull(orders);
-            Assert.AreEqual<int>(3, orders.Count());
-            Assert.AreEqual<string>("1", orders.First().OrderName);
+            Assert.AreEqual(3, orders.Count());
+            Assert.AreEqual("1", orders.First().OrderName);
         }
     }
 }

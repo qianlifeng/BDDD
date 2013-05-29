@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NHibernate;
-using NHibernate.Cfg;
-using BDDD.Application;
-using BDDD.ObjectContainer;
 
 namespace BDDD.Repository.NHibernate
 {
@@ -13,23 +8,16 @@ namespace BDDD.Repository.NHibernate
     {
         #region 变量
 
-        [ThreadStatic]
-        private readonly Guid id;
-        [ThreadStatic]
-        private bool committed = true;
-        [ThreadStatic]
-        private readonly DBSessionFactory databaseSessionFactory;
-        [ThreadStatic]
-        private readonly ISession session = null;
-        [ThreadStatic]
-        private readonly List<object> newObjects = new List<object>();
-        [ThreadStatic]
-        private readonly List<object> modifiedObjects = new List<object>();
-        [ThreadStatic]
-        private readonly List<object> deletedObjects = new List<object>();
+        [ThreadStatic] private readonly DBSessionFactory databaseSessionFactory;
+        [ThreadStatic] private readonly List<object> deletedObjects = new List<object>();
+        [ThreadStatic] private readonly Guid id;
+        [ThreadStatic] private readonly List<object> modifiedObjects = new List<object>();
+        [ThreadStatic] private readonly List<object> newObjects = new List<object>();
 
-        private readonly object sync = new object();
         private readonly Dictionary<string, object> repositories = new Dictionary<string, object>();
+        [ThreadStatic] private readonly ISession session;
+        private readonly object sync = new object();
+        [ThreadStatic] private bool committed = true;
 
         #endregion
 
@@ -82,7 +70,7 @@ namespace BDDD.Repository.NHibernate
             //    throw new RepositoryException("聚合根必须实现IAggregateRoot接口");
             //}
 
-            string key = typeof(TAggregateRoot).AssemblyQualifiedName;
+            string key = typeof (TAggregateRoot).AssemblyQualifiedName;
             if (repositories.ContainsKey(key))
             {
                 return repositories[key] as IRepository<TAggregateRoot>;
@@ -90,7 +78,8 @@ namespace BDDD.Repository.NHibernate
             else
             {
                 //todo:unity不支持泛型注册，所以这里如果使用GetService的话具体类型的注册就会很多
-                var repository = new NHibernateRepository<TAggregateRoot>(this); //ServiceLocator.Instance.GetService<IRepository<TAggregateRoot>>(); 
+                var repository = new NHibernateRepository<TAggregateRoot>(this);
+                    //ServiceLocator.Instance.GetService<IRepository<TAggregateRoot>>(); 
                 lock (sync)
                 {
                     repositories.Add(key, repository);
@@ -132,7 +121,7 @@ namespace BDDD.Repository.NHibernate
                 {
                     if (transaction.IsActive)
                         transaction.Rollback();
-                    this.session.Clear();
+                    session.Clear();
                     throw;
                 }
             }

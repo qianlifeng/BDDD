@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Castle.DynamicProxy;
-using BDDD.ObjectContainer;
 using BDDD.Config;
+using BDDD.ObjectContainer;
+using Castle.DynamicProxy;
 
 namespace BDDD.Application
 {
     public sealed class App
     {
-        private readonly IConfigSource configSource;
-        private readonly IObjectContainer objectContainer;
-        private readonly List<IInterceptor> interceptors = new List<IInterceptor>();
-        private Guid id;
-
         public delegate void AppInitHandle(IConfigSource source, IObjectContainer objectContainer);
-        public event AppInitHandle AppInitEvent;
+
+        private readonly IConfigSource configSource;
+        private readonly List<IInterceptor> interceptors = new List<IInterceptor>();
+        private readonly IObjectContainer objectContainer;
+        private Guid id;
 
         public App(IConfigSource configSource)
         {
@@ -29,14 +26,14 @@ namespace BDDD.Application
                 throw new ConfigException("当前配置文件中没有定义ObjectContainer信息");
             if (string.IsNullOrEmpty(configSource.Config.ObjectContainer.Provider))
                 throw new ConfigException("当前配置文件中没有定义ObjectContainer的Provider信息");
-            
+
             this.configSource = configSource;
 
             //从配置文件中加载ObjectContainer
             Type objectContainerType = Type.GetType(configSource.Config.ObjectContainer.Provider);
             if (objectContainerType == null)
                 throw new ConfigException("没有找到类型为{0}的ObjectContainer", configSource.Config.ObjectContainer.Provider);
-            objectContainer = Activator.CreateInstance(objectContainerType) as BDDD.ObjectContainer.ObjectContainer;
+            objectContainer = Activator.CreateInstance(objectContainerType) as ObjectContainer.ObjectContainer;
             //如果需要从配置文件中加载映射关系
             if (configSource.Config.ObjectContainer.InitFromConfigFile)
             {
@@ -50,7 +47,7 @@ namespace BDDD.Application
             }
 
             //从配置文件中加载Interceptors
-            if (configSource.Config.Interception != null 
+            if (configSource.Config.Interception != null
                 && configSource.Config.Interception.Interceptors != null)
             {
                 foreach (InterceptorElement interceptorElement in configSource.Config.Interception.Interceptors)
@@ -58,7 +55,7 @@ namespace BDDD.Application
                     Type interceptorType = Type.GetType(interceptorElement.Type);
                     if (interceptorType == null)
                         throw new ConfigException("找不到类型为{0}的拦截器", interceptorElement.Type);
-                    IInterceptor interceptor = (IInterceptor)Activator.CreateInstance(interceptorType);
+                    var interceptor = (IInterceptor) Activator.CreateInstance(interceptorType);
                     interceptors.Add(interceptor);
                 }
             }
@@ -79,6 +76,8 @@ namespace BDDD.Application
             get { return interceptors; }
         }
 
+        public event AppInitHandle AppInitEvent;
+
         private void HandleAppInitEvent()
         {
             if (AppInitEvent != null)
@@ -88,7 +87,7 @@ namespace BDDD.Application
         }
 
         /// <summary>
-        /// 启动框架
+        ///     启动框架
         /// </summary>
         public void Start()
         {

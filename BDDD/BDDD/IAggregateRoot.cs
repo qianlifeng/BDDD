@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BDDD
+﻿namespace BDDD
 {
     /// <summary>
-    /// 实现这个接口的类表明为聚合根
+    ///     实现这个接口的类表明为聚合根
     /// </summary>
-    public interface IAggregateRoot<T>:IEntity<T>
+    public interface IAggregateRoot<T> : IEntity<T>
     {
-
     }
 }

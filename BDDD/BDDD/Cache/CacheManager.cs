@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BDDD.ObjectContainer;
+﻿using BDDD.ObjectContainer;
 
 namespace BDDD.Cache
 {
     /// <summary>
-    /// 缓存管理类
+    ///     缓存管理类
     /// </summary>
     public class CacheManager
     {
-        private ICache cache;
         private static readonly CacheManager cacheManager = new CacheManager();
+        private ICache cache;
 
         private CacheManager()
         {
@@ -20,7 +16,7 @@ namespace BDDD.Cache
         }
 
         /// <summary>
-        /// 从当前缓存容器中获得缓存
+        ///     从当前缓存容器中获得缓存
         /// </summary>
         /// <typeparam name="T">缓存的类型</typeparam>
         /// <param name="key">键</param>
@@ -31,7 +27,7 @@ namespace BDDD.Cache
         }
 
         /// <summary>
-        /// 向当前缓存器中增加项
+        ///     向当前缓存器中增加项
         /// </summary>
         /// <param name="key">键</param>
         /// <param name="obj">值</param>
@@ -42,7 +38,7 @@ namespace BDDD.Cache
         }
 
         /// <summary>
-        /// 移除缓存
+        ///     移除缓存
         /// </summary>
         /// <param name="key">键</param>
         public static void RemoveCache(string key)

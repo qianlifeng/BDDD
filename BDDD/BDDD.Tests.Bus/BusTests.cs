@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BDDD.ObjectContainer;
 using BDDD.Bus;
+using BDDD.ObjectContainer;
 using BDDD.Tests.Bus.Commands;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BDDD.Tests.Bus
 {
@@ -15,8 +12,8 @@ namespace BDDD.Tests.Bus
         [TestMethod]
         public void TestDispatchCommand()
         {
-            ChangeCategoryNameCommand command = new ChangeCategoryNameCommand(Guid.NewGuid(), "test new name");
-            ICommandBus<Guid> commandBus = ServiceLocator.Instance.GetService<ICommandBus<Guid>>();
+            var command = new ChangeCategoryNameCommand(Guid.NewGuid(), "test new name");
+            var commandBus = ServiceLocator.Instance.GetService<ICommandBus<Guid>>();
             commandBus.Publish(command);
         }
     }

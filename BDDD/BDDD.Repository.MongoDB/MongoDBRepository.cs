@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
+using BDDD.Specification;
 
 namespace BDDD.Repository.MongoDB
 {
     public class MongoDBRepository<TAggregateRoot> : Repository<TAggregateRoot> where TAggregateRoot : class
     {
-        IMongoDBContext context;
+        private IMongoDBContext context;
 
-        public MongoDBRepository(IMongoDBContext context):base(context)
+        public MongoDBRepository(IMongoDBContext context) : base(context)
         {
             this.context = context;
         }
@@ -19,7 +19,7 @@ namespace BDDD.Repository.MongoDB
             throw new NotImplementedException();
         }
 
-        protected override bool DoExists(Specification.ISpecification<TAggregateRoot> specification)
+        protected override bool DoExists(ISpecification<TAggregateRoot> specification)
         {
             throw new NotImplementedException();
         }
@@ -39,7 +39,7 @@ namespace BDDD.Repository.MongoDB
             throw new NotImplementedException();
         }
 
-        protected override TAggregateRoot DoGetSignal(Specification.ISpecification<TAggregateRoot> specification)
+        protected override TAggregateRoot DoGetSignal(ISpecification<TAggregateRoot> specification)
         {
             throw new NotImplementedException();
         }
@@ -49,12 +49,15 @@ namespace BDDD.Repository.MongoDB
             throw new NotImplementedException();
         }
 
-        protected override IEnumerable<TAggregateRoot> DoGetAll(Specification.ISpecification<TAggregateRoot> specification)
+        protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification)
         {
             throw new NotImplementedException();
         }
 
-        protected override IEnumerable<TAggregateRoot> DoGetAll(Specification.ISpecification<TAggregateRoot> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate,SortOrder sortOrder)
+        protected override IEnumerable<TAggregateRoot> DoGetAll(ISpecification<TAggregateRoot> specification,
+                                                                int pageNumber, int pageSize,
+                                                                Expression<Func<TAggregateRoot, object>> sortPredicate,
+                                                                SortOrder sortOrder)
         {
             throw new NotImplementedException();
         }
@@ -64,17 +67,22 @@ namespace BDDD.Repository.MongoDB
             throw new NotImplementedException();
         }
 
-        protected override IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder)
+        protected override IEnumerable<TAggregateRoot> DoGetAll(int pageNumber, int pageSize,
+                                                                Expression<Func<TAggregateRoot, object>> sortPredicate,
+                                                                SortOrder sortOrder)
         {
             throw new NotImplementedException();
         }
 
-        protected override IEnumerable<TAggregateRoot> DoGetAll(System.Linq.Expressions.Expression<Func<TAggregateRoot, bool>> specification)
+        protected override IEnumerable<TAggregateRoot> DoGetAll(Expression<Func<TAggregateRoot, bool>> specification)
         {
             throw new NotImplementedException();
         }
 
-        protected override IEnumerable<TAggregateRoot> DoGetAll(System.Linq.Expressions.Expression<Func<TAggregateRoot, bool>> specification, int pageNumber, int pageSize, System.Linq.Expressions.Expression<Func<TAggregateRoot, object>> sortPredicate, SortOrder sortOrder)
+        protected override IEnumerable<TAggregateRoot> DoGetAll(Expression<Func<TAggregateRoot, bool>> specification,
+                                                                int pageNumber, int pageSize,
+                                                                Expression<Func<TAggregateRoot, object>> sortPredicate,
+                                                                SortOrder sortOrder)
         {
             throw new NotImplementedException();
         }

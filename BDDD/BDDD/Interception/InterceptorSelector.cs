@@ -1,45 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Castle.DynamicProxy;
-using BDDD.Config;
-using BDDD.Application;
 using System.Reflection;
+using BDDD.Application;
+using BDDD.Config;
+using Castle.DynamicProxy;
 
 namespace BDDD.Interception
 {
     /// <summary>
-    /// 拦截选择器，从配置中决定那些类型需要被拦截
+    ///     拦截选择器，从配置中决定那些类型需要被拦截
     /// </summary>
     public class InterceptorSelector : IInterceptorSelector
     {
-
-        private MethodInfo GetMethodInBase(Type baseType, MethodInfo thisMethod)
-        {
-            MethodInfo[] methods = baseType.GetMethods();
-            var methodQuery = methods.Where(p =>
-            {
-                var retval = p.Name == thisMethod.Name &&
-                p.IsGenericMethod == thisMethod.IsGenericMethod &&
-                ((p.GetParameters() == null && thisMethod.GetParameters() == null) || (p.GetParameters().Length == thisMethod.GetParameters().Length));
-                if (!retval)
-                    return false;
-                var thisMethodParameters = thisMethod.GetParameters();
-                var pMethodParameters = p.GetParameters();
-                for (int i = 0; i < thisMethodParameters.Length; i++)
-                {
-                    retval &= pMethodParameters[i].ParameterType == thisMethodParameters[i].ParameterType;
-                }
-                return retval;
-            });
-            if (methodQuery != null && methodQuery.Count() > 0)
-                return methodQuery.Single();
-            return null;
-        }
-
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="type">已经经过透明代理的类型（此处的参数是真实类型）</param>
         /// <param name="method">透明代理调用的方法</param>
@@ -48,17 +22,17 @@ namespace BDDD.Interception
         public IInterceptor[] SelectInterceptors(Type type, MethodInfo method, IInterceptor[] interceptors)
         {
             IConfigSource configSource = AppRuntime.Instance.CurrentApplication.ConfigSource;
-            List<IInterceptor> selectedInterceptors = new List<IInterceptor>();
+            var selectedInterceptors = new List<IInterceptor>();
 
             //从配置中查找所有需要对该类型的该方法进行拦截的所有拦截器
             IEnumerable<string> interceptorTypes = configSource.Config.GetInterceptorTypes(type, method);
             if (interceptorTypes == null)
             {
-                if (type.BaseType != null && type.BaseType != typeof(Object))
+                if (type.BaseType != null && type.BaseType != typeof (Object))
                 {
                     Type baseType = type.BaseType;
                     MethodInfo methodInfoBase = null;
-                    while (baseType != null && type.BaseType != typeof(Object))
+                    while (baseType != null && type.BaseType != typeof (Object))
                     {
                         methodInfoBase = GetMethodInBase(baseType, method);
                         if (methodInfoBase != null)
@@ -72,12 +46,12 @@ namespace BDDD.Interception
                 }
                 if (interceptorTypes == null)
                 {
-                    var intfTypes = type.GetInterfaces();
+                    Type[] intfTypes = type.GetInterfaces();
                     if (intfTypes != null && intfTypes.Count() > 0)
                     {
-                        foreach (var intfType in intfTypes)
+                        foreach (Type intfType in intfTypes)
                         {
-                            var methodInfoBase = GetMethodInBase(intfType, method);
+                            MethodInfo methodInfoBase = GetMethodInBase(intfType, method);
                             if (methodInfoBase != null)
                                 interceptorTypes = configSource.Config.GetInterceptorTypes(intfType, methodInfoBase);
                             if (interceptorTypes != null)
@@ -90,7 +64,7 @@ namespace BDDD.Interception
             if (interceptorTypes != null && interceptorTypes.Count() > 0)
             {
                 //从所有拦截器中过滤匹配找到的拦截器
-                foreach (var interceptor in interceptors)
+                foreach (IInterceptor interceptor in interceptors)
                 {
                     if (interceptorTypes.Any(p => interceptor.GetType().AssemblyQualifiedName.Equals(p)))
                         selectedInterceptors.Add(interceptor);
@@ -98,6 +72,30 @@ namespace BDDD.Interception
             }
 
             return selectedInterceptors.ToArray();
+        }
+
+        private MethodInfo GetMethodInBase(Type baseType, MethodInfo thisMethod)
+        {
+            MethodInfo[] methods = baseType.GetMethods();
+            IEnumerable<MethodInfo> methodQuery = methods.Where(p =>
+                {
+                    bool retval = p.Name == thisMethod.Name &&
+                                  p.IsGenericMethod == thisMethod.IsGenericMethod &&
+                                  ((p.GetParameters() == null && thisMethod.GetParameters() == null) ||
+                                   (p.GetParameters().Length == thisMethod.GetParameters().Length));
+                    if (!retval)
+                        return false;
+                    ParameterInfo[] thisMethodParameters = thisMethod.GetParameters();
+                    ParameterInfo[] pMethodParameters = p.GetParameters();
+                    for (int i = 0; i < thisMethodParameters.Length; i++)
+                    {
+                        retval &= pMethodParameters[i].ParameterType == thisMethodParameters[i].ParameterType;
+                    }
+                    return retval;
+                });
+            if (methodQuery != null && methodQuery.Count() > 0)
+                return methodQuery.Single();
+            return null;
         }
     }
 }

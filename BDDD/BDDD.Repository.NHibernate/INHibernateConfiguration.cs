@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NHibernate.Cfg;
+﻿using NHibernate.Cfg;
 
 namespace BDDD.Repository.NHibernate
 {
     /// <summary>
-    /// 实现此接口的类能提供不同的NHibernate配置方式，比如Fluent Nhibernate
+    ///     实现此接口的类能提供不同的NHibernate配置方式，比如Fluent Nhibernate
     /// </summary>
     public interface INHibernateConfiguration
     {

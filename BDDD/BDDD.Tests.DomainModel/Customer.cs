@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BDDD.Tests.DomainModel
 {
     public class Customer : IAggregateRoot<Guid>
     {
-        public Customer() { }
+        public Customer()
+        {
+        }
 
         public Customer(string name, int age)
         {
@@ -21,11 +21,6 @@ namespace BDDD.Tests.DomainModel
 
         public virtual IList<PostalAddress> PostalAddresses { get; set; }
 
-        public virtual Guid ID
-        {
-            get;
-            set;
-        }
-
+        public virtual Guid ID { get; set; }
     }
 }

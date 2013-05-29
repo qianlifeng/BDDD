@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Practices.EnterpriseLibrary.Caching;
-using Microsoft.Practices.EnterpriseLibrary.Caching.Expirations;
+﻿using Microsoft.Practices.EnterpriseLibrary.Caching;
 
 namespace BDDD.Cache.MSEnterpriseLibrary
 {
@@ -13,13 +8,13 @@ namespace BDDD.Cache.MSEnterpriseLibrary
 
         public T GetCache<T>(string key)
         {
-            return (T)manager.GetData(key);
+            return (T) manager.GetData(key);
         }
 
         public void AddCache(string key, object obj, ICacheExpiration expiration)
         {
             manager.Add(key, obj, CacheItemPriority.Normal, null,
-                expiration.GetExpirationStrategy<ICacheItemExpiration>());
+                        expiration.GetExpirationStrategy<ICacheItemExpiration>());
         }
 
         public void RemoveCache(string key)

@@ -1,36 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BDDD.Tests.DomainModel.NHibernateMapper;
 using FluentNHibernate.Cfg;
-using BDDD.Tests.DomainModel;
-using FluentNHibernate.Automapping;
-using BDDD.Tests.DomainModel.NHibernateMapper;
+using FluentNHibernate.Cfg.Db;
 using FluentNHibernate.Conventions.Helpers;
+using NHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 
 namespace BDDD.Tests.Repository.NHibernateRepository
 {
     public class Helper
     {
-        public const string NHIBERNATE_DB_CONNECTSTRING = @"Server=localhost;Database=BDDD_NHibernate;Integrated Security=SSPI;";
+        public const string NHIBERNATE_DB_CONNECTSTRING =
+            @"Server=localhost;Database=BDDD_NHibernate;Integrated Security=SSPI;";
 
-        static NHibernate.Cfg.Configuration nhibernateCfg;
+        private static Configuration nhibernateCfg;
 
-        public static NHibernate.Cfg.Configuration SetupNHibernateDatabase()
+        public static Configuration SetupNHibernateDatabase()
         {
             nhibernateCfg = Fluently.Configure()
-                  .Database(
-                      FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2008
-                          .ConnectionString(s => s.Server("localhost")
-                                  .Database("BDDD_NHibernate")
-                                  .TrustedConnection())
-                                  .ShowSql()
-                  )
-                  .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CustomerMap).Assembly)
-                      .Conventions.Add(ForeignKey.EndsWith("Id"))
-                      )
-                .ExposeConfiguration(c => c.SetProperty("current_session_context_class", "web"))
-                .BuildConfiguration();
+                                    .Database(
+                                        MsSqlConfiguration.MsSql2008
+                                                          .ConnectionString(s => s.Server("localhost")
+                                                                                  .Database("BDDD_NHibernate")
+                                                                                  .TrustedConnection())
+                                                          .ShowSql()
+                )
+                                    .Mappings(m => m.FluentMappings.AddFromAssembly(typeof (CustomerMap).Assembly)
+                                                    .Conventions.Add(ForeignKey.EndsWith("Id"))
+                )
+                                    .ExposeConfiguration(c => c.SetProperty("current_session_context_class", "web"))
+                                    .BuildConfiguration();
 
             ResetDB();
             return nhibernateCfg;
@@ -40,10 +38,9 @@ namespace BDDD.Tests.Repository.NHibernateRepository
         {
             if (nhibernateCfg != null)
             {
-                NHibernate.Tool.hbm2ddl.SchemaExport schemaExport = new NHibernate.Tool.hbm2ddl.SchemaExport(nhibernateCfg);
+                var schemaExport = new SchemaExport(nhibernateCfg);
                 schemaExport.Execute(false, true, false);
             }
         }
-
     }
 }

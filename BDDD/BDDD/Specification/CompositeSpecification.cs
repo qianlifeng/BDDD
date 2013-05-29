@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BDDD.Specification
+﻿namespace BDDD.Specification
 {
     /// <summary>
-    /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class CompositeSpecification<T> : Specification<T>, ICompositeSpecification<T>

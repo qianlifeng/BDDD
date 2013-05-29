@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Cfg;
 
 namespace BDDD.Repository.NHibernate
 {
     public class DBSessionFactory
     {
-        private ISessionFactory sessionFactory = null;
-        private ISession session = null;
+        private ISession session;
+        private ISessionFactory sessionFactory;
 
         internal DBSessionFactory(Configuration nhibernateConfig)
         {
@@ -20,8 +16,8 @@ namespace BDDD.Repository.NHibernate
         }
 
         /// <summary>
-        /// 获得一个session单例，如果存在已经打开的session则返回此session。如果不存在则
-        /// 新打开一个session
+        ///     获得一个session单例，如果存在已经打开的session则返回此session。如果不存在则
+        ///     新打开一个session
         /// </summary>
         public ISession Session
         {
@@ -35,12 +31,14 @@ namespace BDDD.Repository.NHibernate
                     return OpenSession();
                 }
                 catch
-                { throw; }
+                {
+                    throw;
+                }
             }
         }
 
         /// <summary>
-        /// 总是从NHibernate的SessionFactory中获得一个新的session
+        ///     总是从NHibernate的SessionFactory中获得一个新的session
         /// </summary>
         public ISession OpenSession()
         {

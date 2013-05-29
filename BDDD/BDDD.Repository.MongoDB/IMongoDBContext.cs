@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BDDD.Repository.MongoDB
+﻿namespace BDDD.Repository.MongoDB
 {
     public interface IMongoDBContext : IRepositoryContext
     {

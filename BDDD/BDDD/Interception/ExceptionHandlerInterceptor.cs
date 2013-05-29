@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Castle.DynamicProxy;
 
 namespace BDDD.Interception
 {
     /// <summary>
-    /// 异常拦截器
+    ///     异常拦截器
     /// </summary>
-    public class ExceptionHandlerInterceptor:IInterceptor
+    public class ExceptionHandlerInterceptor : IInterceptor
     {
         public void Intercept(IInvocation invocation)
         {
@@ -30,7 +27,7 @@ namespace BDDD.Interception
         {
             if (type.IsClass || type.IsInterface)
                 return null;
-            if (type == typeof(void))
+            if (type == typeof (void))
                 return null;
             return Activator.CreateInstance(type);
         }

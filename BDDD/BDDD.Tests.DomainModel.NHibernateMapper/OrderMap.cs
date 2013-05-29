@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 
 namespace BDDD.Tests.DomainModel.NHibernateMapper
 {
@@ -13,7 +9,7 @@ namespace BDDD.Tests.DomainModel.NHibernateMapper
             Id(m => m.ID).GeneratedBy.Guid();
             Map(m => m.OrderName);
             Map(m => m.CreatedDate);
-            References(m => m.Customer) .Cascade.SaveUpdate();
+            References(m => m.Customer).Cascade.SaveUpdate();
             HasMany(m => m.Items).Cascade.SaveUpdate();
             Component(m => m.postalAddress);
         }
