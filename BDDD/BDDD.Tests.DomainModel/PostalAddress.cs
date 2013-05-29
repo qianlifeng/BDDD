@@ -2,7 +2,7 @@
 
 namespace BDDD.Tests.DomainModel
 {
-    public class PostalAddress : IEntity<Guid>
+    public class PostalAddress : IEntity
     {
         public virtual string City { get; set; }
         public virtual string Street { get; set; }

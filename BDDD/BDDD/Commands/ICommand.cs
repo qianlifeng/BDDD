@@ -4,7 +4,7 @@
     ///     命令对象
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface ICommand<T> : IEntity<T>
+    public interface ICommand : IEntity
     {
     }
 }

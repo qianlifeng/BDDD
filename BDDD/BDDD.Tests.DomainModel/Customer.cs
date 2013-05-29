@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BDDD.Tests.DomainModel
 {
-    public class Customer : IAggregateRoot<Guid>
+    public class Customer: IAggregateRoot
     {
         public Customer()
         {
@@ -21,6 +21,6 @@ namespace BDDD.Tests.DomainModel
 
         public virtual IList<PostalAddress> PostalAddresses { get; set; }
 
-        public virtual Guid ID { get; set; }
+        public virtual Guid  ID { get; set; }
     }
 }

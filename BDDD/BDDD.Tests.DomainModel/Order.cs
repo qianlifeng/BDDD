@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BDDD.Tests.DomainModel
 {
-    public class Order : IAggregateRoot<Guid>
+    public class Order : IAggregateRoot
     {
         public virtual string OrderName { get; set; }
         public virtual DateTime CreatedDate { get; set; }

@@ -2,7 +2,7 @@
 
 namespace BDDD.Tests.DomainModel
 {
-    public class ItemCategory : IAggregateRoot<Guid>
+    public class ItemCategory : IAggregateRoot
     {
         public virtual string CategoryName { get; set; }
 

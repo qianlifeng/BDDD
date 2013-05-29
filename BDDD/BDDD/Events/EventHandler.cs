@@ -1,7 +1,7 @@
 ﻿namespace BDDD.Events
 {
-    public abstract class EventHandler<TEvent, TKey> : IEventHandler<TEvent, TKey>
-        where TEvent : IEvent<TKey>
+    public abstract class EventHandler<TEvent> : IEventHandler<TEvent>
+        where TEvent : IEvent
     {
         public abstract bool Handle(TEvent message);
     }

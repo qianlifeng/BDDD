@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Mapping;
+﻿using System;
+using FluentNHibernate.Mapping;
 
 namespace BDDD.Tests.DomainModel.NHibernateMapper
 {

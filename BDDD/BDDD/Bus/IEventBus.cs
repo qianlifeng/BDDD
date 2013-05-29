@@ -2,7 +2,7 @@
 
 namespace BDDD.Bus
 {
-    public interface IEventBus<TKey> : IBus<IEvent<TKey>>
+    public interface IEventBus : IBus<IEvent>
     {
     }
 }

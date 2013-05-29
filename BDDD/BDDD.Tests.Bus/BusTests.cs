@@ -13,7 +13,7 @@ namespace BDDD.Tests.Bus
         public void TestDispatchCommand()
         {
             var command = new ChangeCategoryNameCommand(Guid.NewGuid(), "test new name");
-            var commandBus = ServiceLocator.Instance.GetService<ICommandBus<Guid>>();
+            var commandBus = ServiceLocator.Instance.GetService<ICommandBus>();
             commandBus.Publish(command);
         }
     }

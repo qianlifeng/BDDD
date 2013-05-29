@@ -3,7 +3,7 @@ using BDDD.Commands;
 
 namespace BDDD.Tests.Bus.Commands
 {
-    public class ChangeCategoryNameCommand : ICommand<Guid>
+    public class ChangeCategoryNameCommand : ICommand
     {
         public ChangeCategoryNameCommand(Guid categoryID, string newName)
         {

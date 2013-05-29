@@ -3,17 +3,17 @@
 namespace BDDD.Commands
 {
     [Serializable]
-    public abstract class Command<T> : ICommand<T>
+    public abstract class Command : ICommand
     {
-        public Command()
+        protected Command()
         {
         }
 
-        public Command(T id)
+        protected Command(Guid id)
         {
             ID = id;
         }
 
-        public virtual T ID { get; set; }
+        public virtual Guid ID { get; set; }
     }
 }

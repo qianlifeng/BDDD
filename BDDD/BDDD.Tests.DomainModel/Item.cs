@@ -2,7 +2,7 @@
 
 namespace BDDD.Tests.DomainModel
 {
-    public class Item : IEntity<Guid>
+    public class Item : IEntity
     {
         public virtual string ItemName { get; set; }
         public virtual ItemCategory Category { get; set; }
