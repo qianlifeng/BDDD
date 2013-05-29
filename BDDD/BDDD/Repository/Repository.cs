@@ -9,13 +9,12 @@ namespace BDDD.Repository
     ///     仓储基类
     /// </summary>
     /// <typeparam name="TAggregateRoot">仓储类型</typeparam>
-    /// <typeparam name="T">仓储主键类型</typeparam>
     public abstract class Repository<TAggregateRoot> : IRepository<TAggregateRoot>
         where TAggregateRoot : class
     {
         private readonly IRepositoryContext context;
 
-        public Repository(IRepositoryContext context)
+        protected Repository(IRepositoryContext context)
         {
             this.context = context;
         }
@@ -23,7 +22,7 @@ namespace BDDD.Repository
         #region Protected Method
 
         //===========================
-        //将所有的这些方法延迟到不同的子类中去实现
+        //模板方法模式：将所有的这些方法延迟到不同的子类中去实现
         //===========================
 
         protected abstract void DoAdd(TAggregateRoot aggregateRoot);
@@ -134,6 +133,20 @@ namespace BDDD.Repository
             return DoGetAll(pageNumber, pageSize, sortPredicate, sortOrder);
         }
 
+        public bool Exists(Expression<Func<TAggregateRoot, bool>> specification)
+        {
+            return DoExists(Specification<TAggregateRoot>.Eval(specification));
+        }
+
+
+        public TAggregateRoot GetSignal(Expression<Func<TAggregateRoot, bool>> specification)
+        {
+            return GetSignal(Specification<TAggregateRoot>.Eval(specification));
+        }
+
         #endregion
+
+
+
     }
 }

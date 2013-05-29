@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CAA54B4B-D801-4920-8112-6A05D1942592}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DemoProject.Application</RootNamespace>
+    <AssemblyName>DemoProject.Application</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationServiceBase.cs" />
+    <Compile Include="UserService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BDDD\BDDD.csproj">
+      <Project>{B511179D-EC44-4715-8586-35A79E33A6FD}</Project>
+      <Name>BDDD</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoProject.DTO\DemoProject.DTO.csproj">
+      <Project>{D1631048-9208-4822-B850-DDC3E42B095D}</Project>
+      <Name>DemoProject.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoProject.IApplication\DemoProject.IApplication.csproj">
+      <Project>{CEE763D0-1F9B-4156-93F4-6E77131618ED}</Project>
+      <Name>DemoProject.IApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoProject.Infrastructure\DemoProject.Infrastructure.csproj">
+      <Project>{89708D04-0B86-44B2-BEE1-187174A18CAD}</Project>
+      <Name>DemoProject.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoProject.Domain\DemoProject.Domain.csproj">
+      <Project>{66106CE1-4E78-463B-B797-C52F545511B4}</Project>
+      <Name>DemoProject.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

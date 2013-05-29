@@ -86,8 +86,6 @@ namespace BDDD.Repository.NHibernate
                     if (sortPredicate != null)
                         query = query.OrderByDescending(sortPredicate).Skip(skip).Take(take);
                     break;
-                default:
-                    break;
             }
             return query.ToList();
         }
@@ -118,8 +116,6 @@ namespace BDDD.Repository.NHibernate
                 case SortOrder.Descending:
                     if (sortPredicate != null)
                         query = query.OrderByDescending(sortPredicate).Skip(skip).Take(take);
-                    break;
-                default:
                     break;
             }
             return query.ToList();
@@ -157,8 +153,6 @@ namespace BDDD.Repository.NHibernate
                 case SortOrder.Descending:
                     if (sortPredicate != null)
                         query = query.OrderByDescending(sortPredicate).Skip(skip).Take(take);
-                    break;
-                default:
                     break;
             }
             return query.ToList();

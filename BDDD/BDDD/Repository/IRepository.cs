@@ -29,6 +29,8 @@ namespace BDDD.Repository
         /// <returns>True if the aggregate root exists, otherwise false.</returns>
         bool Exists(ISpecification<TAggregateRoot> specification);
 
+        bool Exists(Expression<Func<TAggregateRoot, bool>> specification);
+
         /// <summary>
         ///     移除仓储中的聚合根
         /// </summary>
@@ -54,6 +56,7 @@ namespace BDDD.Repository
         /// <param name="specification">搜索条件</param>
         /// <returns>返回的聚合根，如果不存在则为null</returns>
         TAggregateRoot GetSignal(ISpecification<TAggregateRoot> specification);
+        TAggregateRoot GetSignal(Expression<Func<TAggregateRoot, bool>> specification);
 
         #region GetAll
 

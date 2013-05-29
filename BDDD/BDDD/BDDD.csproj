@@ -74,7 +74,7 @@
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="IEntity.cs" />
-    <Compile Include="IHandler.cs" />
+    <Compile Include="Events\IHandler.cs" />
     <Compile Include="Interception\AdditionalInterfaceToProxyAttribute.cs" />
     <Compile Include="Interception\BaseTypeForInterfaceProxyAttribute.cs" />
     <Compile Include="Interception\ExceptionHandlerInterceptor.cs" />

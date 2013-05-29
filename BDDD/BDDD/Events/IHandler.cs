@@ -1,4 +1,4 @@
-﻿namespace BDDD
+﻿namespace BDDD.Events
 {
     public interface IHandler<T>
     {
