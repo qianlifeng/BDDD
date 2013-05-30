@@ -17,6 +17,7 @@ namespace DemoProject.Test.Application
         private IUserService userService = ServiceLocator.Instance.GetService<IUserService>();
         private UserDTO userDTO1;
         private UserDTO userDTO2;
+        private UserDTO userDTO3;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -76,6 +77,16 @@ namespace DemoProject.Test.Application
                 IsDisabled = false,
                 NickName = "qlf2"
             };
+            userDTO2 = new UserDTO()
+            {
+                UserName = "user3",
+                Password = "pwd3",
+                DateLastLogin = DateTime.Now,
+                DateRegistered = DateTime.Now,
+                Email = "mail3",
+                IsDisabled = false,
+                NickName = "qlf3"
+            };
 
             Console.WriteLine("reset db....");
             ResetDB();
@@ -109,7 +120,14 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void DeleteUsersTest()
         {
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+            Assert.IsTrue(userDTO1.ID == Guid.Empty);
+            userDTO1 = userService.AddUser(userDTO1);
+            Assert.IsTrue(userDTO1.ID != Guid.Empty);
+
+            Guid id = userDTO1.ID;
+            userService.DeleteUser(userDTO1);
+            UserDTO userByKey = userService.GetUserByKey(id);
+            Assert.IsTrue(userByKey == null);
         }
 
         /// <summary>
@@ -118,13 +136,16 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void DisableUserTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            UserDTO userDTO = null; // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = userService.DisableUser(userDTO);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            userDTO1.IsDisabled = false;
+            Assert.IsTrue(userDTO1.ID == Guid.Empty);
+            userDTO1 = userService.AddUser(userDTO1);
+            Assert.IsTrue(userDTO1.ID != Guid.Empty);
+            Assert.IsTrue(userDTO1.IsDisabled == false);
+
+            userDTO1.IsDisabled = true;
+            userService.DisableUser(userDTO1);
+            UserDTO userByKey = userService.GetUserByKey(userDTO1.ID);
+            Assert.IsTrue(userByKey.IsDisabled == true);
         }
 
         /// <summary>
@@ -133,13 +154,16 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void EnableUserTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            UserDTO userDTO = null; // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = userService.EnableUser(userDTO);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            userDTO1.IsDisabled = true;
+            Assert.IsTrue(userDTO1.ID == Guid.Empty);
+            userDTO1 = userService.AddUser(userDTO1);
+            Assert.IsTrue(userDTO1.ID != Guid.Empty);
+            Assert.IsTrue(userDTO1.IsDisabled == true);
+
+            userDTO1.IsDisabled = false;
+            userService.DisableUser(userDTO1);
+            UserDTO userByKey = userService.GetUserByKey(userDTO1.ID);
+            Assert.IsTrue(userByKey.IsDisabled == false);
         }
 
         /// <summary>
@@ -176,13 +200,12 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void GetUserByEmailTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            string email = string.Empty; // TODO: Initialize to an appropriate value
-            UserDTO expected = null; // TODO: Initialize to an appropriate value
-            UserDTO actual;
-            actual = userService.GetUserByEmail(email);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            userDTO1.Email = "meail"+DateTime.Now;
+            userDTO1 = userService.AddUser(userDTO1);
+            Assert.IsTrue(userDTO1.ID != Guid.Empty);
+
+            UserDTO userByEmail = userService.GetUserByEmail(userDTO1.Email);
+            Assert.IsTrue(userDTO1.ID == userByEmail.ID);
         }
 
         /// <summary>
@@ -191,13 +214,11 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void GetUserByKeyTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            Guid id = new Guid(); // TODO: Initialize to an appropriate value
-            UserDTO expected = null; // TODO: Initialize to an appropriate value
-            UserDTO actual;
-            actual = userService.GetUserByKey(id);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            userDTO1 = userService.AddUser(userDTO1);
+            Assert.IsTrue(userDTO1.ID != Guid.Empty);
+
+            UserDTO userByEmail = userService.GetUserByKey(userDTO1.ID);
+            Assert.IsTrue(userDTO1.ID == userByEmail.ID);
         }
 
         /// <summary>
@@ -206,13 +227,12 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void GetUserByNameTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            string userName = string.Empty; // TODO: Initialize to an appropriate value
-            UserDTO expected = null; // TODO: Initialize to an appropriate value
-            UserDTO actual;
-            actual = userService.GetUserByName(userName);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            userDTO1.UserName = "name" + DateTime.Now;
+            userDTO1 = userService.AddUser(userDTO1);
+            Assert.IsTrue(userDTO1.ID != Guid.Empty);
+
+            UserDTO byName = userService.GetUserByName(userDTO1.UserName);
+            Assert.IsTrue(userDTO1.ID == byName.ID);
         }
 
         /// <summary>
@@ -221,13 +241,15 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void GetUsersTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            ISpecification<UserDTO> spec = null; // TODO: Initialize to an appropriate value
-            List<UserDTO> expected = null; // TODO: Initialize to an appropriate value
-            List<UserDTO> actual;
-            actual = userService.GetUsers(spec);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            userDTO1.UserName = "thisistest1";
+            userService.AddUser(userDTO1);
+            userDTO2.UserName = "thisistest2";
+            userService.AddUser(userDTO2);
+            userDTO2.UserName = "qlf3";
+            userService.AddUser(userDTO2);
+
+            List<UserDTO> userDtos = userService.GetUsers(new ExpressionSpecification<UserDTO>(o => o.UserName.Contains("thisistest")));
+            Assert.IsTrue(userDtos.Count == 2);
         }
 
         /// <summary>

@@ -98,17 +98,32 @@ namespace DemoProject.Application
 
         public UserDTO GetUserByKey(Guid id)
         {
-            throw new NotImplementedException();
+            User user = userRepository.GetByKey(id);
+            if (user != null)
+            {
+                return Mapper.Map<User, UserDTO>(user);
+            }
+            return null;
         }
 
         public UserDTO GetUserByEmail(string email)
         {
-            throw new NotImplementedException();
+            User user = userRepository.GetSignal(o => o.Email == email);
+            if (user != null)
+            {
+                return Mapper.Map<User, UserDTO>(user);
+            }
+            return null;
         }
 
         public UserDTO GetUserByName(string userName)
         {
-            throw new NotImplementedException();
+            User user = userRepository.GetSignal(o => o.UserName == userName);
+            if (user != null)
+            {
+                return Mapper.Map<User, UserDTO>(user);
+            }
+            return null;
         }
 
         public List<UserDTO> GetUsers(ISpecification<UserDTO> spec)

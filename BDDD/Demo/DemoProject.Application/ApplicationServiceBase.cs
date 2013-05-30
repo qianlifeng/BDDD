@@ -31,6 +31,7 @@ namespace DemoProject.Application
         {
             Mapper.CreateMap<User, UserDTO>();
             Mapper.CreateMap<UserDTO, User>();
+            Mapper.CreateMap<IEnumerable<User>, List<UserDTO>>();
         }
 
         protected IRepositoryContext RepositoryContext

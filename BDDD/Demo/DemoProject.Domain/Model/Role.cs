@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BDDD;
 
 namespace DemoProject.Domain.Model
@@ -8,6 +9,7 @@ namespace DemoProject.Domain.Model
         public virtual Guid ID { get; set; }
         public virtual string Name { get;protected set; }
         public virtual string Description { get; protected set; }
+        public virtual List<Group> Groups { get; protected set; }
 
         public Role()
         {

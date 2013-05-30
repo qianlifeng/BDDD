@@ -10,6 +10,7 @@ using DemoProject.DTO;
 using DemoProject.Domain.Model;
 using DemoProject.Domain.Repositories;
 using DemoProject.Domain.Repository;
+using DemoProject.Domain.Repository.FluentAutoMap;
 using DemoProject.IApplication;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
@@ -39,19 +40,34 @@ namespace DemoProject.Test
                                                                                   .TrustedConnection())
                                                           .ShowSql()
                 )
-                                    .Mappings(m => m.AutoMappings.Add(AutoMap.AssemblyOf<User>())
-                )
+                                    .Mappings(m => m.AutoMappings.Add(CreateAutomappings()))
                                     .ExposeConfiguration(c => c.SetProperty("current_session_context_class", "web"))
                                     .BuildConfiguration();
 
             return nhibernateCfg;
+        }
+        public static AutoPersistenceModel CreateAutomappings()
+        {
+            // This is the actual automapping - use AutoMap to start automapping,
+            // then pick one of the static methods to specify what to map (in this case
+            // all the classes in the assembly that contains Employee), and then either
+            // use the Setup and Where methods to restrict that behaviour, or (preferably)
+            // supply a configuration instance of your definition to control the automapper.
+            return AutoMap.AssemblyOf<User>()
+                .Where(o => o.Namespace != null && o.Namespace.EndsWith("DemoProject.Domain.Model"))
+                .Conventions.Add<CustomClassNameConvention>()
+                .Conventions.Add<CustomPropertyConvention>()
+                .Conventions.Add<CustomPrimaryKeyConvention>()
+                .Conventions.Add<CustomCollectionConvention>()
+                .Conventions.Add<CustomReferenceConvention>()
+                .Conventions.Add<CustomManyToManyConvention>();
         }
 
         public static void ResetDB()
         {
             Configuration config = GetNHibernateConfig();
             var schemaExport = new SchemaExport(config);
-            schemaExport.Execute(false, true, false);
+            schemaExport.Execute(true, true, false);
         }
 
         public static void InitAppRuntime()
