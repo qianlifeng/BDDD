@@ -33,7 +33,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -51,15 +66,37 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InfrastructureTest\ReflectUtilTest.cs" />
+    <Compile Include="Application\UserServiceTest.cs" />
+    <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BDDD.ObjectContainers.Unity\BDDD.ObjectContainers.Unity.csproj">
+      <Project>{6970C906-4205-4004-8D93-6BDF657E6295}</Project>
+      <Name>BDDD.ObjectContainers.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BDDD.Repository.NHibernate\BDDD.Repository.NHibernate.csproj">
+      <Project>{BF17DA37-3740-4F05-9173-50EE6174C3CA}</Project>
+      <Name>BDDD.Repository.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BDDD\BDDD.csproj">
       <Project>{B511179D-EC44-4715-8586-35A79E33A6FD}</Project>
       <Name>BDDD</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DemoProject.Application\DemoProject.Application.csproj">
+      <Project>{CAA54B4B-D801-4920-8112-6A05D1942592}</Project>
+      <Name>DemoProject.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoProject.Domain.Repository\DemoProject.Domain.Repository.csproj">
+      <Project>{5968F236-426E-49FC-8311-F38B5C7F1AA8}</Project>
+      <Name>DemoProject.Domain.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DemoProject.DTO\DemoProject.DTO.csproj">
       <Project>{D1631048-9208-4822-B850-DDC3E42B095D}</Project>
       <Name>DemoProject.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoProject.IApplication\DemoProject.IApplication.csproj">
+      <Project>{CEE763D0-1F9B-4156-93F4-6E77131618ED}</Project>
+      <Name>DemoProject.IApplication</Name>
     </ProjectReference>
     <ProjectReference Include="..\DemoProject.Infrastructure\DemoProject.Infrastructure.csproj">
       <Project>{89708D04-0B86-44B2-BEE1-187174A18CAD}</Project>
@@ -70,7 +107,6 @@
       <Name>DemoProject.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

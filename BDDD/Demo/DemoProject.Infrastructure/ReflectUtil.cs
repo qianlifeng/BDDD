@@ -16,7 +16,7 @@ namespace DemoProject.Infrastructure
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns>返回更新后的对象</returns>
-        public static TTo UpdateAllNotNullOrEmpty<TFrom, TTo>(TFrom from, TTo to)
+        public static TTo UpdateNotEmptyValues<TFrom, TTo>(TFrom from, TTo to)
         {
             Type fromType = from.GetType();
             Type toType = to.GetType();

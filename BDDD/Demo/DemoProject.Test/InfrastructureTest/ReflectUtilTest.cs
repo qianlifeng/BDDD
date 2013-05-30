@@ -18,7 +18,7 @@ namespace DemoProject.Test.InfrastructureTest
                     NickName = "qlf2"
                 };
 
-            User userNew = ReflectUtil.UpdateAllNotNullOrEmpty(userDTO, user);
+            User userNew = ReflectUtil.UpdateNotEmptyValues(userDTO, user);
 
             Assert.IsTrue(userNew.UserName == userDTO.UserName);
             Assert.IsTrue(userNew.NickName == userDTO.NickName);

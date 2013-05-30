@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using BDDD.Specification;
 using DemoProject.DTO;
 
 namespace DemoProject.IApplication
@@ -25,12 +26,19 @@ namespace DemoProject.IApplication
         /// <summary>
         /// 根据指定的用户信息，更新用户对象。
         /// </summary>
-        UserDTO UpdateUsers(UserDTO user);
+        UserDTO UpdateUser(UserDTO user);
+
+        /// <summary>
+        ///  增加用户
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        UserDTO AddUser(UserDTO user);
 
         /// <summary>
         /// 删除用户。
         /// </summary>
-        void DeleteUsers(UserDTO user);
+        void DeleteUser(UserDTO user);
 
         /// <summary>
         /// 根据用户的全局唯一标识获取用户信息。
@@ -51,7 +59,7 @@ namespace DemoProject.IApplication
         /// <summary>
         /// 获取所有用户的信息。
         /// </summary>
-        List<UserDTO> GetUsers(Expression<Func<UserDTO, bool>> spec);
+        List<UserDTO> GetUsers(ISpecification<UserDTO> spec);
 
         /// <summary>
         /// 获取所有角色。

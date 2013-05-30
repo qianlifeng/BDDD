@@ -19,6 +19,7 @@ namespace BDDD.ObjectContainers.Unity
         protected override T DoGetService<T>()
         {
             return realUnityContainer.Resolve<T>();
+            return realUnityContainer.Resolve<T>();
         }
 
         protected override T DoGetService<T>(string name)
@@ -33,7 +34,7 @@ namespace BDDD.ObjectContainers.Unity
 
         protected override T DoGetRealObjectContainer<T>()
         {
-            if (typeof (T).Equals(typeof (UnityContainer)))
+            if (typeof (T) == typeof (UnityContainer))
                 return realUnityContainer as T;
             throw new BDDDException("当前的传入的类型应该是 '{0}' 类型.", typeof (UnityContainer));
         }

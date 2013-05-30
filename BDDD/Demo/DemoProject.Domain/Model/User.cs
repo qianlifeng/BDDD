@@ -7,15 +7,15 @@ namespace DemoProject.Domain.Model
 {
     public class User : IAggregateRoot
     {
-        public virtual string UserName { get; private set; }
-        public virtual string NickName { get; private set; }
-        public virtual string Password { get; private set; }
-        public virtual string Email { get; private set; }
-        public virtual bool IsDisabled { get; private set; }
-        public virtual DateTime DateRegistered { get; private set; }
-        public virtual DateTime? DateLastLogin { get; private set; }
+        public virtual string UserName { get; protected set; }
+        public virtual string NickName { get; protected set; }
+        public virtual string Password { get; protected set; }
+        public virtual string Email { get; protected set; }
+        public virtual bool IsDisabled { get; protected set; }
+        public virtual DateTime DateRegistered { get; protected set; }
+        public virtual DateTime? DateLastLogin { get; protected set; }
         public virtual Guid ID { get; set; }
-        public virtual List<Group> UserGroups { get; private set; }
+        public virtual List<Group> UserGroups { get; protected set; }
 
         public User()
         {
@@ -85,7 +85,7 @@ namespace DemoProject.Domain.Model
         /// <summary>
         /// 刷新用户上次登录时间为当前时间
         /// </summary>
-        public void UpdateLastLogin()
+        public virtual void UpdateLastLogin()
         {
             DateLastLogin = DateTime.Now;
         }

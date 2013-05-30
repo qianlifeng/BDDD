@@ -7,9 +7,13 @@ namespace DemoProject.Domain.Model
     public class Group : IAggregateRoot, IEquatable<Group>
     {
         public virtual Guid ID { get; set; }
-        public virtual string Name { get; private set; }
-        public virtual string Description { get;private set; }
-        public virtual List<Role> Roles { get; private set; }
+        public virtual string Name { get; protected set; }
+        public virtual string Description { get; protected set; }
+        public virtual List<Role> Roles { get; protected set; }
+
+        public Group()
+        {
+        }
 
         public Group(string name, string description, List<Role> roles)
         {

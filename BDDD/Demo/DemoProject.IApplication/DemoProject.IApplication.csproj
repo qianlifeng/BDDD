@@ -36,7 +36,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -45,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BDDD\BDDD.csproj">
+      <Project>{B511179D-EC44-4715-8586-35A79E33A6FD}</Project>
+      <Name>BDDD</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DemoProject.DTO\DemoProject.DTO.csproj">
       <Project>{D1631048-9208-4822-B850-DDC3E42B095D}</Project>
       <Name>DemoProject.DTO</Name>

@@ -3,18 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using AutoMapper;
+using BDDD.Application;
 using BDDD.ObjectContainer;
+using BDDD.Specification;
 using DemoProject.DTO;
 using DemoProject.Domain.Model;
 using DemoProject.Domain.Repositories;
 using DemoProject.IApplication;
 using DemoProject.Infrastructure;
+using Microsoft.Practices.Unity;
 
 namespace DemoProject.Application
 {
-    public class UserService :ApplicationServiceBase,IUserService
+    public class UserService : ApplicationServiceBase, IUserService
     {
-        private readonly IUserRepository userRepository = ServiceLocator.Instance.GetService<IUserRepository>();
+        private IUserRepository userRepository;
+
+        public UserService()
+        {
+            userRepository = GetResolvedRepository<IUserRepository>();
+        }
 
         public bool ValidateUser(string userName, string password)
         {
@@ -28,10 +37,7 @@ namespace DemoProject.Application
 
         public bool DisableUser(UserDTO userDTO)
         {
-            if (userDTO == null)
-                throw new ArgumentNullException("用户不能为空");
-            if (userDTO.ID.IsEmptyGuid())
-                throw new ArgumentNullException("用户ID不能为空");
+            ValidateUser(userDTO);
 
             User user = userRepository.GetByKey(userDTO.ID);
             user.Disable();
@@ -42,10 +48,7 @@ namespace DemoProject.Application
 
         public bool EnableUser(UserDTO userDTO)
         {
-            if (userDTO == null)
-                throw new ArgumentNullException("用户不能为空");
-            if (userDTO.ID.IsEmptyGuid())
-                throw new ArgumentNullException("用户ID不能为空");
+            ValidateUser(userDTO);
 
             User user = userRepository.GetByKey(userDTO.ID);
             user.Enable();
@@ -54,23 +57,43 @@ namespace DemoProject.Application
             return user.IsDisabled;
         }
 
-        public UserDTO UpdateUsers(UserDTO userDTO)
+        public UserDTO AddUser(UserDTO userDTO)
+        {
+            if (userDTO == null)
+                throw new ArgumentNullException("用户不能为空");
+
+            User user = Mapper.Map<UserDTO, User>(userDTO);
+            userRepository.Add(user);
+            RepositoryContext.Commit();
+            return Mapper.Map<User, UserDTO>(user);
+        }
+
+        public UserDTO UpdateUser(UserDTO userDTO)
+        {
+            ValidateUser(userDTO);
+
+            User user = userRepository.GetByKey(userDTO.ID);
+            user = ReflectUtil.UpdateNotEmptyValues(userDTO, user);
+            userRepository.Update(user);
+            RepositoryContext.Commit();
+            return Mapper.Map<User, UserDTO>(user);
+        }
+
+        private void ValidateUser(UserDTO userDTO)
         {
             if (userDTO == null)
                 throw new ArgumentNullException("用户不能为空");
             if (userDTO.ID.IsEmptyGuid())
                 throw new ArgumentNullException("用户ID不能为空");
-
-            User user = userRepository.GetByKey(userDTO.ID);
-            
-            userRepository.Update(user);
-            RepositoryContext.Commit();
-            return user.IsDisabled;
         }
 
-        public void DeleteUsers(UserDTO user)
+        public void DeleteUser(UserDTO userDTO)
         {
-            throw new NotImplementedException();
+            ValidateUser(userDTO);
+
+            User user = userRepository.GetByKey(userDTO.ID);
+            userRepository.Remove(user);
+            RepositoryContext.Commit();
         }
 
         public UserDTO GetUserByKey(Guid id)
@@ -88,9 +111,10 @@ namespace DemoProject.Application
             throw new NotImplementedException();
         }
 
-        public List<UserDTO> GetUsers(Expression<Func<UserDTO, bool>> spec)
+        public List<UserDTO> GetUsers(ISpecification<UserDTO> spec)
         {
-            throw new NotImplementedException();
+            ISpecification<User> userSpec = Mapper.Map<ISpecification<UserDTO>, ISpecification<User>>(spec);
+            return Mapper.Map<IEnumerable<User>, List<UserDTO>>(userRepository.GetAll(userSpec));
         }
 
         public List<RoleDTO> GetRoles()

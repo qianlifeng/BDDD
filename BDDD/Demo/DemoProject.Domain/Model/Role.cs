@@ -6,8 +6,8 @@ namespace DemoProject.Domain.Model
     public class Role : IAggregateRoot, IEquatable<Role> 
     {
         public virtual Guid ID { get; set; }
-        public virtual string Name { get;private set; }
-        public virtual string Description { get; private set; }
+        public virtual string Name { get;protected set; }
+        public virtual string Description { get; protected set; }
 
         public Role()
         {
