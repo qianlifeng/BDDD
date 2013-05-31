@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using AutoMapper;
-using BDDD.Application;
-using BDDD.ObjectContainer;
 using BDDD.Specification;
 using DemoProject.DTO;
 using DemoProject.Domain.Model;
 using DemoProject.Domain.Repositories;
 using DemoProject.IApplication;
 using DemoProject.Infrastructure;
-using Microsoft.Practices.Unity;
 
 namespace DemoProject.Application
 {
     public class UserService : ApplicationServiceBase, IUserService
+
     {
         private IUserRepository userRepository;
 
@@ -132,12 +127,12 @@ namespace DemoProject.Application
             return Mapper.Map<IEnumerable<User>, List<UserDTO>>(userRepository.GetAll(userSpec));
         }
 
-        public List<RoleDTO> GetRoles()
+        public List<RoleDTO> GetUserRoles()
         {
             throw new NotImplementedException();
         }
 
-        public List<GroupDTO> GetGroups()
+        public List<GroupDTO> GetUserGroups()
         {
             throw new NotImplementedException();
         }

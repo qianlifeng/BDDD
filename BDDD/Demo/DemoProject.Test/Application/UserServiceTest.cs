@@ -136,13 +136,11 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void DisableUserTest()
         {
-            userDTO1.IsDisabled = false;
             Assert.IsTrue(userDTO1.ID == Guid.Empty);
             userDTO1 = userService.AddUser(userDTO1);
             Assert.IsTrue(userDTO1.ID != Guid.Empty);
-            Assert.IsTrue(userDTO1.IsDisabled == false);
 
-            userDTO1.IsDisabled = true;
+            userDTO1.IsDisabled = false;
             userService.DisableUser(userDTO1);
             UserDTO userByKey = userService.GetUserByKey(userDTO1.ID);
             Assert.IsTrue(userByKey.IsDisabled == true);
@@ -154,20 +152,18 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void EnableUserTest()
         {
-            userDTO1.IsDisabled = true;
             Assert.IsTrue(userDTO1.ID == Guid.Empty);
             userDTO1 = userService.AddUser(userDTO1);
             Assert.IsTrue(userDTO1.ID != Guid.Empty);
-            Assert.IsTrue(userDTO1.IsDisabled == true);
 
-            userDTO1.IsDisabled = false;
-            userService.DisableUser(userDTO1);
+            userDTO1.IsDisabled = true;
+            userService.EnableUser(userDTO1);
             UserDTO userByKey = userService.GetUserByKey(userDTO1.ID);
             Assert.IsTrue(userByKey.IsDisabled == false);
         }
 
         /// <summary>
-        ///A test for GetGroups
+        ///A test for GetUserGroups
         ///</summary>
         [TestMethod()]
         public void GetGroupsTest()
@@ -175,13 +171,13 @@ namespace DemoProject.Test.Application
             UserService userService = new UserService(); // TODO: Initialize to an appropriate value
             List<GroupDTO> expected = null; // TODO: Initialize to an appropriate value
             List<GroupDTO> actual;
-            actual = userService.GetGroups();
+            actual = userService.GetUserGroups();
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
-        ///A test for GetRoles
+        ///A test for GetUserRoles
         ///</summary>
         [TestMethod()]
         public void GetRolesTest()
@@ -189,7 +185,7 @@ namespace DemoProject.Test.Application
             UserService userService = new UserService(); // TODO: Initialize to an appropriate value
             List<RoleDTO> expected = null; // TODO: Initialize to an appropriate value
             List<RoleDTO> actual;
-            actual = userService.GetRoles();
+            actual = userService.GetUserRoles();
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
