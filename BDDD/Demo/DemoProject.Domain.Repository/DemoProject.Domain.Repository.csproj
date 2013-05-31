@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GroupRepository.cs" />
     <Compile Include="FluentAutoMap\CustomClassNameConvention.cs" />
     <Compile Include="FluentAutoMap\CustomCollectionConvention.cs" />
     <Compile Include="FluentAutoMap\CustomManyToManyConvention.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="FluentAutoMap\CustomReferenceConvetion.cs" />
     <Compile Include="FluentAutoMap\LengthAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleRepository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,9 +74,6 @@
       <Project>{66106CE1-4E78-463B-B797-C52F545511B4}</Project>
       <Name>DemoProject.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

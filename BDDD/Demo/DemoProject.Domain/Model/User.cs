@@ -48,6 +48,23 @@ namespace DemoProject.Domain.Model
         }
 
         /// <summary>
+        /// 返回此用户所有的Role
+        /// </summary>
+        /// <returns></returns>
+        public virtual List<Role> GetAllRoles()
+        {
+            List<Role> roles = new List<Role>();
+            UserGroups.ForEach(o => o.Roles.ForEach(r =>
+                {
+                    if (!roles.Contains(r))
+                    {
+                        roles.Add(r);
+                    }
+                }));
+            return roles;
+        }
+
+    /// <summary>
         /// 是否属于某个用户组
         /// </summary>
         /// <param name="group"></param>
@@ -88,6 +105,11 @@ namespace DemoProject.Domain.Model
         public virtual void UpdateLastLogin()
         {
             DateLastLogin = DateTime.Now;
+        }
+
+        public virtual List<Group> GetAllGroups()
+        {
+            return UserGroups;
         }
     }
 }

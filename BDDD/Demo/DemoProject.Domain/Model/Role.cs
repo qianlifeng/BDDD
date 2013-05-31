@@ -9,6 +9,9 @@ namespace DemoProject.Domain.Model
         public virtual Guid ID { get; set; }
         public virtual string Name { get;protected set; }
         public virtual string Description { get; protected set; }
+        /// <summary>
+        /// 包含此Role的所有用户组
+        /// </summary>
         public virtual List<Group> Groups { get; protected set; }
 
         public Role()

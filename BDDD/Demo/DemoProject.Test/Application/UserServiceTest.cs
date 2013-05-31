@@ -168,12 +168,7 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void GetGroupsTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            List<GroupDTO> expected = null; // TODO: Initialize to an appropriate value
-            List<GroupDTO> actual;
-            actual = userService.GetUserGroups();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+           
         }
 
         /// <summary>
@@ -182,12 +177,7 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void GetRolesTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            List<RoleDTO> expected = null; // TODO: Initialize to an appropriate value
-            List<RoleDTO> actual;
-            actual = userService.GetUserRoles();
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+         
         }
 
         /// <summary>
@@ -264,34 +254,18 @@ namespace DemoProject.Test.Application
         }
 
         /// <summary>
-        ///A test for UpdateUser
-        ///</summary>
-        [TestMethod()]
-        public void UpdateUsersTest()
-        {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            UserDTO user = null; // TODO: Initialize to an appropriate value
-            UserDTO expected = null; // TODO: Initialize to an appropriate value
-            UserDTO actual;
-            actual = userService.UpdateUser(user);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
-        }
-
-        /// <summary>
         ///A test for ValidateUser
         ///</summary>
         [TestMethod()]
         public void ValidateUserTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            string userName = string.Empty; // TODO: Initialize to an appropriate value
-            string password = string.Empty; // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = userService.ValidateUser(userName, password);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            userDTO1.UserName = "111";
+            userDTO1.Password = "222";
+            userDTO1 = userService.AddUser(userDTO1);
+            Assert.IsTrue(userDTO1.ID != Guid.Empty);
+
+            bool canLogin = userService.ValidateUser("111","222");
+            Assert.IsTrue(canLogin);
         }
     }
 }

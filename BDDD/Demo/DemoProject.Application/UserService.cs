@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using BDDD.Specification;
 using DemoProject.DTO;
@@ -11,7 +12,6 @@ using DemoProject.Infrastructure;
 namespace DemoProject.Application
 {
     public class UserService : ApplicationServiceBase, IUserService
-
     {
         private IUserRepository userRepository;
 
@@ -124,17 +124,28 @@ namespace DemoProject.Application
         public List<UserDTO> GetUsers(ISpecification<UserDTO> spec)
         {
             ISpecification<User> userSpec = Mapper.Map<ISpecification<UserDTO>, ISpecification<User>>(spec);
-            return Mapper.Map<IEnumerable<User>, List<UserDTO>>(userRepository.GetAll(userSpec));
+            IEnumerable<User> users = userRepository.GetAll(userSpec);
+            return Mapper.Map<List<User>, List<UserDTO>>(users.ToList());
         }
 
-        public List<RoleDTO> GetUserRoles()
+        public List<RoleDTO> GetUserRoles(UserDTO userDTO)
         {
-            throw new NotImplementedException();
+            ValidateUser(userDTO);
+
+            User user = userRepository.GetByKey(userDTO.ID);
+            if (user == null) throw new ApplicationException("用户不存在");
+
+            return Mapper.Map<List<Role>, List<RoleDTO>>(user.GetAllRoles());
         }
 
-        public List<GroupDTO> GetUserGroups()
+        public List<GroupDTO> GetUserGroups(UserDTO userDTO)
         {
-            throw new NotImplementedException();
+            ValidateUser(userDTO);
+
+            User user = userRepository.GetByKey(userDTO.ID);
+            if (user == null) throw new ApplicationException("用户不存在");
+
+            return Mapper.Map<List<Group>, List<GroupDTO>>(user.GetAllGroups());
         }
     }
 }

@@ -64,11 +64,11 @@ namespace DemoProject.IApplication
         /// <summary>
         /// 获取所有角色。
         /// </summary>
-        List<RoleDTO> GetUserRoles();
+        List<RoleDTO> GetUserRoles(UserDTO user);
 
         /// <summary>
         /// 获取所有用户分组。
         /// </summary>
-        List<GroupDTO> GetUserGroups();
+        List<GroupDTO> GetUserGroups(UserDTO user);
     }
 }
