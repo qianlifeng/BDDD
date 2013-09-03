@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using AutoMapper;
 using BDDD.Specification;
 using DemoProject.DTO;
@@ -121,10 +122,10 @@ namespace DemoProject.Application
             return null;
         }
 
-        public List<UserDTO> GetUsers(ISpecification<UserDTO> spec)
+        public List<UserDTO> GetUsers(Expression<Func<UserDTO, bool>> spec)
         {
-            ISpecification<User> userSpec = Mapper.Map<ISpecification<UserDTO>, ISpecification<User>>(spec);
-            IEnumerable<User> users = userRepository.GetAll(userSpec);
+            Expression<Func<User, bool>> newExpression = ExpressionConvertor<UserDTO, User>.Convert(spec);
+            IEnumerable<User> users = userRepository.GetAll(newExpression);
             return Mapper.Map<List<User>, List<UserDTO>>(users.ToList());
         }
 

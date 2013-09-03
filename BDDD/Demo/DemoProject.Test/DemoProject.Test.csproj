@@ -64,6 +64,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InfrastructureTest\ExpressionConvertorTest.cs" />
+    <Compile Include="OtherTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InfrastructureTest\ReflectUtilTest.cs" />
     <Compile Include="Application\UserServiceTest.cs" />

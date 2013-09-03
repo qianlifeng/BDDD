@@ -59,7 +59,7 @@ namespace DemoProject.IApplication
         /// <summary>
         /// 获取所有用户的信息。
         /// </summary>
-        List<UserDTO> GetUsers(ISpecification<UserDTO> spec);
+        List<UserDTO> GetUsers(Expression<Func<UserDTO,bool>> spec);
 
         /// <summary>
         /// 获取所有角色。

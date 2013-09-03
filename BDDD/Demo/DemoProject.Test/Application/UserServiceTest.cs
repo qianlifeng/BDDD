@@ -45,7 +45,7 @@ namespace DemoProject.Test.Application
         {
             InitAppRuntime();
         }
-        
+
         //Use ClassCleanup to run code after all tests in a class have run
         //[ClassCleanup()]
         //public static void MyClassCleanup()
@@ -77,7 +77,7 @@ namespace DemoProject.Test.Application
                 IsDisabled = false,
                 NickName = "qlf2"
             };
-            userDTO2 = new UserDTO()
+            userDTO3 = new UserDTO()
             {
                 UserName = "user3",
                 Password = "pwd3",
@@ -113,7 +113,7 @@ namespace DemoProject.Test.Application
         public void AddUserTest()
         {
             Assert.IsTrue(userDTO1.ID == Guid.Empty);
-            userDTO1 =  userService.AddUser(userDTO1);
+            userDTO1 = userService.AddUser(userDTO1);
             Assert.IsTrue(userDTO1.ID != Guid.Empty);
         }
 
@@ -168,7 +168,7 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void GetGroupsTest()
         {
-           
+
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void GetRolesTest()
         {
-         
+
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void GetUserByEmailTest()
         {
-            userDTO1.Email = "meail"+DateTime.Now;
+            userDTO1.Email = "meail" + DateTime.Now;
             userDTO1 = userService.AddUser(userDTO1);
             Assert.IsTrue(userDTO1.ID != Guid.Empty);
 
@@ -231,10 +231,13 @@ namespace DemoProject.Test.Application
             userService.AddUser(userDTO1);
             userDTO2.UserName = "thisistest2";
             userService.AddUser(userDTO2);
-            userDTO2.UserName = "qlf3";
-            userService.AddUser(userDTO2);
+            userDTO3.UserName = "qlf3";
+            userService.AddUser(userDTO3);
 
-            List<UserDTO> userDtos = userService.GetUsers(new ExpressionSpecification<UserDTO>(o => o.UserName.Contains("thisistest")));
+            UserDTO u = userService.GetUserByName("thisistest1");
+            Assert.IsTrue(u.ID != Guid.Empty);
+
+            List<UserDTO> userDtos = userService.GetUsers(o => o.UserName.Contains("test"));
             Assert.IsTrue(userDtos.Count == 2);
         }
 
@@ -244,13 +247,14 @@ namespace DemoProject.Test.Application
         [TestMethod()]
         public void UpdateUserTest()
         {
-            UserService userService = new UserService(); // TODO: Initialize to an appropriate value
-            UserDTO userDTO = null; // TODO: Initialize to an appropriate value
-            UserDTO expected = null; // TODO: Initialize to an appropriate value
-            UserDTO actual;
-            actual = userService.UpdateUser(userDTO);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            userDTO1.UserName = "111";
+            userDTO1.Password = "222";
+            userDTO1 = userService.AddUser(userDTO1);
+            Assert.IsTrue(userDTO1.ID != Guid.Empty);
+
+            userDTO1.UserName = "test";
+            userDTO1 = userService.UpdateUser(userDTO1);
+            Assert.IsTrue(userDTO1.UserName == "test");
         }
 
         /// <summary>
@@ -264,7 +268,7 @@ namespace DemoProject.Test.Application
             userDTO1 = userService.AddUser(userDTO1);
             Assert.IsTrue(userDTO1.ID != Guid.Empty);
 
-            bool canLogin = userService.ValidateUser("111","222");
+            bool canLogin = userService.ValidateUser("111", "222");
             Assert.IsTrue(canLogin);
         }
     }
