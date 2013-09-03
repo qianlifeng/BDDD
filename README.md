@@ -1,7 +1,7 @@
 BDDD,Base Library For DDD Partern
 ====
 ###项目说明：
-该项目基于ApWorks框架开发，Apworks框架地址：[http://apworks.codeplex.com](http://apworks.codeplex.com)。为了学习DDD，我基本把他复制了一遍，其中做了一些小小的变动。
+该项目基于ApWorks框架开发，Apworks框架地址：[https://github.com/daxnet/Apworks](https://github.com/daxnet/Apworks)。为了学习DDD，我基本把他复制了一遍，其中做了一些小小的变动。
 <br/>
 框架引入了一些经典DDD中的概念：聚合根，仓储，领域模型等等，并对这些概念进行了封装。在使用该框架进行开发的时候能够更加容易的遵循DDD的一些理念，简化了一些基本的声明与操作。
 框架目前包含的一些概念：
