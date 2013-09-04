@@ -39,8 +39,6 @@ namespace DemoProject.Application
         {
             Mapper.CreateMap<T1, T2>();
             Mapper.CreateMap<T2, T1>();
-            Mapper.CreateMap<List<T1>, List<T2>>();
-            Mapper.CreateMap<List<T2>, List<T1>>();
         }
 
         protected IRepositoryContext RepositoryContext

@@ -19,22 +19,6 @@ namespace DemoProject.Test.Application
         private UserDTO userDTO2;
         private UserDTO userDTO3;
 
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
         #region Additional test attributes
         // 
         //You can use the following additional attributes as you write your tests:
@@ -237,8 +221,8 @@ namespace DemoProject.Test.Application
             UserDTO u = userService.GetUserByName("thisistest1");
             Assert.IsTrue(u.ID != Guid.Empty);
 
-            List<UserDTO> userDtos = userService.GetUsers(o => o.UserName.Contains("test"));
-            Assert.IsTrue(userDtos.Count == 2);
+            List<UserDTO> userDtos = userService.GetUsers(o => o.UserName.Contains("1"));
+            Assert.IsTrue(userDtos.Count == 1);
         }
 
         /// <summary>

@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using BDDD.Application;
+﻿using BDDD.Application;
 using BDDD.Config;
 using BDDD.ObjectContainer;
 using BDDD.ObjectContainers.Unity;
 using BDDD.Repository;
 using BDDD.Repository.NHibernate;
 using DemoProject.Application;
-using DemoProject.DTO;
 using DemoProject.Domain.Model;
 using DemoProject.Domain.Repositories;
 using DemoProject.Domain.Repository;
@@ -15,9 +13,7 @@ using DemoProject.IApplication;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using FluentNHibernate.Conventions.Helpers;
 using Microsoft.Practices.Unity;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate.Tool.hbm2ddl;
 using Configuration = NHibernate.Cfg.Configuration;
 
@@ -28,7 +24,7 @@ namespace DemoProject.Test
         private static Configuration nhibernateCfg;
         private static App application;
 
-        public static Configuration GetNHibernateConfig()
+        private static Configuration GetNHibernateConfig()
         {
             if (nhibernateCfg != null) return nhibernateCfg;
 
@@ -46,7 +42,8 @@ namespace DemoProject.Test
 
             return nhibernateCfg;
         }
-        public static AutoPersistenceModel CreateAutomappings()
+
+        private static AutoPersistenceModel CreateAutomappings()
         {
             // This is the actual automapping - use AutoMap to start automapping,
             // then pick one of the static methods to specify what to map (in this case
@@ -63,14 +60,14 @@ namespace DemoProject.Test
                 .Conventions.Add<CustomManyToManyConvention>();
         }
 
-        public static void ResetDB()
+        protected static void ResetDB()
         {
             Configuration config = GetNHibernateConfig();
             var schemaExport = new SchemaExport(config);
             schemaExport.Execute(true, true, false);
         }
 
-        public static void InitAppRuntime()
+        protected static void InitAppRuntime()
         {
             ManualConfigSource configSource = new ManualConfigSource { ObjectContainer = typeof(UnityObjectContainer) };
             application = AppRuntime.Create(configSource);

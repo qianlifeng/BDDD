@@ -122,6 +122,7 @@ namespace DemoProject.Application
             return null;
         }
 
+        //todo:感觉Application里面不应该提供这么宽泛的接口出去，应该提供的是具体条件的实现
         public List<UserDTO> GetUsers(Expression<Func<UserDTO, bool>> spec)
         {
             Expression<Func<User, bool>> newExpression = ExpressionConvertor<UserDTO, User>.Convert(spec);
