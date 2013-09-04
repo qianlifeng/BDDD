@@ -14,15 +14,6 @@ namespace DemoProject.Test
     public class OtherTest
     {
         [TestMethod]
-        public void ExpressionTest()
-        {
-            Func<UserDTO, bool> func = dto => dto.UserName == "s";
-
-            ParameterExpression parameterExpression = Expression.Parameter(typeof (UserDTO), "userDTO");
-            UnaryExpression unaryExpression = Expression.Convert(parameterExpression, typeof (User));
-        }
-
-        [TestMethod]
         public void AutoMapperTest()
         {
             List<User> users = new List<User>

@@ -14,7 +14,7 @@ namespace DemoProject.Test.Application
     public class UserServiceTest : TestBase
     {
         private TestContext testContextInstance;
-        private IUserService userService = ServiceLocator.Instance.GetService<IUserService>();
+        private IUserService userService;
         private UserDTO userDTO1;
         private UserDTO userDTO2;
         private UserDTO userDTO3;
@@ -40,6 +40,7 @@ namespace DemoProject.Test.Application
         [TestInitialize()]
         public void MyTestInitialize()
         {
+            userService = ServiceLocator.Instance.GetService<IUserService>();
             userDTO1 = new UserDTO()
                 {
                     UserName = "user1",
