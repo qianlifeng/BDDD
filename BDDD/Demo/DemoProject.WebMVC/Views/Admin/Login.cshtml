@@ -3,14 +3,18 @@
     <link href="@Url.Content("~/Content/admin.less")" rel="stylesheet" type="text/css" />
 }
 
-<div class="adminLogin">
+@section js{
+    <script src="@Url.Content("~/Scripts/admin.coffee")"></script>
+}
+
+<div class="adminLogin" ng-app>
     <div class="header">
-        &nbsp;
     </div>
     <div class="content">
-        df
+        <div class="content-top"></div>
+        <div class="content-middle"></div>
+        <div class="content-bottom"></div>
     </div>
     <div class="footer">
-        df
     </div>
 </div>
