@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using BDDD.Specification;
 using DemoProject.DTO;
+using DemoProject.DTO.Admin;
 
 namespace DemoProject.IApplication
 {
@@ -11,7 +12,7 @@ namespace DemoProject.IApplication
         /// <summary>
         /// 校验指定的用户用户名与密码是否一致。
         /// </summary>
-        bool ValidateUser(string userName, string password);
+        bool ValidateUser(AdminLoginDTO loginDTO);
 
         /// <summary>
         /// 禁用指定用户。

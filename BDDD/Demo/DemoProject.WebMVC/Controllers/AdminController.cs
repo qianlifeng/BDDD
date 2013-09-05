@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BDDD.ObjectContainer;
+using DemoProject.DTO.Admin;
+using DemoProject.IApplication;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +11,6 @@ namespace DemoProject.WebMVC.Controllers
 {
     public class AdminController : Controller
     {
-        //
-        // GET: /Admin/
-
         public ActionResult Index()
         {
             return View();
@@ -19,6 +19,20 @@ namespace DemoProject.WebMVC.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(AdminLoginDTO loginDTO)
+        {
+            IUserService userService = ServiceLocator.Instance.GetService<IUserService>();
+            if (userService.ValidateUser(loginDTO))
+            {
+                return RedirectToAction("Index");
+            }
+            else 
+            {
+                return View();
+            }
         }
     }
 }

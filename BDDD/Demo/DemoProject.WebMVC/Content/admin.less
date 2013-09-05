@@ -1,44 +1,71 @@
 ﻿@import "base.less";
 
-/*  Admin Login Page  */
-.adminLogin
-{
-    background-color: #1D3647;
+/*  Admin Page  */
+.admin {
+    min-height: 100%;
+    background-color: #EEF2FB;
+    height: auto !important;
+    height: 100%; /*IE6不识别min-height*/
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333333;
 
-    .header
-    {
-        background-image: url("@{rootDomain}Images/Admin/login-top-bg.gif");
+    .header {
+        background-image: url("@{rootDomain}Images/Admin/header.jpg");
         background-repeat: repeat-x;
-        height: 42px;
+        height: 56px;
     }
 
-    .content
-    {
-        .content-top
-        {
-            background-image: url("@{rootDomain}Images/Admin/login-content-top-bg.jpg");
-            background-repeat: repeat-x;
-            height: 150px;
-        }
+    .content {
+        padding-bottom: 20px;
+        padding-top: 100px;
 
-        .content-bottom
-        {
-            background-image: url("@{rootDomain}Images/Admin/login-content-bottom-bg.jpg");
-            background-repeat: repeat-x;
-            height: 150px;
-        }
+        .login {
+            width: 400px;
+            margin: 0 auto;
 
-        .content-middle
-        {
-            height:300px;
-            background-color:#F8F9FB;
+            td {
+                padding: 5px;
+            }
+
+            .txt {
+                text-align: right;
+                width: 80px;
+            }
+
+            .input {
+                text-align: left;
+                width: 200px;
+            }
+
+            .lock {
+                position: relative;
+                top: 3px;
+            }
+
+            .btnLogin {
+                text-align:center;
+            }
         }
     }
 
-    .footer
-    {
-        background-image: url("@{rootDomain}Images/Admin/login-bottom-bg.gif");
+    .footer {
+        background-image: url("@{rootDomain}Images/Admin/footer.gif");
         background-repeat: repeat-x;
         height: 20px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        clear: both;
+
+        .copyright {
+            margin: 0 auto;
+            width: 300px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            color: #ABCAD3;
+            line-height: 20px;
+        }
     }
 }

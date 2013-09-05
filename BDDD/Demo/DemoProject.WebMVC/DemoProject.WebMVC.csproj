@@ -39,17 +39,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CoffeeScriptHttpHandler">
-      <HintPath>..\..\packages\CoffeeSharp.0.5\lib\CoffeeScriptHttpHandler.dll</HintPath>
-    </Reference>
-    <Reference Include="CoffeeSharp">
-      <HintPath>..\..\packages\CoffeeSharp.0.5\lib\CoffeeSharp.dll</HintPath>
-    </Reference>
     <Reference Include="dotless.Core">
       <HintPath>..\..\packages\dotless.1.3.1.0\lib\dotless.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Jurassic">
-      <HintPath>..\..\packages\CoffeeSharp.0.5\lib\Jurassic.dll</HintPath>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System" />
@@ -126,7 +127,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\admin.less" />
-    <Content Include="Scripts\admin.coffee" />
+    <Content Include="Scripts\Admin\admin.js" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
@@ -464,6 +465,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Admin\Login.cshtml" />
     <Content Include="Content\base.less" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -472,13 +475,37 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BDDD.ObjectContainers.Unity\BDDD.ObjectContainers.Unity.csproj">
+      <Project>{6970c906-4205-4004-8d93-6bdf657e6295}</Project>
+      <Name>BDDD.ObjectContainers.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BDDD.Repository.NHibernate\BDDD.Repository.NHibernate.csproj">
+      <Project>{bf17da37-3740-4f05-9173-50ee6174c3ca}</Project>
+      <Name>BDDD.Repository.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BDDD\BDDD.csproj">
+      <Project>{b511179d-ec44-4715-8586-35a79e33a6fd}</Project>
+      <Name>BDDD</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DemoProject.Application\DemoProject.Application.csproj">
       <Project>{caa54b4b-d801-4920-8112-6a05d1942592}</Project>
       <Name>DemoProject.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DemoProject.Domain.Repository\DemoProject.Domain.Repository.csproj">
+      <Project>{5968f236-426e-49fc-8311-f38b5c7f1aa8}</Project>
+      <Name>DemoProject.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoProject.Domain\DemoProject.Domain.csproj">
+      <Project>{66106ce1-4e78-463b-b797-c52f545511b4}</Project>
+      <Name>DemoProject.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DemoProject.DTO\DemoProject.DTO.csproj">
       <Project>{d1631048-9208-4822-b850-ddc3e42b095d}</Project>
       <Name>DemoProject.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoProject.IApplication\DemoProject.IApplication.csproj">
+      <Project>{cee763d0-1f9b-4156-93f4-6e77131618ed}</Project>
+      <Name>DemoProject.IApplication</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

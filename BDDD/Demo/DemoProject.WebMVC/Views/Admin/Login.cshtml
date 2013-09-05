@@ -1,20 +1,36 @@
 ﻿@model DemoProject.DTO.Admin.AdminLoginDTO
-@section css{
-    <link href="@Url.Content("~/Content/admin.less")" rel="stylesheet" type="text/css" />
+@section header{
+test
 }
+<form method="post" action="/Admin/Login">
+    <table class="login">
+        <tr>
+            <td class="txt">管理员： 
+            </td>
+            <td class="input" >
+                <input type="text" name="UserName" />
+            </td>
 
-@section js{
-    <script src="@Url.Content("~/Scripts/admin.coffee")"></script>
+        </tr>
+        <tr>
+            <td class="txt">密 码：
+            </td>
+            <td class="input">
+                <input type="text" name="Password" />
+                <img src="@Url.Content("~/Images/Admin/lock.gif")" class="lock" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="btnLogin">
+                <input type="submit" value="登陆" />
+            </td>
+        </tr>
+
+    </table>
+</form>
+
+@section footer{
+    <div class="copyright">
+        Copyright © 2012-2013 www.scottqian.com
+    </div>
 }
-
-<div class="adminLogin" ng-app>
-    <div class="header">
-    </div>
-    <div class="content">
-        <div class="content-top"></div>
-        <div class="content-middle"></div>
-        <div class="content-bottom"></div>
-    </div>
-    <div class="footer">
-    </div>
-</div>
