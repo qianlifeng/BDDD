@@ -34,5 +34,11 @@ namespace DemoProject.WebMVC.Controllers
             }
             return Json(new { loginPass = loginPass });
         }
+
+        public ActionResult Logout()
+        {
+            Session["LoginUser"] = null;
+            return Json(new { logoutPass = "true" },JsonRequestBehavior.AllowGet);
+        }
     }
 }

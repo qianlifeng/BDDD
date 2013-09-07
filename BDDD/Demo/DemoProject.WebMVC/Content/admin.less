@@ -33,14 +33,18 @@
             }
 
             .btnLogout {
-                cursor:pointer;
+                cursor: pointer;
             }
         }
     }
 
     .content {
         padding-bottom: 20px;
-        padding-top: 100px;
+        padding-top: 10px;
+
+        .loginContainer {
+            margin-top: 100px;
+        }
 
         .loginMsg {
             width: 300px;
@@ -73,6 +77,72 @@
             .btnCancel {
                 margin-left: 80px;
             }
+        }
+
+        .leftNav {
+            float: left;
+
+            .navTitle {
+                background-image: url("/Images/Admin/navTitle.gif");
+                background-repeat: no-repeat;
+                width: 182px;
+                color: #000;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .navSplit {
+                background-image: url("/Images/Admin/navSplit.gif");
+                background-repeat: no-repeat;
+                width: 182px;
+                color: #000;
+                height: 5px;
+            }
+
+            .navBody {
+                display:none;
+            }
+
+            .navActive {
+                display: block;
+            }
+
+            ul {
+                padding: 0;
+                margin: 0;
+            }
+
+            li {
+                line-height: 26px;
+                list-style-type: none;
+                display: block;
+                text-decoration: none;
+                height: 26px;
+                text-align: center;
+                width: 182px;
+
+                a {
+                    line-height: 26px;
+                    display: block;
+                    color: #333;
+                    background-image: url("/Images/Admin/navbg-normal.gif");
+                    background-repeat: no-repeat;
+                    height: 26px;
+                    text-decoration: none;
+                    width: 182px;
+                }
+
+                    a:hover {
+                        background-image: url("/Images/Admin/navbg-hover.gif");
+                    }
+            }
+        }
+
+        .main {
+            float: right;
         }
     }
 

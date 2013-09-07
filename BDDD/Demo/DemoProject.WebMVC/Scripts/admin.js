@@ -58,7 +58,7 @@ angular.module('admin', ['admin.service', 'admin.directive', 'admin.filter']).
               success: function (response) {
                   if (response.loginPass) {
                       var returnURL = urlService.getParameter("ReturnUrl");
-                      if (typeof returnURL !== "undefinded") {
+                      if (returnURL && returnURL != "null") {
                           window.location.href = returnURL;
                       } else {
                           window.location.href = "/admin";
@@ -85,31 +85,31 @@ angular.module('admin', ['admin.service', 'admin.directive', 'admin.filter']).
   }).
   controller('adminController', function ($scope) {
 
+      $scope.init = function () {
+          $(".navTitle").click(function () {
+              $(".navBody").removeClass("navActive");
+              $(this).next().addClass("navActive");
+          });
+      }
+
       $scope.logout = function () {
           $.ajax({
               url: "/admin/logout",
-              type: "POST",
-              data: "",
+              type: "get",
               dataType: "json",
               contentType: "application/json; charset=utf-8",
               success: function (response) {
                   if (response.logoutPass) {
-                      var returnURL = urlService.getParameter("ReturnUrl");
-                      if (typeof returnURL !== "undefinded") {
-                          window.location.href = returnURL;
-                      } else {
-                          window.location.href = "/admin";
-                      }
+                      alert("退出成功！");
+                      window.location.href = "/admin/login";
                   }
                   else {
-                      $scope.loginMsg = "用户名或密码错误！";
-                      $scope.$digest();
-                      $("#btnAdminLogin").button("reset");
+                      alert("退出失败！");
                   }
               },
               error: function (response) {
-                  $scope.loginMsg = "服务器发生错误，请稍后重试！";
-                  $("#btnAdminLogin").button("reset");
+                  alert("服务器发生错误，请稍后重试！");
               }
+          });
       }
   });
