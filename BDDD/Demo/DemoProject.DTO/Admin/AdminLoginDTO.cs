@@ -5,9 +5,9 @@ using System.Text;
 
 namespace DemoProject.DTO.Admin
 {
-    public class AdminLoginDTO
+    public class AdminLoginDTO : BaseDTO
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public virtual string UserName { get; set; }
+        public virtual string Password { get; set; }
     }
 }

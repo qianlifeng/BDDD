@@ -15,14 +15,41 @@
         background-image: url("@{rootDomain}Images/Admin/header.jpg");
         background-repeat: repeat-x;
         height: 56px;
+
+        .logo {
+            float: left;
+        }
+
+        .userInfo {
+            float: right;
+            line-height: 38px;
+            font-size: 12px;
+            color: #FFFFFF;
+            height: 38px;
+            margin-right: 10px;
+
+            span {
+                padding-right: 30px;
+            }
+
+            .btnLogout {
+                cursor:pointer;
+            }
+        }
     }
 
     .content {
         padding-bottom: 20px;
         padding-top: 100px;
 
+        .loginMsg {
+            width: 300px;
+            height: 20px;
+            margin: 10px auto;
+        }
+
         .login {
-            width: 400px;
+            width: 600px;
             margin: 0 auto;
 
             td {
@@ -39,13 +66,12 @@
                 width: 200px;
             }
 
-            .lock {
-                position: relative;
-                top: 3px;
+            .btnLogin {
+                width: 80px;
             }
 
-            .btnLogin {
-                text-align:center;
+            .btnCancel {
+                margin-left: 80px;
             }
         }
     }

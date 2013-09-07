@@ -15,7 +15,7 @@ namespace DemoProject.Domain.Model
         public virtual DateTime DateRegistered { get; protected set; }
         public virtual DateTime? DateLastLogin { get; protected set; }
         public virtual Guid ID { get; set; }
-        public virtual List<Group> UserGroups { get; protected set; }
+        public virtual IList<Group> UserGroups { get; protected set; }
 
         public User()
         {
@@ -54,7 +54,7 @@ namespace DemoProject.Domain.Model
         public virtual List<Role> GetAllRoles()
         {
             List<Role> roles = new List<Role>();
-            UserGroups.ForEach(o => o.Roles.ForEach(r =>
+            UserGroups.ToList().ForEach(o => o.Roles.ToList().ForEach(r =>
                 {
                     if (!roles.Contains(r))
                     {
@@ -109,7 +109,7 @@ namespace DemoProject.Domain.Model
 
         public virtual List<Group> GetAllGroups()
         {
-            return UserGroups;
+            return UserGroups.ToList();
         }
     }
 }

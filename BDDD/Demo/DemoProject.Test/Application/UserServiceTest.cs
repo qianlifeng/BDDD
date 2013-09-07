@@ -7,6 +7,7 @@ using System;
 using DemoProject.DTO;
 using System.Collections.Generic;
 using BDDD.Specification;
+using DemoProject.DTO.Admin;
 
 namespace DemoProject.Test.Application
 {
@@ -253,7 +254,13 @@ namespace DemoProject.Test.Application
             userDTO1 = userService.AddUser(userDTO1);
             Assert.IsTrue(userDTO1.ID != Guid.Empty);
 
-            bool canLogin = userService.ValidateUser("111", "222");
+            AdminLoginDTO dto = new AdminLoginDTO
+            {
+                UserName = "111",
+                Password = "222"
+            };
+
+            bool canLogin = userService.ValidateUser(dto);
             Assert.IsTrue(canLogin);
         }
     }

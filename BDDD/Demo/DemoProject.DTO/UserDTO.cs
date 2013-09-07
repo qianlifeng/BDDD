@@ -7,13 +7,13 @@ namespace DemoProject.DTO
 {
     public class UserDTO
     {
-        public  string UserName { get; set; }
-        public  string NickName { get; set; }
-        public  string Password { get; set; }
-        public  string Email { get; set; }
-        public  bool IsDisabled { get; set; }
-        public  DateTime DateRegistered { get; set; }
-        public  DateTime? DateLastLogin { get; set; }
-        public  Guid ID { get; set; }
+        public virtual string UserName { get; set; }
+        public virtual string NickName { get; set; }
+        public virtual string Password { get; set; }
+        public virtual string Email { get; set; }
+        public virtual bool IsDisabled { get; set; }
+        public virtual DateTime DateRegistered { get; set; }
+        public virtual DateTime? DateLastLogin { get; set; }
+        public virtual Guid ID { get; set; }
     }
 }

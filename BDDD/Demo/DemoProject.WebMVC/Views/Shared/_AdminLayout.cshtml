@@ -8,17 +8,28 @@
 }
 
 @section js{
-    <script src="@Url.Content("~/Scripts/admin.coffee")"></script>
+    <script src="@Url.Content("~/Scripts/admin.js")"></script>
 }
 
-<div class="admin">
+<div class="admin" ng-app="admin" ng-controller="adminController">
     <div class="header">
+        <div class="logo"></div>
+        @if (Session["LoginUser"] != null)
+        {
+            <div class="userInfo">
+                <span>欢迎您，@Session["LoginUser"]</span>
+                <img class="btnLogout" src="@Url.Content("~/Images/Admin/out.gif")" ng-click="logout()" alt="安全退出" />
+            </div>
+        }
+
         @RenderSection("header", false)
     </div>
     <div class="content">
         @RenderBody()
     </div>
     <div class="footer">
-        @RenderSection("footer", false)
+        <div class="copyright">
+            Copyright © 2012-2013 www.scottqian.com
+        </div>
     </div>
 </div>

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminLoginDTO.cs" />
+    <Compile Include="BaseDTO.cs" />
     <Compile Include="GroupDTO.cs" />
     <Compile Include="RoleDTO.cs" />
     <Compile Include="UserDTO.cs" />

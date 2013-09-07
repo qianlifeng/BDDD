@@ -9,6 +9,7 @@ using DemoProject.Domain.Model;
 using DemoProject.Domain.Repositories;
 using DemoProject.IApplication;
 using DemoProject.Infrastructure;
+using DemoProject.DTO.Admin;
 
 namespace DemoProject.Application
 {
@@ -21,8 +22,11 @@ namespace DemoProject.Application
             userRepository = GetResolvedRepository<IUserRepository>();
         }
 
-        public bool ValidateUser(string userName, string password)
+        public bool ValidateUser(AdminLoginDTO loginDTO)
         {
+            string userName = loginDTO.UserName;
+            string password = loginDTO.Password;
+
             if (string.IsNullOrEmpty(userName))
                 throw new ArgumentNullException(userName);
             if (string.IsNullOrEmpty(password))

@@ -1,36 +1,27 @@
 ﻿@model DemoProject.DTO.Admin.AdminLoginDTO
-@section header{
-test
-}
-<form method="post" action="/Admin/Login">
-    <table class="login">
-        <tr>
-            <td class="txt">管理员： 
-            </td>
-            <td class="input" >
-                <input type="text" name="UserName" />
-            </td>
-
-        </tr>
-        <tr>
-            <td class="txt">密 码：
-            </td>
-            <td class="input">
-                <input type="text" name="Password" />
-                <img src="@Url.Content("~/Images/Admin/lock.gif")" class="lock" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" class="btnLogin">
-                <input type="submit" value="登陆" />
-            </td>
-        </tr>
-
-    </table>
-</form>
-
-@section footer{
-    <div class="copyright">
-        Copyright © 2012-2013 www.scottqian.com
+<div ng-controller="adminLoginController" ng-init="init()">
+    <div class="loginMsg alert alert-error" ng-model="loginMsg" ng-visibility="loginMsg != ''">
+        {{loginMsg}}
     </div>
-}
+    <div class="form-horizontal login">
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">管理员：</label>
+            <div class="controls">
+                <input type="text" name="UserName" ng-model="UserName" ng-enter="login()" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">密 码：</label>
+            <div class="controls">
+                <input type="password" name="Password" ng-model="Password" ng-enter="login()" />
+                <img src="@Url.Content("~/Images/Admin/lock.gif")" class="lock" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" id="btnAdminLogin" value="登陆" ng-click="login()" ng-model="btnAdminLogin" class="btn btn-primary btnLogin" data-loading-text="登陆中..." />
+                <input type="reset" ng-click="cancel()" value="取消" class="btn btn-default btnCancel" />
+            </div>
+        </div>
+    </div>
+</div>

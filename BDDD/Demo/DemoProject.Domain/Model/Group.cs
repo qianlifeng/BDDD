@@ -9,8 +9,8 @@ namespace DemoProject.Domain.Model
         public virtual Guid ID { get; set; }
         public virtual string Name { get; protected set; }
         public virtual string Description { get; protected set; }
-        public virtual List<Role> Roles { get; protected set; }
-        public virtual List<User> Users { get; protected set; } 
+        public virtual IList<Role> Roles { get; protected set; }
+        public virtual IList<User> Users { get; protected set; } 
 
         public Group()
         {

@@ -1,6 +1,7 @@
 ﻿using BDDD.ObjectContainer;
 using DemoProject.DTO.Admin;
 using DemoProject.IApplication;
+using DemoProject.WebMVC.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace DemoProject.WebMVC.Controllers
 {
     public class AdminController : Controller
     {
+        [RequiresAdminAuth]
         public ActionResult Index()
         {
             return View();
@@ -25,14 +27,12 @@ namespace DemoProject.WebMVC.Controllers
         public ActionResult Login(AdminLoginDTO loginDTO)
         {
             IUserService userService = ServiceLocator.Instance.GetService<IUserService>();
-            if (userService.ValidateUser(loginDTO))
+            bool loginPass = userService.ValidateUser(loginDTO);
+            if (loginPass)
             {
-                return RedirectToAction("Index");
+                Session["LoginUser"] = loginDTO.UserName;
             }
-            else 
-            {
-                return View();
-            }
+            return Json(new { loginPass = loginPass });
         }
     }
 }

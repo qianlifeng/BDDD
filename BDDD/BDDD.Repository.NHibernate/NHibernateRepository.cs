@@ -74,7 +74,7 @@ namespace BDDD.Repository.NHibernate
             if (pageSize <= 0)
                 throw new ArgumentOutOfRangeException("pageSize", pageSize, "pageSize必须大于0");
             IQueryable<TAggregateRoot> query = session.Query<TAggregateRoot>().Where(specification.GetExpression());
-            int skip = (pageNumber - 1)*pageSize;
+            int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
             switch (sortOrder)
             {
@@ -105,7 +105,7 @@ namespace BDDD.Repository.NHibernate
             if (pageSize <= 0)
                 throw new ArgumentOutOfRangeException("pageSize", pageSize, "pageSize必须大于0");
             IQueryable<TAggregateRoot> query = session.Query<TAggregateRoot>().Where(specification);
-            int skip = (pageNumber - 1)*pageSize;
+            int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
             switch (sortOrder)
             {
@@ -128,7 +128,7 @@ namespace BDDD.Repository.NHibernate
             if (pageSize <= 0)
                 throw new ArgumentOutOfRangeException("pageSize", pageSize, "pageSize必须大于0");
             IQueryable<TAggregateRoot> query = session.Query<TAggregateRoot>();
-            int skip = (pageNumber - 1)*pageSize;
+            int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
             return query.Skip(skip).Take(take).ToList();
         }
@@ -142,7 +142,7 @@ namespace BDDD.Repository.NHibernate
             if (pageSize <= 0)
                 throw new ArgumentOutOfRangeException("pageSize", pageSize, "pageSize必须大于0");
             IQueryable<TAggregateRoot> query = session.Query<TAggregateRoot>();
-            int skip = (pageNumber - 1)*pageSize;
+            int skip = (pageNumber - 1) * pageSize;
             int take = pageSize;
             switch (sortOrder)
             {
