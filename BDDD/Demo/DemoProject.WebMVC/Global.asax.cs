@@ -13,6 +13,7 @@ using DemoProject.IApplication;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using FluentNHibernate.Conventions.Helpers;
 using Microsoft.Practices.Unity;
 using NHibernate.Cfg;
 using System;
@@ -77,6 +78,8 @@ namespace DemoProject.WebMVC
 
             c.RegisterType<IUserService, UserService>();
             c.RegisterType<IUserRepository, UserRepository>();
+            c.RegisterType<IMenuService, MenuService>();
+            c.RegisterType<IMenuRepository, MenuRepository>();
         }
 
         private static Configuration GetNHibernateConfig()
@@ -112,7 +115,8 @@ namespace DemoProject.WebMVC
                 .Conventions.Add<CustomPrimaryKeyConvention>()
                 .Conventions.Add<CustomCollectionConvention>()
                 .Conventions.Add<CustomReferenceConvention>()
-                .Conventions.Add<CustomManyToManyConvention>();
+                .Conventions.Add<CustomManyToManyConvention>()
+                .Conventions.Add(DefaultCascade.SaveUpdate());
         }
 
     }

@@ -28,42 +28,42 @@
         @if (Session["LoginUser"] != null)
         {
             <div class="leftNav">
-                <div class="navTitle">注册用户管理</div>
-                <div class="navBody navActive">
-                    <div class="navSplit"></div>
-                    <ul>
-                        <li>
-                            <a href="#">会员管理</a>
-                        </li>
-                        <li><a href="#">权限管理</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="navTitle">注册用户管理</div>
-                <div class="navBody">
-                    <div class="navSplit"></div>
-                    <ul>
-                        <li>
-                            <a href="#">会员管理</a>
-                        </li>
-                        <li><a href="#">权限管理</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="navTitle">后台界面管理</div>
-                <div class="navBody">
-                    <div class="navSplit"></div>
-                    <ul>
-                        <li>
-                            <a href="#">会员管理</a>
-                        </li>
-                        <li><a href="#">权限管理</a>
-                        </li>
-                    </ul>
-                </div>
+                @{Html.RenderAction("_MenuPartialView");}
             </div>
             <div class="main">
-                @RenderBody()
+                <div class="mainHeader">
+                    <table>
+                        <tr>
+                            <td class="mainHeaderLeft"></td>
+                            <td class="mainHeaderMiddle">
+                                <div class="mainHeaderTitle">用户管理</div>
+                            </td>
+                            <td class="mainHeaderRight"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mainBody">
+                    <table>
+                        <tr>
+                            <td class="mainBodyLeft"></td>
+                            <td class="mainBodyMiddle">
+                                <div class="mainBodyContent">
+                                    @RenderBody()
+                                </div>
+                            </td>
+                            <td class="mainBodyRight"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mainFooter">
+                    <table>
+                        <tr>
+                            <td class="mainFooterLeft"></td>
+                            <td class="mainFooterMiddle"></td>
+                            <td class="mainFooterRight"></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div style="clear: both;"></div>
         }

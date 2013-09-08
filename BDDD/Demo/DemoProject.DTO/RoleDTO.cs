@@ -5,9 +5,8 @@ using System.Text;
 
 namespace DemoProject.DTO
 {
-    public class RoleDTO
+    public class RoleDTO :BaseDTO
     {
-        public virtual Guid ID { get; set; }
         public virtual string Name { get;  set; }
         public virtual string Description { get;  set; }
         /// <summary>

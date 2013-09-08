@@ -33,6 +33,9 @@ namespace DemoProject.Application
             CreateMapper<User, UserDTO>();
             CreateMapper<Role, RoleDTO>();
             CreateMapper<Group, GroupDTO>();
+            CreateMapper<Menu, MenuDTO>();
+            CreateMapper<MenuItem, MenuItemDTO>();
+
         }
 
         private static void CreateMapper<T1, T2>()

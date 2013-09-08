@@ -8,6 +8,6 @@ namespace DemoProject.DTO
 {
     public class BaseDTO
     {
-
+        public virtual Guid ID { get; set; }
     }
 }

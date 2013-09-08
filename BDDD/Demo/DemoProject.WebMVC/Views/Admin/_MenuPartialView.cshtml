@@ -1,0 +1,16 @@
+﻿@model List<DemoProject.DTO.MenuDTO>
+@foreach (DemoProject.DTO.MenuDTO item in Model)
+{
+    <div class="navTitle">@item.Name</div>
+    <div class="navBody navActive">
+        <div class="navSplit"></div>
+        <ul>
+            @foreach (DemoProject.DTO.MenuItemDTO subItem in item.Items)
+            {
+                <li>
+                    <a href="@subItem.URL">@subItem.Name</a>
+                </li>
+            }
+        </ul>
+    </div>
+}

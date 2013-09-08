@@ -23,6 +23,18 @@ namespace DemoProject.WebMVC.Controllers
             return View();
         }
 
+        public PartialViewResult _MenuPartialView()
+        {
+            IMenuService menuService = ServiceLocator.Instance.GetService<IMenuService>();
+            return PartialView(menuService.GetMenus("AdminMenu"));
+        }
+
+        public ActionResult MenuList()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public ActionResult Login(AdminLoginDTO loginDTO)
         {

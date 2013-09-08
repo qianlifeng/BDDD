@@ -64,12 +64,14 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\MenuServiceTest.cs" />
     <Compile Include="InfrastructureTest\ExpressionConvertorTest.cs" />
     <Compile Include="OtherTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InfrastructureTest\ReflectUtilTest.cs" />
     <Compile Include="Application\UserServiceTest.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="DBTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BDDD.ObjectContainers.Unity\BDDD.ObjectContainers.Unity.csproj">

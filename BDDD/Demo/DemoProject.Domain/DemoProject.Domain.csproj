@@ -49,6 +49,7 @@
     <Compile Include="Repositories\IGroupRepository.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\IMenuRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BDDD\BDDD.csproj">

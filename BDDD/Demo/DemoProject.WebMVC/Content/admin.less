@@ -80,7 +80,9 @@
         }
 
         .leftNav {
-            float: left;
+            display: table-cell;
+            width: 182px;
+            vertical-align: top;
 
             .navTitle {
                 background-image: url("/Images/Admin/navTitle.gif");
@@ -103,7 +105,7 @@
             }
 
             .navBody {
-                display:none;
+                display: none;
             }
 
             .navActive {
@@ -142,7 +144,100 @@
         }
 
         .main {
-            float: right;
+            display: table-cell;
+            width: 100%;
+            vertical-align: top;
+            min-width: 900px;
+            padding-left: 20px;
+
+            table {
+                width: 100%;
+            }
+
+            .mainHeader {
+                height: 29px;
+
+                .mainHeaderLeft {
+                    background-image: url("/Images/Admin/mainHeaderLeft.gif");
+                    background-repeat: no-repeat;
+                    width: 17px;
+                    height: 31px;
+                    padding: 0;
+                }
+
+                .mainHeaderMiddle {
+                    background-image: url("/Images/Admin/mainHeaderMiddle.gif");
+                    background-repeat: repeat-x;
+                    height: 31px;
+                    padding: 0;
+
+                    .mainHeaderTitle {
+                        background-image: url("/Images/Admin/mainHeaderTitle.jpg");
+                        background-repeat: no-repeat;
+                        width: 86px;
+                        padding-top: 5px;
+                        line-height: 28px;
+                        font-weight: bold;
+                        text-align: center;
+                        height: 28px;
+                    }
+                }
+
+                .mainHeaderRight {
+                    background-image: url("/Images/Admin/mainHeaderRight.gif");
+                    background-repeat: no-repeat;
+                    width: 17px;
+                    height: 31px;
+                }
+            }
+
+            .mainBody {
+
+                .mainBodyContent {
+                    min-height: 500px;
+                }
+
+                .mainBodyLeft {
+                    background-image: url("/Images/Admin/mainBodyLeft.gif");
+                    background-repeat: repeat-y;
+                    width: 17px;
+                    padding: 0;
+                }
+
+                .mainBodyMiddle {
+                    background-color: rgb(247, 248, 249);
+                }
+
+                .mainBodyRight {
+                    background-image: url("/Images/Admin/mainBodyRight.gif");
+                    background-repeat: repeat-y;
+                    width: 19px;
+                    padding: 0;
+                }
+            }
+
+            .mainFooter {
+                .mainFooterLeft {
+                    background-image: url("/Images/Admin/mainFooterLeft.gif");
+                    background-repeat: no-repeat;
+                    width: 17px;
+                    height: 31px;
+                    padding: 0;
+                }
+
+                .mainFooterMiddle {
+                    background-image: url("/Images/Admin/mainFooterMiddle.gif");
+                    background-repeat: repeat-x;
+                    height: 31px;
+                }
+
+                .mainFooterRight {
+                    background-image: url("/Images/Admin/mainFooterRight.gif");
+                    background-repeat: no-repeat;
+                    width: 17px;
+                    height: 31px;
+                }
+            }
         }
     }
 

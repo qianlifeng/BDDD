@@ -13,6 +13,7 @@ using DemoProject.IApplication;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using FluentNHibernate.Conventions.Helpers;
 using Microsoft.Practices.Unity;
 using NHibernate.Tool.hbm2ddl;
 using Configuration = NHibernate.Cfg.Configuration;
@@ -57,7 +58,8 @@ namespace DemoProject.Test
                 .Conventions.Add<CustomPrimaryKeyConvention>()
                 .Conventions.Add<CustomCollectionConvention>()
                 .Conventions.Add<CustomReferenceConvention>()
-                .Conventions.Add<CustomManyToManyConvention>();
+                .Conventions.Add<CustomManyToManyConvention>()
+                .Conventions.Add(DefaultCascade.SaveUpdate());
         }
 
         protected static void ResetDB()
@@ -83,6 +85,8 @@ namespace DemoProject.Test
 
             c.RegisterType<IUserService, UserService>();
             c.RegisterType<IUserRepository, UserRepository>();
+            c.RegisterType<IMenuService, MenuService>();
+            c.RegisterType<IMenuRepository, MenuRepository>();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DemoProject.DTO
 {
-    public class UserDTO
+    public class UserDTO :BaseDTO
     {
         public virtual string UserName { get; set; }
         public virtual string NickName { get; set; }
@@ -14,6 +14,5 @@ namespace DemoProject.DTO
         public virtual bool IsDisabled { get; set; }
         public virtual DateTime DateRegistered { get; set; }
         public virtual DateTime? DateLastLogin { get; set; }
-        public virtual Guid ID { get; set; }
     }
 }
