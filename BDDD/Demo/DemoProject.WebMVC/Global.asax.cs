@@ -44,11 +44,18 @@ namespace DemoProject.WebMVC
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "api", // 路由名称
+                "api/{part}/{controller}/{action}", // 带有参数的 URL
+                new { part = "Admin", controller = "Menu", action = "getList" } // 参数默认值
+                , null,
+                new string[] { "DemoProject.WebMVC.Controllers.Api" }
+            );
+
+            routes.MapRoute(
                 "Default", // 路由名称
                 "{controller}/{action}/{id}", // 带有参数的 URL
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // 参数默认值
             );
-
         }
 
         protected void Application_Start()

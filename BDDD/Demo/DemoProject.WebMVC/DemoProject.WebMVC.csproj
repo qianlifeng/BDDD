@@ -474,7 +474,7 @@
     <Content Include="Views\Admin\_ViewStart.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\_MenuPartialView.cshtml" />
-    <Content Include="Views\Admin\MenuList.cshtml" />
+    <Content Include="AngularTemplates\Admin\MenuList.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,33 @@
+﻿<table class="table table-bordered  table-hover menuList" ng-controller="menuManageController" ng-init="init()">
+    <thead>
+        <tr>
+            <td style="width: 120px;">分类</td>
+            <td style="width: 60px;">顺序</td>
+            <td style="width: 160px;">名字</td>
+            <td>链接</td>
+            <td style="width: 200px;">分类</td>
+        </tr>
+    </thead>
+    <tbody ng-repeat="menu in menus">
+        <tr style="font-weight: bold;">
+            <td>{{menu.Category}}</td>
+            <td>{{menu.OrderIndex}}</td>
+            <td>{{menu.Name}}</td>
+            <td></td>
+            <td>
+                <input type="button" class="btn" value="编辑" ng-click="editMenu('')" />
+                <input type="button" class="btn btn-danger" value="删除" />
+            </td>
+        </tr>
+        <tr ng-repeat="menuItem in menu.Items">
+            <td></td>
+            <td>{{menuItem.OrderIndex}}</td>
+            <td>{{menuItem.Name}}</td>
+            <td>{{menuItem.Category}}</td>
+            <td>
+                <input type="button" class="btn" value="编辑" ng-click="editMenu()" />
+                <input type="button" class="btn btn-danger" value="删除" />
+            </td>
+        </tr>
+    </tbody>
+</table>

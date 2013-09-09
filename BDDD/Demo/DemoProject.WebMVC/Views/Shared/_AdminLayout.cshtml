@@ -27,8 +27,18 @@
     <div class="content">
         @if (Session["LoginUser"] != null)
         {
-            <div class="leftNav">
-                @{Html.RenderAction("_MenuPartialView");}
+            <div class="leftNav" ng-controller="menuController">
+                <div ng-repeat="menu in menus">
+                    <div class="navTitle" ng-click="selectMenu(menu.ID)">{{menu.Name}}</div>
+                    <div class="navBody" ng-show="isSelected(menu.ID)">
+                        <div class="navSplit"></div>
+                        <ul>
+                            <li ng-repeat="menuItem in menu.Items">
+                                <a href="javascript:void(0);" ng-click="navigate(menuItem.Name,menuItem.URL)">{{menuItem.Name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="main">
                 <div class="mainHeader">
@@ -36,7 +46,7 @@
                         <tr>
                             <td class="mainHeaderLeft"></td>
                             <td class="mainHeaderMiddle">
-                                <div class="mainHeaderTitle">用户管理</div>
+                                <div class="mainHeaderTitle">{{currentTemplate.name}}</div>
                             </td>
                             <td class="mainHeaderRight"></td>
                         </tr>
@@ -47,7 +57,7 @@
                         <tr>
                             <td class="mainBodyLeft"></td>
                             <td class="mainBodyMiddle">
-                                <div class="mainBodyContent">
+                                <div class="mainBodyContent" ng-include="currentTemplate.url">
                                     @RenderBody()
                                 </div>
                             </td>

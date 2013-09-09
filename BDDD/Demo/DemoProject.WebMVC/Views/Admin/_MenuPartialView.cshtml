@@ -2,7 +2,7 @@
 @foreach (DemoProject.DTO.MenuDTO item in Model)
 {
     <div class="navTitle">@item.Name</div>
-    <div class="navBody navActive">
+    <div class="navBody">
         <div class="navSplit"></div>
         <ul>
             @foreach (DemoProject.DTO.MenuItemDTO subItem in item.Items)

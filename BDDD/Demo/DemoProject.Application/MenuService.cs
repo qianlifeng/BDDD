@@ -19,6 +19,11 @@ namespace DemoProject.Application
             menuRepository = GetResolvedRepository<IMenuRepository>();
         }
 
+        public List<MenuDTO> GetMenus()
+        {
+            return Mapper.Map<List<Menu>, List<MenuDTO>>(menuRepository.GetAll().ToList());
+        }
+
         public List<MenuDTO> GetMenus(string category)
         {
             if (string.IsNullOrEmpty(category))
@@ -72,5 +77,8 @@ namespace DemoProject.Application
         {
             throw new NotImplementedException();
         }
+
+
+
     }
 }

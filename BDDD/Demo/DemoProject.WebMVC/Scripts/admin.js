@@ -83,12 +83,15 @@ angular.module('admin', ['admin.service', 'admin.directive', 'admin.filter']).
           $scope.Password = "";
       }
   }).
-  controller('adminController', function ($scope) {
+  controller('adminController', function ($scope, $http) {
+
+      $scope.templates = null;
+      $scope.currentTemplate = { name: "", url: "" };
 
       $scope.init = function () {
-          $(".navTitle").click(function () {
-              $(".navBody").removeClass("navActive");
-              $(this).next().addClass("navActive");
+
+          $http.get("/admin/menulist").then(function (result) {
+              $scope.menus = result.data;
           });
       }
 
@@ -111,5 +114,30 @@ angular.module('admin', ['admin.service', 'admin.directive', 'admin.filter']).
                   alert("服务器发生错误，请稍后重试！");
               }
           });
+      }
+  }).
+  controller("menuController", function ($scope) {
+
+      $scope.selectedMenuId;
+
+      $scope.selectMenu = function (menuId) {
+          $scope.selectedMenuId = menuId;
+      }
+
+      $scope.isSelected = function (menuId) {
+          return $scope.selectedMenuId === menuId;
+      }
+
+      $scope.navigate = function (name, url) {
+          $scope.currentTemplate.name = name;
+          $scope.currentTemplate.url = url;
+      }
+  }).
+  controller("menuManageController", function ($scope, $http) {
+      $scope.init = function () {
+      }
+
+      $scope.editMenu = function () {
+          alert($scope.menuCategory);
       }
   });

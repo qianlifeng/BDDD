@@ -23,16 +23,22 @@ namespace DemoProject.WebMVC.Controllers
             return View();
         }
 
+        #region Menu
+
         public PartialViewResult _MenuPartialView()
         {
             IMenuService menuService = ServiceLocator.Instance.GetService<IMenuService>();
             return PartialView(menuService.GetMenus("AdminMenu"));
         }
 
-        public ActionResult MenuList()
+        public JsonResult MenuList()
         {
-            return View();
+            IMenuService menuService = ServiceLocator.Instance.GetService<IMenuService>();
+            return Json(menuService.GetMenus(), JsonRequestBehavior.AllowGet);
         }
+
+
+        #endregion
 
 
         [HttpPost]
@@ -50,7 +56,7 @@ namespace DemoProject.WebMVC.Controllers
         public ActionResult Logout()
         {
             Session["LoginUser"] = null;
-            return Json(new { logoutPass = "true" },JsonRequestBehavior.AllowGet);
+            return Json(new { logoutPass = "true" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

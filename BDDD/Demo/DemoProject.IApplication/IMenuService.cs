@@ -15,5 +15,7 @@ namespace DemoProject.IApplication
         MenuItemDTO AddMenuItem(Guid id, MenuItemDTO dto);
 
         bool CanAccessByUser(Guid userId);
+
+        List<MenuDTO> GetMenus();
     }
 }

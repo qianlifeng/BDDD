@@ -70,7 +70,7 @@ namespace DemoProject.Test.Application
             MenuItemDTO menuItem3 = new MenuItemDTO
             {
                 Name = "菜单列表",
-                URL = "#",
+                URL = "/angularTemplates/admin/menulist.html",
                 OrderIndex = 30
             };
             menuItem2 = menuService.AddMenuItem(menu.ID, menuItem2);
