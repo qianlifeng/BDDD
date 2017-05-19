@@ -1,4 +1,4 @@
-BDDD,Base Library For DDD Partern
+BDDD,Base Library For DDD Pattern
 ====
 ###项目说明：
 该项目基于ApWorks框架开发，Apworks框架地址：[https://github.com/daxnet/Apworks](https://github.com/daxnet/Apworks)。为了学习DDD，我基本把他复制了一遍，其中做了一些小小的变动。
